@@ -14,6 +14,8 @@ public abstract class Actor implements Drawable {
     }
 
     public void move(int dx, int dy) {
+        // TODO --> extend the if statement with && operators if there are other Objects on the map which the
+        //  player shouldn't get through
         if (cell.getNeighbor(dx, dy).getType() != CellType.WALL) {
             Cell nextCell = cell.getNeighbor(dx, dy);
             cell.setActor(null);
