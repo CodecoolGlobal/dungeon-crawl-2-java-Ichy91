@@ -18,18 +18,18 @@ public abstract class Actor implements Drawable {
 
     public void move(int dx, int dy) {
 
-        if (cell.getNeighbor(dx, dy).getType() == CellType.GREEN_CLOSED_DOOR){
-            if (this.hasKey("Green")){
+        if (cell.getNeighbor(dx, dy).getType() == CellType.GREEN_CLOSED_DOOR) {
+            if (this.hasKey("Green")) {
                 cell.getNeighbor(dx, dy).setType(CellType.OPENED_DOOR);
             }
         }
-        if (cell.getNeighbor(dx, dy).getType() == CellType.RED_CLOSED_DOOR){
-            if (this.hasKey("Red")){
+        if (cell.getNeighbor(dx, dy).getType() == CellType.RED_CLOSED_DOOR) {
+            if (this.hasKey("Red")) {
                 cell.getNeighbor(dx, dy).setType(CellType.OPENED_DOOR);
             }
         }
-        if (cell.getNeighbor(dx, dy).getType() == CellType.BLUE_CLOSED_DOOR){
-            if (this.hasKey("Blue")){
+        if (cell.getNeighbor(dx, dy).getType() == CellType.BLUE_CLOSED_DOOR) {
+            if (this.hasKey("Blue")) {
                 cell.getNeighbor(dx, dy).setType(CellType.OPENED_DOOR);
             }
         }
@@ -39,22 +39,19 @@ public abstract class Actor implements Drawable {
                 && cell.getNeighbor(dx, dy).getType() != CellType.GREEN_CLOSED_DOOR
                 && cell.getNeighbor(dx, dy).getType() != CellType.BLUE_CLOSED_DOOR) {
 
+                if (cell.getNeighbor(dx, dy).getActor() instanceof Monster)
+                    attackToMonster((Monster) cell.getNeighbor(dx, dy).getActor(), dx, dy);
 
-            Cell nextCell = cell.getNeighbor(dx, dy);
+                else acceptMove(dx, dy);
+
+            /*Cell nextCell = cell.getNeighbor(dx, dy);
             cell.setActor(null);
             nextCell.setActor(this);
-            cell = nextCell;
+            cell = nextCell; */
         } else {
             System.out.println("Cannot move there!!!");
-        if (cell.getNeighbor(dx, dy).getType() != CellType.WALL) {
 
-            if (cell.getNeighbor(dx, dy).getActor() instanceof Monster)
-                attackToMonster((Monster) cell.getNeighbor(dx, dy).getActor(), dx, dy);
-
-            else acceptMove(dx, dy);
         }
-
-        else System.out.println("Cannot move into the wall!!!");
     }
 
     public void setHealth(int health) {
