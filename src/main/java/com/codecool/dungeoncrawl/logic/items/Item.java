@@ -35,4 +35,5 @@ public abstract class Item implements Drawable {
         this.cell.setType(CellType.FLOOR);
         this.cell.setItem(null);
     }
+
 }
