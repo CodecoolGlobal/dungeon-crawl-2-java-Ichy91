@@ -39,19 +39,17 @@ public abstract class Actor implements Drawable {
                 && cell.getNeighbor(dx, dy).getType() != CellType.GREEN_CLOSED_DOOR
                 && cell.getNeighbor(dx, dy).getType() != CellType.BLUE_CLOSED_DOOR) {
 
-                if (cell.getNeighbor(dx, dy).getActor() instanceof Monster)
-                    attackToMonster((Monster) cell.getNeighbor(dx, dy).getActor(), dx, dy);
+            if (cell.getNeighbor(dx, dy).getActor() instanceof Monster) {
+                attackToMonster((Monster) cell.getNeighbor(dx, dy).getActor(), dx, dy);
 
-                else acceptMove(dx, dy);
+                if (cell.getNeighbor(dx, dy).getActor() != null)
+                    attackToPlayer((Monster) cell.getNeighbor(dx, dy).getActor(), this);
+            }
 
-            /*Cell nextCell = cell.getNeighbor(dx, dy);
-            cell.setActor(null);
-            nextCell.setActor(this);
-            cell = nextCell; */
-        } else {
-            System.out.println("Cannot move there!!!");
-
+            else acceptMove(dx, dy);
         }
+
+        else System.out.println("Cannot move into the wall!!!");
     }
 
     public void setHealth(int health) {
@@ -78,6 +76,8 @@ public abstract class Actor implements Drawable {
         return cell.getY();
     }
 
+    public abstract void addToPlayerInventory(Item item);
+
     private void acceptMove(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
         cell.setActor(null);
@@ -87,7 +87,9 @@ public abstract class Actor implements Drawable {
 
     private void attackToMonster(Monster monster, int dx, int dy) {
         if (monster.isAlive) {
-            monster.health = monster.health - (this.attack - monster.defense);
+            if (this.attack - monster.defense < 1) monster.health = monster.health;
+
+            else monster.health = monster.health - (this.attack - monster.defense);
 
             if (monster.health <= 0) monster.isAlive = false;
         }
@@ -95,6 +97,17 @@ public abstract class Actor implements Drawable {
         else acceptMove(dx, dy);
     }
 
+    private void attackToPlayer(Monster monster, Actor player) {
+        if (player.isAlive) {
+
+            if (monster.attack - player.defense < 1) player.health = player.health;
+
+            else player.health = player.health - (monster.attack - player.defense);
+
+            if (player.health <= 0) player.isAlive = false;
+        }
+        else System.out.println("Die!");
+    }
     public abstract void addToPlayerInventory(Item item);
 
     public boolean hasKey(String color){
