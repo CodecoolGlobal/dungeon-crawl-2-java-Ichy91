@@ -32,7 +32,6 @@ public abstract class Item implements Drawable {
     public void addToInventory(){
         this.cell.getActor().addToPlayerInventory(this.cell.getItem());
 
-        //TODO: add to inventory
         this.cell.setType(CellType.FLOOR);
         this.cell.setItem(null);
     }

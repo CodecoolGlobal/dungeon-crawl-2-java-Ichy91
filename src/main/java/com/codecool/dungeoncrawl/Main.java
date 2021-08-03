@@ -56,7 +56,7 @@ public class Main extends Application {
         primaryStage.show();
 
         pickUpButton.setOnAction(event -> {
-            //TODO: pick up item
+            map.getPlayer().getCell().getItem().addToInventory();
         });
     }
 
