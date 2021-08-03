@@ -87,9 +87,13 @@ public class Player extends Actor {
         if (equipedItems.contains("spear")) tileName = "playerWithSpear";
         if (equipedItems.contains("armor")) tileName = "playerWithArmor";
         if (equipedItems.contains("helmet")) tileName = "playerWithHelmet";
+        if (equipedItems.contains("helmet") && equipedItems.contains("armor")) tileName = "playerWithHelmetAndArmor";
         if (equipedItems.contains("sword") && equipedItems.contains("armor")) tileName = "playerWithSwordAndArmor";
         if (equipedItems.contains("sword") && equipedItems.contains("helmet")) tileName = "playerWithSwordAndHelmet";
+        if (equipedItems.contains("spear") && equipedItems.contains("armor")) tileName = "playerWithSpearAndArmor";
+        if (equipedItems.contains("spear") && equipedItems.contains("helmet")) tileName = "playerWithSpearAndHelmet";
         if (equipedItems.contains("sword") && equipedItems.contains("helmet") && equipedItems.contains("armor")) tileName = "playerWithSwordAndHelmetAndArmor";
+        if (equipedItems.contains("spear") && equipedItems.contains("helmet") && equipedItems.contains("armor")) tileName = "playerWithSpearAndHelmetAndArmor";
         else if (equipedItems.isEmpty()) tileName = "player";
     }
 

@@ -32,12 +32,13 @@ public class Tiles {
         tileMap.put("playerWithSpear", new Tile(26, 0));
         tileMap.put("playerWithArmor", new Tile(30, 0));
         tileMap.put("playerWithHelmet", new Tile(27, 1));
+        tileMap.put("playerWithHelmetAndArmor", new Tile(24, 2));
         tileMap.put("playerWithSwordAndArmor", new Tile(28, 0));
         tileMap.put("playerWithSwordAndHelmet", new Tile(28, 2));
+        tileMap.put("playerWithSpearAndArmor", new Tile(29, 0));
+        tileMap.put("playerWithSpearAndHelmet", new Tile(26, 6));
         tileMap.put("playerWithSwordAndHelmetAndArmor", new Tile(31, 0));
-//        tileMap.put("playerWithSwordAndArmor", new Tile(28, 0));
-//        tileMap.put("playerWithSwordAndHelmet", new Tile(28, 0));
-//        tileMap.put("playerWithSwordAndHelmetAndArmor", new Tile(28, 0));
+        tileMap.put("playerWithSpearAndHelmetAndArmor", new Tile(27, 2));
         tileMap.put("skeleton", new Tile(29, 6));
         tileMap.put("sword", new Tile(1, 31));
         tileMap.put("spear", new Tile(4, 25));
