@@ -6,10 +6,13 @@ public class Armor extends Item{
 
     public Armor(Cell cell) {
         super(cell);
+        this.attack = 0;
+        this.defense = 10;
+        this.health = 0;
     }
 
     @Override
     public String getTileName() {
-        return null;
+        return "armor";
     }
 }

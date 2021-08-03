@@ -1,10 +1,11 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 
 public abstract class Actor implements Drawable {
-    private Cell cell;
+    protected Cell cell;
     private int health = 10;
 
     public Actor(Cell cell) {
@@ -13,10 +14,18 @@ public abstract class Actor implements Drawable {
     }
 
     public void move(int dx, int dy) {
-        Cell nextCell = cell.getNeighbor(dx, dy);
-        cell.setActor(null);
-        nextCell.setActor(this);
-        cell = nextCell;
+        if (cell.getNeighbor(dx, dy).getType() != CellType.WALL) {
+            Cell nextCell = cell.getNeighbor(dx, dy);
+            cell.setActor(null);
+            nextCell.setActor(this);
+            cell = nextCell;
+        } else {
+            System.out.println("Cannot move into the wall!!!");
+        }
+    }
+
+    public boolean isStandingOnItem(){
+        return this.cell.getItem() != null;
     }
 
     public int getHealth() {

@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
@@ -30,7 +31,7 @@ public class Main extends Application {
     private Label healthLabel = new Label();
     private final SplitMenuButton splitMenuButtonWeapon = new SplitMenuButton();
     private final SplitMenuButton splitMenuButtonDefense = new SplitMenuButton();
-
+    private Button pickUpButton = new Button();
 
     public static void main(String[] args) {
         launch(args);
@@ -60,6 +61,10 @@ public class Main extends Application {
         ui.add(healthLabel, 1, 0);
         ui.add(splitMenuButtonWeapon, 0, 2);
         ui.add(splitMenuButtonDefense, 0, 4);
+        pickUpButton.setText("pick up");
+        ui.add(pickUpButton, 0, 2);
+        pickUpButton.setDisable(true);
+        pickUpButton.setFocusTraversable(false);
 
         BorderPane borderPane = new BorderPane();
 
@@ -73,31 +78,51 @@ public class Main extends Application {
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
+
+        pickUpButton.setOnAction(event -> {
+            map.getPlayer().getCell().getItem().addToInventory();
+        });
     }
 
+
     private void onKeyPressed(KeyEvent keyEvent) {
+        Cell playerCell = map.getPlayer().getCell();
+        pickUpButton.setDisable(true);
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().move(0, -1);
-                map.getCompanion().move(0, -1);
+                map.getCompanion().followPlayer(playerCell);
+                map.getPlayer().move(0, 0);
                 refresh();
                 break;
             case DOWN:
                 map.getPlayer().move(0, 1);
-                map.getCompanion().move(0, 1);
+                map.getCompanion().followPlayer(playerCell);
+                map.getPlayer().move(0, 0);
                 refresh();
                 break;
             case LEFT:
                 map.getPlayer().move(-1, 0);
-                map.getCompanion().move(-1, 0);
+                map.getCompanion().followPlayer(playerCell);
+                map.getPlayer().move(0, 0);
                 refresh();
                 break;
             case RIGHT:
                 map.getPlayer().move(1,0);
-                map.getCompanion().move(1,0);
+                map.getCompanion().followPlayer(playerCell);
+                map.getPlayer().move(0, 0);
                 refresh();
                 break;
+            case SPACE:
+                if (map.getPlayer().isStandingOnItem()){
+                    map.getPlayer().getCell().getItem().addToInventory();
+                }
+                break;
         }
+        if (map.getPlayer().isStandingOnItem()){
+            pickUpButton.setDisable(false);
+        }
+
     }
 
     private void refresh() {
