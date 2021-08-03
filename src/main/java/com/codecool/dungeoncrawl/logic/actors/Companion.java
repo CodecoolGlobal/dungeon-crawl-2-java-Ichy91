@@ -13,7 +13,7 @@ public class Companion extends Actor{
     }
 
     @Override
-    public void addToPlayerInventory(Item item) {}
+    public void handlePickedUpItem(Item item) {}
 
     @Override
     public String getTileName() {

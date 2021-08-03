@@ -3,10 +3,7 @@ package com.codecool.dungeoncrawl.logic;
 import com.codecool.dungeoncrawl.logic.actors.Companion;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 
-import com.codecool.dungeoncrawl.logic.items.Armor;
-import com.codecool.dungeoncrawl.logic.items.HealingPotion;
-import com.codecool.dungeoncrawl.logic.items.Key;
-import com.codecool.dungeoncrawl.logic.items.Sword;
+import com.codecool.dungeoncrawl.logic.items.*;
 
 public class GameMap {
     private int width;
@@ -16,9 +13,11 @@ public class GameMap {
     private Player player;
     private Companion companion;
     private Sword sword;
+    private Spear spear;
 //    private Armor armor;
 //    private Key key;
     private Armor armor;
+    private Helmet helmet;
     private Key key;
     private HealingPotion healingPotion;
 
@@ -49,8 +48,16 @@ public class GameMap {
         this.sword = sword;
     }
 
+    public void setSpear(Spear spear) {
+        this.spear = spear;
+    }
+
     public void setArmor(Armor armor) {
         this.armor = armor;
+    }
+
+    public void setHelmet(Helmet helmet) {
+        this.helmet = helmet;
     }
 
     public void setKey(Key key) {

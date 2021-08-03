@@ -63,6 +63,11 @@ public abstract class Actor implements Drawable {
     public int getHealth() {
         return health;
     }
+    public int getAttack() { return attack;}
+
+    public int getDefense() {
+        return defense;
+    }
 
     public Cell getCell() {
         return cell;
@@ -76,6 +81,11 @@ public abstract class Actor implements Drawable {
         return cell.getY();
     }
 
+    public void healPlayer(int health) {
+        this.health += health;
+    }
+
+    public abstract void handlePickedUpItem(Item item);
 
     private void acceptMove(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
@@ -107,7 +117,6 @@ public abstract class Actor implements Drawable {
         }
         else System.out.println("Die!");
     }
-    public abstract void addToPlayerInventory(Item item);
 
     public boolean hasKey(String color){
         return false;

@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Companion;
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.items.*;
 import com.codecool.dungeoncrawl.logic.actors.monsters.Skeleton;
 import com.codecool.dungeoncrawl.logic.items.Armor;
 import com.codecool.dungeoncrawl.logic.items.HealingPotion;
@@ -55,9 +56,17 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             map.setSword(new Sword(cell));
                             break;
+                        case 'P':
+                            cell.setType(CellType.FLOOR);
+                            map.setSpear(new Spear(cell));
+                            break;
                         case 'A':
                             cell.setType(CellType.FLOOR);
                             map.setArmor(new Armor(cell));
+                            break;
+                        case 'E':
+                            cell.setType(CellType.FLOOR);
+                            map.setHelmet(new Helmet(cell));
                             break;
                         case 'H':
                             cell.setType(CellType.FLOOR);
