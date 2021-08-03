@@ -33,6 +33,8 @@ public class Main extends Application {
     private final SplitMenuButton splitMenuButtonDefense = new SplitMenuButton();
     private Button pickUpButton = new Button();
 
+    private Label inventoryLabel = new Label();
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -49,8 +51,8 @@ public class Main extends Application {
         });
         splitMenuButtonWeapon.setFocusTraversable(false);
         splitMenuButtonDefense.setFocusTraversable(false);
-        splitMenuButtonDefense.setStyle("-fx-font-size: 15px; -fx-background-color: #0000ff");
-        splitMenuButtonWeapon.setStyle("-fx-font-size: 15px; -fx-background-color: #0000ff");
+        splitMenuButtonDefense.setStyle("-fx-font-size: 15px; -fx-background-color: #0000ff; -fx-min-width: 140");
+        splitMenuButtonWeapon.setStyle("-fx-font-size: 15px; -fx-background-color: #0000ff; -fx-min-width: 140");
 
 
         GridPane ui = new GridPane();
@@ -63,9 +65,10 @@ public class Main extends Application {
         ui.add(splitMenuButtonDefense, 0, 6);
         pickUpButton.setText("pick up");
         ui.add(pickUpButton, 0, 2);
+        ui.add(inventoryLabel, 0, 7);
         pickUpButton.setDisable(true);
         pickUpButton.setFocusTraversable(false);
-        pickUpButton.setStyle("-fx-font-size: 15px; -fx-background-color: #0000ff");
+        pickUpButton.setStyle("-fx-font-size: 15px; -fx-background-color: #d9d9d9; -fx-border-width: 1px; -fx-border-color: #0000ff; -fx-min-width: 140");
 
         BorderPane borderPane = new BorderPane();
 
@@ -146,7 +149,9 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
+
         addItemsIntoInventoryList();
+        inventoryLabel.setText(map.getPlayer().getKeys());
     }
 
     private void addItemsIntoInventoryList() {
