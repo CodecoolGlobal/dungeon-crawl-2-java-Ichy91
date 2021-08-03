@@ -7,6 +7,9 @@ public class Companion extends Actor{
 
     public Companion(Cell cell) {
         super(cell);
+        this.health = 0;
+        this.defense = 0;
+        this.attack = 0;
     }
 
     @Override

@@ -4,10 +4,12 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.actors.monsters.Monster;
 
 public abstract class Actor implements Drawable {
+    protected boolean isAlive = true;
     protected Cell cell;
-    private int health = 10;
+    protected int health, defense, attack;
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -44,7 +46,19 @@ public abstract class Actor implements Drawable {
             cell = nextCell;
         } else {
             System.out.println("Cannot move there!!!");
+        if (cell.getNeighbor(dx, dy).getType() != CellType.WALL) {
+
+            if (cell.getNeighbor(dx, dy).getActor() instanceof Monster)
+                attackToMonster((Monster) cell.getNeighbor(dx, dy).getActor(), dx, dy);
+
+            else acceptMove(dx, dy);
         }
+
+        else System.out.println("Cannot move into the wall!!!");
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     public boolean isStandingOnItem(){
@@ -65,6 +79,23 @@ public abstract class Actor implements Drawable {
 
     public int getY() {
         return cell.getY();
+    }
+
+    private void acceptMove(int dx, int dy) {
+        Cell nextCell = cell.getNeighbor(dx, dy);
+        cell.setActor(null);
+        nextCell.setActor(this);
+        cell = nextCell;
+    }
+
+    private void attackToMonster(Monster monster, int dx, int dy) {
+        if (monster.isAlive) {
+            monster.health = monster.health - (this.attack - monster.defense);
+
+            if (monster.health <= 0) monster.isAlive = false;
+        }
+
+        else acceptMove(dx, dy);
     }
 
     public abstract void addToPlayerInventory(Item item);
