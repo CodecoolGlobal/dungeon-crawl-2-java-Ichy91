@@ -12,4 +12,11 @@ public class Companion extends Actor{
     public String getTileName() {
         return "companion";
     }
+
+    public void followPlayer(Cell playerCell) {
+        cell.setActor(null);
+        playerCell.setActor(this);
+        cell = playerCell;
+    }
+
 }
