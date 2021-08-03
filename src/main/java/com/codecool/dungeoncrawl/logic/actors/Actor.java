@@ -20,7 +20,7 @@ public abstract class Actor implements Drawable {
             nextCell.setActor(this);
             cell = nextCell;
         } else {
-            System.out.println("Cannot move here!!!");
+            System.out.println("Cannot move into the wall!!!");
         }
     }
 
