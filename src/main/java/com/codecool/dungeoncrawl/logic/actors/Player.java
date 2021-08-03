@@ -4,11 +4,14 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.items.HealingPotion;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.Key;
+import com.codecool.dungeoncrawl.logic.items.Keys.BlueKey;
+import com.codecool.dungeoncrawl.logic.items.Keys.GreenKey;
+import com.codecool.dungeoncrawl.logic.items.Keys.RedKey;
 
 import java.util.ArrayList;
 
 public class Player extends Actor {
-    private final ArrayList<Item> inventory= new ArrayList<>();
+    private final ArrayList<Item> inventory = new ArrayList<>();
     private final ArrayList<String> equipedItems = new ArrayList<>();
     private String tileName = "player";
 
@@ -20,6 +23,7 @@ public class Player extends Actor {
         this.attack = 5;
     }
 
+    @Override
     public String getTileName() {
         return tileName;
     }
@@ -27,7 +31,6 @@ public class Player extends Actor {
     public void handlePickedUpItem(Item pickedUpItem) {
         addToInventory(pickedUpItem);
         if (pickedUpItem instanceof HealingPotion) healPlayer(pickedUpItem.getHealth());
-        else if (pickedUpItem instanceof Key) return;
     }
 
     private void increaseAttack(Item item) {
@@ -77,7 +80,7 @@ public class Player extends Actor {
         for (Item item : inventory) {
             if (item.getTileName().equals(pickedUpItem.getTileName())) return;
         }
-        if (!(pickedUpItem instanceof HealingPotion) && !(pickedUpItem instanceof Key)) {
+        if (!(pickedUpItem instanceof HealingPotion)) {
             inventory.add(pickedUpItem);
         }
     }
@@ -92,8 +95,10 @@ public class Player extends Actor {
         if (equipedItems.contains("sword") && equipedItems.contains("helmet")) tileName = "playerWithSwordAndHelmet";
         if (equipedItems.contains("spear") && equipedItems.contains("armor")) tileName = "playerWithSpearAndArmor";
         if (equipedItems.contains("spear") && equipedItems.contains("helmet")) tileName = "playerWithSpearAndHelmet";
-        if (equipedItems.contains("sword") && equipedItems.contains("helmet") && equipedItems.contains("armor")) tileName = "playerWithSwordAndHelmetAndArmor";
-        if (equipedItems.contains("spear") && equipedItems.contains("helmet") && equipedItems.contains("armor")) tileName = "playerWithSpearAndHelmetAndArmor";
+        if (equipedItems.contains("sword") && equipedItems.contains("helmet") && equipedItems.contains("armor"))
+            tileName = "playerWithSwordAndHelmetAndArmor";
+        if (equipedItems.contains("spear") && equipedItems.contains("helmet") && equipedItems.contains("armor"))
+            tileName = "playerWithSpearAndHelmetAndArmor";
         else if (equipedItems.isEmpty()) tileName = "player";
     }
 
@@ -103,5 +108,50 @@ public class Player extends Actor {
             if (item.getTileName().equals("sword") || item.getTileName().equals("spear")) item.setEquiped(false);
         }
     }
+    public String getKeys() {
+        String s = "";
+        for (Item item : this.inventory) {
+            if (item instanceof RedKey) {
+                String redkey = "[RED]";
+                s = s.concat(redkey);
+            }
+            if (item instanceof BlueKey) {
+                String redkey = "[BLUE]";
+                s = s.concat(redkey);
+            }
+            if (item instanceof GreenKey) {
+                String redkey = "[GREEN]";
+                s = s.concat(redkey);
+            }
+        }
+        return s;
+    }
+
+        @Override
+        public boolean hasKey (String color){
+            if (color.equals("Red")) {
+                for (Item item : this.inventory) {
+                    if (item instanceof RedKey) {
+                        return true;
+                    }
+                }
+            }
+            if (color.equals("Green")) {
+                for (Item item : this.inventory) {
+                    if (item instanceof GreenKey) {
+                        return true;
+                    }
+                }
+            }
+            if (color.equals("Blue")) {
+                for (Item item : this.inventory) {
+                    if (item instanceof BlueKey) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
 
 }

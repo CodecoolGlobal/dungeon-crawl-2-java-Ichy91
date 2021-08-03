@@ -46,6 +46,15 @@ public class Tiles {
         tileMap.put("helmet", new Tile(4, 22));
         tileMap.put("healingPotion", new Tile(23, 22));
         tileMap.put("key", new Tile(16, 23));
+        tileMap.put("red-key", new Tile(18, 23));
+        tileMap.put("blue-key", new Tile(17, 23));
+        tileMap.put("green-key", new Tile(17, 30));
+        tileMap.put("blue_closed_door", new Tile(31, 25));
+        tileMap.put("red_closed_door", new Tile(29, 25));
+        tileMap.put("green_closed_door", new Tile(30, 25));
+        tileMap.put("opened_door", new Tile(27, 25));
+
+
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
