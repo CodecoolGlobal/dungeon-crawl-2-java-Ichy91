@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.items.Armor;
 import com.codecool.dungeoncrawl.logic.items.HealingPotion;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.Key;
@@ -9,6 +10,8 @@ import java.util.ArrayList;
 
 public class Player extends Actor {
     private final ArrayList<Item> inventory= new ArrayList<>();
+    private final ArrayList<String> equipedItems = new ArrayList<>();
+    private String tileName = "player";
 
 
     public Player(Cell cell) {
@@ -19,7 +22,7 @@ public class Player extends Actor {
     }
 
     public String getTileName() {
-        return "player";
+        return tileName;
     }
 
     public void handlePickedUpItem(Item pickedUpItem) {
@@ -29,7 +32,7 @@ public class Player extends Actor {
     }
 
     private void increaseAttack(Item item) {
-        this.attack = 5 + item.getAttack();
+        this.attack += item.getAttack();
     }
 
     private void decreaseAttack(Item item) {
@@ -49,20 +52,23 @@ public class Player extends Actor {
     }
 
     public void equipItem(Item pickedUpItem) {
-        System.out.println(pickedUpItem.getAttack());
+
         if (!pickedUpItem.isEquiped()) {
-            attack = 5;
+            if (pickedUpItem.getAttack() > 0) attack = 5;
+            equipedItems.add(pickedUpItem.getTileName());
+            visualAppearanceOfPlayer();
             increaseAttack(pickedUpItem);
             increaseDefense(pickedUpItem);
             pickedUpItem.setEquiped(true);
 
         } else {
+            equipedItems.remove(pickedUpItem.getTileName());
+            visualAppearanceOfPlayer();
             decreaseAttack(pickedUpItem);
             decreaseDefense(pickedUpItem);
             pickedUpItem.setEquiped(false);
         }
     }
-
 
     private void addToInventory(Item pickedUpItem) {
         for (Item item : inventory) {
@@ -71,6 +77,13 @@ public class Player extends Actor {
         if (!(pickedUpItem instanceof HealingPotion) && !(pickedUpItem instanceof Key)) {
             inventory.add(pickedUpItem);
         }
+    }
+
+    private void visualAppearanceOfPlayer() {
+        if (equipedItems.contains("sword")) tileName = "playerWithSword";
+        if (equipedItems.contains("armor")) tileName = "playerWithArmor";
+        if (equipedItems.contains("sword") && equipedItems.contains("armor")) tileName = "playerWithSwordAndArmor";
+        else if (equipedItems.isEmpty()) tileName = "player";
     }
 
 }

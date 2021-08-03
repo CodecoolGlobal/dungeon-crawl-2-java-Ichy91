@@ -87,6 +87,8 @@ public class Main extends Application {
 
         pickUpButton.setOnAction(event -> {
             map.getPlayer().getCell().getItem().addToInventory();
+            pickUpButton.setDisable(true);
+            refresh();
         });
     }
 
