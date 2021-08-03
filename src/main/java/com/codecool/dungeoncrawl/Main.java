@@ -49,8 +49,8 @@ public class Main extends Application {
         });
         splitMenuButtonWeapon.setFocusTraversable(false);
         splitMenuButtonDefense.setFocusTraversable(false);
-        splitMenuButtonDefense.setStyle("-fx-font-size: 15px; -fx-background-color: #0000ff");
-        splitMenuButtonWeapon.setStyle("-fx-font-size: 15px; -fx-background-color: #0000ff");
+        splitMenuButtonDefense.setStyle("-fx-font-size: 15px; -fx-background-color: #0000ff; -fx-min-width: 140");
+        splitMenuButtonWeapon.setStyle("-fx-font-size: 15px; -fx-background-color: #0000ff; -fx-min-width: 140");
 
 
         GridPane ui = new GridPane();
@@ -65,7 +65,7 @@ public class Main extends Application {
         ui.add(pickUpButton, 0, 2);
         pickUpButton.setDisable(true);
         pickUpButton.setFocusTraversable(false);
-        pickUpButton.setStyle("-fx-font-size: 15px; -fx-background-color: #0000ff");
+        pickUpButton.setStyle("-fx-font-size: 15px; -fx-background-color: #d9d9d9; -fx-border-width: 1px; -fx-border-color: #0000ff; -fx-min-width: 140");
 
         BorderPane borderPane = new BorderPane();
 
