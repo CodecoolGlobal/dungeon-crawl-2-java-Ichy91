@@ -14,7 +14,6 @@ public class Companion extends Actor{
     }
 
     public void followPlayer(Cell playerCell) {
-        System.out.println(playerCell);
         cell.setActor(null);
         playerCell.setActor(this);
         cell = playerCell;

@@ -56,21 +56,25 @@ public class Main extends Application {
             case UP:
                 map.getPlayer().move(0, -1);
                 map.getCompanion().followPlayer(playerCell);
+                map.getPlayer().move(0, 0);
                 refresh();
                 break;
             case DOWN:
                 map.getPlayer().move(0, 1);
                 map.getCompanion().followPlayer(playerCell);
+                map.getPlayer().move(0, 0);
                 refresh();
                 break;
             case LEFT:
                 map.getPlayer().move(-1, 0);
                 map.getCompanion().followPlayer(playerCell);
+                map.getPlayer().move(0, 0);
                 refresh();
                 break;
             case RIGHT:
                 map.getPlayer().move(1,0);
                 map.getCompanion().followPlayer(playerCell);
+                map.getPlayer().move(0, 0);
                 refresh();
                 break;
         }
