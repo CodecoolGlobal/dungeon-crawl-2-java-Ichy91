@@ -95,10 +95,8 @@ public class Player extends Actor {
 
     private void removeAllWeaponsFromEquippedElements() {
         equipedItems.removeIf(item -> item.equals("sword") || item.equals("spear"));
-        for (String itemName : equipedItems) {
-            for (Item item : inventory) {
-                if (item.getTileName().equals("sword") || item.getTileName().equals("spear")) item.setEquiped(false);
-            }
+        for (Item item : inventory) {
+            if (item.getTileName().equals("sword") || item.getTileName().equals("spear")) item.setEquiped(false);
         }
     }
 
