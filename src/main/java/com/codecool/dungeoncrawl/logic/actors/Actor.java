@@ -19,8 +19,12 @@ public abstract class Actor implements Drawable {
     public void move(int dx, int dy) {
         if (cell.getNeighbor(dx, dy).getType() != CellType.WALL) {
 
-            if (cell.getNeighbor(dx, dy).getActor() instanceof Monster)
+            if (cell.getNeighbor(dx, dy).getActor() instanceof Monster) {
                 attackToMonster((Monster) cell.getNeighbor(dx, dy).getActor(), dx, dy);
+
+                if (cell.getNeighbor(dx, dy).getActor() != null)
+                    attackToPlayer((Monster) cell.getNeighbor(dx, dy).getActor());
+            }
 
             else acceptMove(dx, dy);
         }
@@ -52,6 +56,8 @@ public abstract class Actor implements Drawable {
         return cell.getY();
     }
 
+    public abstract void addToPlayerInventory(Item item);
+
     private void acceptMove(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
         cell.setActor(null);
@@ -61,13 +67,24 @@ public abstract class Actor implements Drawable {
 
     private void attackToMonster(Monster monster, int dx, int dy) {
         if (monster.isAlive) {
-            monster.health = monster.health - (this.attack - monster.defense);
+            if (this.attack - monster.defense < 1) monster.health = monster.health;
+
+            else monster.health = monster.health - (this.attack - monster.defense);
 
             if (monster.health <= 0) monster.isAlive = false;
         }
-
         else acceptMove(dx, dy);
     }
 
-    public abstract void addToPlayerInventory(Item item);
+    private void attackToPlayer(Monster monster) {
+        if (this.isAlive) {
+
+            if (monster.attack - this.defense < 1) this.health = this.health;
+
+            else this.health = this.health - (monster.attack - this.defense);
+
+            if (this.health <= 0) this.isAlive = false;
+        }
+        else System.out.println("Die!");
+    }
 }
