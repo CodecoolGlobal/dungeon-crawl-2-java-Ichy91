@@ -68,7 +68,7 @@ public class MapLoader {
                             map.setKey(new Key(cell));
                             break;
                         case 'b':
-                            cell.setType(CellType.FLOOR);
+                             cell.setType(CellType.FLOOR);
                              map.setKey(new BlueKey(cell));
                              break;
                         case 'r':
@@ -78,6 +78,18 @@ public class MapLoader {
                         case 'g':
                             cell.setType(CellType.FLOOR);
                             map.setKey(new GreenKey(cell));
+                            break;
+                        case 'G':
+                            cell.setType(CellType.GREEN_CLOSED_DOOR);
+                            break;
+                        case 'B':
+                            cell.setType(CellType.BLUE_CLOSED_DOOR);
+                            break;
+                        case 'R':
+                            cell.setType(CellType.RED_CLOSED_DOOR);
+                            break;
+                        case 'O':
+                            cell.setType(CellType.OPENED_DOOR);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

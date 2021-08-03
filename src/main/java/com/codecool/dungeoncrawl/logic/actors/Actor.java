@@ -16,6 +16,8 @@ public abstract class Actor implements Drawable {
 
     public void move(int dx, int dy) {
         if (cell.getNeighbor(dx, dy).getType() != CellType.WALL) {
+
+
             Cell nextCell = cell.getNeighbor(dx, dy);
             cell.setActor(null);
             nextCell.setActor(this);
