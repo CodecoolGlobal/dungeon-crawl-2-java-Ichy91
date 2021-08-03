@@ -76,7 +76,6 @@ public abstract class Actor implements Drawable {
         return cell.getY();
     }
 
-    public abstract void addToPlayerInventory(Item item);
 
     private void acceptMove(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
