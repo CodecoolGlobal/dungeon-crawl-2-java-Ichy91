@@ -21,7 +21,8 @@ public enum CellType {
     COLUMNTOP("colTop"),
     COLUMNMIDDLE("colMid"),
     COLUMNBOTTOM("colBot"),
-    WINDOW("window");
+    WINDOW("window"),
+    STAIRUP("stairUp");
 
     private final String tileName;
 
