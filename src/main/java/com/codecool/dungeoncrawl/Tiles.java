@@ -27,7 +27,12 @@ public class Tiles {
         tileMap.put("wall", new Tile(10, 17));
         tileMap.put("floor", new Tile(2, 0));
         tileMap.put("player", new Tile(27, 0));
+        tileMap.put("companion", new Tile(31, 7));
         tileMap.put("skeleton", new Tile(29, 6));
+        tileMap.put("sword", new Tile(1, 31));
+        tileMap.put("armor", new Tile(3, 23));
+        tileMap.put("healingPotion", new Tile(23, 22));
+        tileMap.put("key", new Tile(16, 23));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
