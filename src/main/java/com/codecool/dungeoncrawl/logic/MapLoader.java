@@ -2,7 +2,7 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Companion;
 import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.logic.actors.Skeleton;
+import com.codecool.dungeoncrawl.logic.actors.monsters.Skeleton;
 import com.codecool.dungeoncrawl.logic.items.Armor;
 import com.codecool.dungeoncrawl.logic.items.HealingPotion;
 import com.codecool.dungeoncrawl.logic.items.Key;
