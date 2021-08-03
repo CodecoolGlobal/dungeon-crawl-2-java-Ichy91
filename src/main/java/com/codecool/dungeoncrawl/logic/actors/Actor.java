@@ -7,7 +7,7 @@ import com.codecool.dungeoncrawl.logic.items.Item;
 
 public abstract class Actor implements Drawable {
     protected Cell cell;
-    private int health = 10;
+    protected int health, defense, attack;
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -45,5 +45,9 @@ public abstract class Actor implements Drawable {
         return cell.getY();
     }
 
-    public abstract void addToPlayerInventory(Item item);
+    public void healPlayer(int health) {
+        this.health += health;
+    }
+
+    public abstract void handlePickedUpItem(Item item);
 }

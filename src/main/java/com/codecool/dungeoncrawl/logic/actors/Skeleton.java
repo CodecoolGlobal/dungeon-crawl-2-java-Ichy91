@@ -9,8 +9,8 @@ public class Skeleton extends Actor {
     }
 
     @Override
-    public void addToPlayerInventory(Item item) {
-        
+    public void handlePickedUpItem(Item item) {
+
     }
 
     @Override
