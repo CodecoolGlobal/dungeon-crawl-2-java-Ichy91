@@ -19,6 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Main extends Application {
     private GameMap map = MapLoader.loadMap();
@@ -28,6 +29,7 @@ public class Main extends Application {
     private GraphicsContext context = canvas.getGraphicsContext2D();
     private Label healthLabel = new Label();
     private final SplitMenuButton splitMenuButtonWeapon = new SplitMenuButton();
+    private final SplitMenuButton splitMenuButtonDefense = new SplitMenuButton();
 
 
     public static void main(String[] args) {
@@ -37,10 +39,18 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         splitMenuButtonWeapon.setText("Weapons");
+        splitMenuButtonDefense.setText("Defense");
         splitMenuButtonWeapon.setOnAction((e) -> {
-            System.out.println("SplitMenuButton clicked!");
+            System.out.println("SplitMenuButtonAttack clicked!");
+        });
+        splitMenuButtonDefense.setOnAction((e) -> {
+            System.out.println("SplitMenuButtonDefense clicked!");
         });
         splitMenuButtonWeapon.setFocusTraversable(false);
+        splitMenuButtonDefense.setFocusTraversable(false);
+        splitMenuButtonDefense.setStyle("-fx-font-size: 15px; -fx-background-color: #0000ff");
+        splitMenuButtonWeapon.setStyle("-fx-font-size: 15px; -fx-background-color: #0000ff");
+
 
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
@@ -48,7 +58,8 @@ public class Main extends Application {
 
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
-        ui.add(splitMenuButtonWeapon, 1, 5);
+        ui.add(splitMenuButtonWeapon, 0, 2);
+        ui.add(splitMenuButtonDefense, 0, 4);
 
         BorderPane borderPane = new BorderPane();
 
@@ -114,14 +125,35 @@ public class Main extends Application {
 
     private void addItemsIntoInventoryList() {
         ArrayList<Item> inventory = map.getPlayer().getInventory();
+        addAttackItems(inventory);
+        addDefenseItems(inventory);
+    }
+
+    private void addAttackItems(ArrayList<Item> inventory) {
         splitMenuButtonWeapon.getItems().clear();
         MenuItem menuItem;
         for (Item item : inventory) {
-            menuItem = new MenuItem(item.getTileName());
-            menuItem.setOnAction((e)-> {
-                System.out.println(item.getTileName() + " selected");
-            });
-            splitMenuButtonWeapon.getItems().addAll(menuItem);
+            if (item.getAttack() > 0) {
+                menuItem = new MenuItem(item.getTileName());
+                menuItem.setOnAction((e)-> {
+                    System.out.println(item.getTileName() + " selected");
+                });
+                splitMenuButtonWeapon.getItems().addAll(menuItem);
+            }
+        }
+    }
+
+    private void addDefenseItems(ArrayList<Item> inventory) {
+        splitMenuButtonDefense.getItems().clear();
+        MenuItem menuItem;
+        for (Item item : inventory) {
+            if (item.getDefense() > 0) {
+                menuItem = new MenuItem(item.getTileName());
+                menuItem.setOnAction((e)-> {
+                    System.out.println(item.getTileName() + " selected");
+                });
+                splitMenuButtonDefense.getItems().addAll(menuItem);
+            }
         }
     }
 }
