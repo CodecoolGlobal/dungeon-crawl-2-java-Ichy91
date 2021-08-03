@@ -3,17 +3,22 @@ package com.codecool.dungeoncrawl;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.items.Item;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitMenuButton;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class Main extends Application {
     private GameMap map = MapLoader.loadMap();
@@ -22,6 +27,8 @@ public class Main extends Application {
             map.getHeight() * Tiles.TILE_WIDTH);
     private GraphicsContext context = canvas.getGraphicsContext2D();
     private Label healthLabel = new Label();
+    private final SplitMenuButton splitMenuButtonWeapon = new SplitMenuButton();
+
 
     public static void main(String[] args) {
         launch(args);
@@ -29,12 +36,19 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        splitMenuButtonWeapon.setText("Weapons");
+        splitMenuButtonWeapon.setOnAction((e) -> {
+            System.out.println("SplitMenuButton clicked!");
+        });
+        splitMenuButtonWeapon.setFocusTraversable(false);
+
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
 
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
+        ui.add(splitMenuButtonWeapon, 1, 5);
 
         BorderPane borderPane = new BorderPane();
 
@@ -95,5 +109,19 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
+        addItemsIntoInventoryList();
+    }
+
+    private void addItemsIntoInventoryList() {
+        ArrayList<Item> inventory = map.getPlayer().getInventory();
+        splitMenuButtonWeapon.getItems().clear();
+        MenuItem menuItem;
+        for (Item item : inventory) {
+            menuItem = new MenuItem(item.getTileName());
+            menuItem.setOnAction((e)-> {
+                System.out.println(item.getTileName() + " selected");
+            });
+            splitMenuButtonWeapon.getItems().addAll(menuItem);
+        }
     }
 }

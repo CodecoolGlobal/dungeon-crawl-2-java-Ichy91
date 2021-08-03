@@ -1,16 +1,18 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.Sword;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Player extends Actor {
-//    private final HashMap<String, Item> attackItems= new HashMap<>();
-//    private final HashMap<String, Item> defenseItems= new HashMap<>();
+    private final ArrayList<Item> inventory= new ArrayList<>();
 
     public Player(Cell cell) {
         super(cell);
+        this.inventory.add(new Sword(cell));
     }
 
     public String getTileName() {
@@ -20,21 +22,8 @@ public class Player extends Actor {
 //    public void addDefensiveItemIntoInventory(Item item) {
 //        defenseItems.put(item);
 //    }
-//
-//    public void addAttackItemIntoInventory(Item item) {
-//        attackItems.put(item);
-//    }
 
-//    public ArrayList<Item> refreshInventory() {
-//        ArrayList<Item> inventory = new ArrayList<Item>();
-//        for (Item attackItem : attackItems) {
-//            inventory.add(attackItem);
-//        }
-//
-//        for (Item defenseItem : defenseItems) {
-//            inventory.add(defenseItem);
-//        }
-//
-//        return inventory;
-//    }
+    public ArrayList<Item> getInventory() {
+        return inventory;
+    }
 }
