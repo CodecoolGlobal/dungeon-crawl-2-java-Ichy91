@@ -5,7 +5,7 @@ import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 
 public abstract class Actor implements Drawable {
-    private Cell cell;
+    protected Cell cell;
     private int health = 10;
 
     public Actor(Cell cell) {
@@ -14,8 +14,6 @@ public abstract class Actor implements Drawable {
     }
 
     public void move(int dx, int dy) {
-        // TODO --> extend the if statement with && operators if there are other Objects on the map which the
-        //  player shouldn't get through
         if (cell.getNeighbor(dx, dy).getType() != CellType.WALL) {
             Cell nextCell = cell.getNeighbor(dx, dy);
             cell.setActor(null);
