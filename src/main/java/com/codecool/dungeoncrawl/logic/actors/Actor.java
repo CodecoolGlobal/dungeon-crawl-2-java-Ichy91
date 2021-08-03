@@ -24,6 +24,10 @@ public abstract class Actor implements Drawable {
         }
     }
 
+    public boolean isStandingOnItem(){
+        return this.cell.getItem() != null;
+    }
+
     public int getHealth() {
         return health;
     }
