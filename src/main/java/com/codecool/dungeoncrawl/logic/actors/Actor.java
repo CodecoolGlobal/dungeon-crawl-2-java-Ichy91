@@ -23,7 +23,7 @@ public abstract class Actor implements Drawable {
                 attackToMonster((Monster) cell.getNeighbor(dx, dy).getActor(), dx, dy);
 
                 if (cell.getNeighbor(dx, dy).getActor() != null)
-                    attackToPlayer((Monster) cell.getNeighbor(dx, dy).getActor());
+                    attackToPlayer((Monster) cell.getNeighbor(dx, dy).getActor(), this);
             }
 
             else acceptMove(dx, dy);
@@ -76,14 +76,14 @@ public abstract class Actor implements Drawable {
         else acceptMove(dx, dy);
     }
 
-    private void attackToPlayer(Monster monster) {
-        if (this.isAlive) {
+    private void attackToPlayer(Monster monster, Actor player) {
+        if (player.isAlive) {
 
-            if (monster.attack - this.defense < 1) this.health = this.health;
+            if (monster.attack - player.defense < 1) player.health = player.health;
 
-            else this.health = this.health - (monster.attack - this.defense);
+            else player.health = player.health - (monster.attack - player.defense);
 
-            if (this.health <= 0) this.isAlive = false;
+            if (player.health <= 0) player.isAlive = false;
         }
         else System.out.println("Die!");
     }
