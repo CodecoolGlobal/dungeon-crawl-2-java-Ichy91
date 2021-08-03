@@ -59,12 +59,13 @@ public class Main extends Application {
 
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
-        ui.add(splitMenuButtonWeapon, 0, 2);
-        ui.add(splitMenuButtonDefense, 0, 4);
+        ui.add(splitMenuButtonWeapon, 0, 4);
+        ui.add(splitMenuButtonDefense, 0, 6);
         pickUpButton.setText("pick up");
         ui.add(pickUpButton, 0, 2);
         pickUpButton.setDisable(true);
         pickUpButton.setFocusTraversable(false);
+        pickUpButton.setStyle("-fx-font-size: 15px; -fx-background-color: #0000ff");
 
         BorderPane borderPane = new BorderPane();
 

@@ -1,12 +1,16 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.items.Item;
 
 public class Companion extends Actor{
 
     public Companion(Cell cell) {
         super(cell);
     }
+
+    @Override
+    public void addToPlayerInventory(Item item) {}
 
     @Override
     public String getTileName() {
