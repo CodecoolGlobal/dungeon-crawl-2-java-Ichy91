@@ -92,6 +92,9 @@ public class MapLoader {
                         case 'É':
                             cell.setType(CellType.WINDOW);
                             break;
+                        case 'Ű':
+                            cell.setType(CellType.TOILET);
+                            break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }

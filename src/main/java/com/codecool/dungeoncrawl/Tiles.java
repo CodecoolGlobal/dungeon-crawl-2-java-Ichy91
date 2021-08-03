@@ -45,6 +45,7 @@ public class Tiles {
         tileMap.put("colMid", new Tile(3, 12));
         tileMap.put("colBot", new Tile(3, 13));
         tileMap.put("window", new Tile(1, 9));
+        tileMap.put("toilet", new Tile(12, 10));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
