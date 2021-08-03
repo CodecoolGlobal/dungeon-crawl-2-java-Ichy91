@@ -7,6 +7,7 @@ import com.codecool.dungeoncrawl.logic.Drawable;
 public abstract class Item implements Drawable {
     private Cell cell;
     protected int defense, attack, health;
+    protected boolean equiped = false;
 
     public Item (Cell cell){
         this.cell = cell;
@@ -27,6 +28,14 @@ public abstract class Item implements Drawable {
 
     public int getHealth() {
         return health;
+    }
+
+    public boolean isEquiped() {
+        return equiped;
+    }
+
+    public void setEquiped(boolean value) {
+        equiped = value;
     }
 
     public void addToInventory(){

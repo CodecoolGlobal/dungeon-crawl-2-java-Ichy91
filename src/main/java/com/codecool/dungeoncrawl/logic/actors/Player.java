@@ -28,17 +28,41 @@ public class Player extends Actor {
         else if (pickedUpItem instanceof Key) return;
     }
 
-    public void increaseAttack(Item item) {
+    private void increaseAttack(Item item) {
         this.attack = 5 + item.getAttack();
     }
 
-    public void increaseDefense(Item item) {
-        this.defense = 5 + item.getDefense();
+    private void decreaseAttack(Item item) {
+        this.attack -= item.getAttack();
+    }
+
+    private void increaseDefense(Item item) {
+        this.defense += item.getDefense();
+    }
+
+    private void decreaseDefense(Item item) {
+        this.defense -= item.getDefense();
     }
 
     public ArrayList<Item> getInventory() {
         return inventory;
     }
+
+    public void equipItem(Item pickedUpItem) {
+        System.out.println(pickedUpItem.getAttack());
+        if (!pickedUpItem.isEquiped()) {
+            attack = 5;
+            increaseAttack(pickedUpItem);
+            increaseDefense(pickedUpItem);
+            pickedUpItem.setEquiped(true);
+
+        } else {
+            decreaseAttack(pickedUpItem);
+            decreaseDefense(pickedUpItem);
+            pickedUpItem.setEquiped(false);
+        }
+    }
+
 
     private void addToInventory(Item pickedUpItem) {
         for (Item item : inventory) {
@@ -46,8 +70,7 @@ public class Player extends Actor {
         }
         if (!(pickedUpItem instanceof HealingPotion) && !(pickedUpItem instanceof Key)) {
             inventory.add(pickedUpItem);
-            increaseAttack(pickedUpItem);
-            increaseDefense(pickedUpItem);
         }
     }
+
 }

@@ -20,7 +20,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class Main extends Application {
     private GameMap map = MapLoader.loadMap();
@@ -29,6 +28,8 @@ public class Main extends Application {
             map.getHeight() * Tiles.TILE_WIDTH);
     private GraphicsContext context = canvas.getGraphicsContext2D();
     private Label healthLabel = new Label();
+    private Label attackLabel = new Label();
+    private Label defenseLable = new Label();
     private final SplitMenuButton splitMenuButtonWeapon = new SplitMenuButton();
     private final SplitMenuButton splitMenuButtonDefense = new SplitMenuButton();
     private Button pickUpButton = new Button();
@@ -58,11 +59,15 @@ public class Main extends Application {
         ui.setPadding(new Insets(10));
 
         ui.add(new Label("Health: "), 0, 0);
+        ui.add(new Label("Attack: "), 0, 1);
+        ui.add(new Label("Defense: "), 0, 2);
         ui.add(healthLabel, 1, 0);
-        ui.add(splitMenuButtonWeapon, 0, 4);
-        ui.add(splitMenuButtonDefense, 0, 6);
+        ui.add(attackLabel, 1, 1);
+        ui.add(defenseLable, 1, 2);
+        ui.add(splitMenuButtonWeapon, 0, 6);
+        ui.add(splitMenuButtonDefense, 0, 8);
         pickUpButton.setText("pick up");
-        ui.add(pickUpButton, 0, 2);
+        ui.add(pickUpButton, 0, 4);
         pickUpButton.setDisable(true);
         pickUpButton.setFocusTraversable(false);
         pickUpButton.setStyle("-fx-font-size: 15px; -fx-background-color: #0000ff");
@@ -117,6 +122,7 @@ public class Main extends Application {
             case SPACE:
                 if (map.getPlayer().isStandingOnItem()){
                     map.getPlayer().getCell().getItem().addToInventory();
+                    refresh();
                 }
                 break;
         }
@@ -146,6 +152,8 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
+        attackLabel.setText("" + map.getPlayer().getAttack());
+        defenseLable.setText("" + map.getPlayer().getDefense());
         addItemsIntoInventoryList();
     }
 
@@ -162,6 +170,8 @@ public class Main extends Application {
             if (item.getAttack() > 0) {
                 menuItem = new MenuItem(item.getTileName());
                 menuItem.setOnAction((e)-> {
+                    map.getPlayer().equipItem(item);
+                    refresh();
                     System.out.println(item.getTileName() + " selected");
                 });
                 splitMenuButtonWeapon.getItems().addAll(menuItem);
@@ -176,6 +186,8 @@ public class Main extends Application {
             if (item.getDefense() > 0) {
                 menuItem = new MenuItem(item.getTileName());
                 menuItem.setOnAction((e)-> {
+                    map.getPlayer().equipItem(item);
+                    refresh();
                     System.out.println(item.getTileName() + " selected");
                 });
                 splitMenuButtonDefense.getItems().addAll(menuItem);
