@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic.items;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 
 public abstract class Item implements Drawable {
@@ -26,5 +27,13 @@ public abstract class Item implements Drawable {
 
     public int getHealth() {
         return health;
+    }
+
+    public void addToInventory(){
+        this.cell.getActor().addToPlayerInventory(this.cell.getItem());
+
+        //TODO: add to inventory
+        this.cell.setType(CellType.FLOOR);
+        this.cell.setItem(null);
     }
 }
