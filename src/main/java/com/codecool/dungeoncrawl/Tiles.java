@@ -36,10 +36,10 @@ public class Tiles {
         tileMap.put("red-key", new Tile(18, 23));
         tileMap.put("blue-key", new Tile(17, 23));
         tileMap.put("green-key", new Tile(17, 30));
-        tileMap.put("blue_closed_door", new Tile(17, 23));
-        tileMap.put("red_closed_door", new Tile(17, 23));
-        tileMap.put("green_closed_door", new Tile(17, 23));
-        tileMap.put("opened_door", new Tile(17, 23));
+        tileMap.put("blue_closed_door", new Tile(31, 25));
+        tileMap.put("red_closed_door", new Tile(29, 25));
+        tileMap.put("green_closed_door", new Tile(30, 25));
+        tileMap.put("opened_door", new Tile(27, 25));
 
 
     }
