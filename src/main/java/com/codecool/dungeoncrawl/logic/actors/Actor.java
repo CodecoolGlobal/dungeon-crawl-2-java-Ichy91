@@ -3,10 +3,11 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
+import com.codecool.dungeoncrawl.logic.actors.monsters.Monster;
 
 public abstract class Actor implements Drawable {
     protected Cell cell;
-    private int health = 10;
+    protected int health, defense, attack;
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -15,13 +16,22 @@ public abstract class Actor implements Drawable {
 
     public void move(int dx, int dy) {
         if (cell.getNeighbor(dx, dy).getType() != CellType.WALL) {
+
+            if (cell.getNeighbor(dx, dy).getActor() instanceof Monster) {
+                //TODO
+            }
+
             Cell nextCell = cell.getNeighbor(dx, dy);
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
-        } else {
-            System.out.println("Cannot move into the wall!!!");
         }
+
+        else System.out.println("Cannot move into the wall!!!");
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     public int getHealth() {
