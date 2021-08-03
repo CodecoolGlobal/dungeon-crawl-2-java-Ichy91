@@ -1,7 +1,6 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.logic.items.Armor;
 import com.codecool.dungeoncrawl.logic.items.HealingPotion;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.Key;
@@ -36,7 +35,7 @@ public class Player extends Actor {
     }
 
     private void decreaseAttack(Item item) {
-        this.attack -= item.getAttack();
+        this.attack = 5;
     }
 
     private void increaseDefense(Item item) {
@@ -54,7 +53,11 @@ public class Player extends Actor {
     public void equipItem(Item pickedUpItem) {
 
         if (!pickedUpItem.isEquiped()) {
-            if (pickedUpItem.getAttack() > 0) attack = 5;
+            if (pickedUpItem.getAttack() > 0) {
+                attack = 5;
+                removeAllWeaponsFromEquippedElements();
+            }
+
             equipedItems.add(pickedUpItem.getTileName());
             visualAppearanceOfPlayer();
             increaseAttack(pickedUpItem);
@@ -81,9 +84,22 @@ public class Player extends Actor {
 
     private void visualAppearanceOfPlayer() {
         if (equipedItems.contains("sword")) tileName = "playerWithSword";
+        if (equipedItems.contains("spear")) tileName = "playerWithSpear";
         if (equipedItems.contains("armor")) tileName = "playerWithArmor";
+        if (equipedItems.contains("helmet")) tileName = "playerWithHelmet";
         if (equipedItems.contains("sword") && equipedItems.contains("armor")) tileName = "playerWithSwordAndArmor";
+        if (equipedItems.contains("sword") && equipedItems.contains("helmet")) tileName = "playerWithSwordAndHelmet";
+        if (equipedItems.contains("sword") && equipedItems.contains("helmet") && equipedItems.contains("armor")) tileName = "playerWithSwordAndHelmetAndArmor";
         else if (equipedItems.isEmpty()) tileName = "player";
+    }
+
+    private void removeAllWeaponsFromEquippedElements() {
+        equipedItems.removeIf(item -> item.equals("sword") || item.equals("spear"));
+        for (String itemName : equipedItems) {
+            for (Item item : inventory) {
+                if (item.getTileName().equals("sword") || item.getTileName().equals("spear")) item.setEquiped(false);
+            }
+        }
     }
 
 }

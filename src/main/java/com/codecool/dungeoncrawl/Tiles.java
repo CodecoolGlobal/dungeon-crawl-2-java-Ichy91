@@ -29,11 +29,20 @@ public class Tiles {
         tileMap.put("companion", new Tile(31, 7));
         tileMap.put("player", new Tile(25, 0));
         tileMap.put("playerWithSword", new Tile(27, 0));
+        tileMap.put("playerWithSpear", new Tile(26, 0));
         tileMap.put("playerWithArmor", new Tile(30, 0));
+        tileMap.put("playerWithHelmet", new Tile(27, 1));
         tileMap.put("playerWithSwordAndArmor", new Tile(28, 0));
+        tileMap.put("playerWithSwordAndHelmet", new Tile(28, 2));
+        tileMap.put("playerWithSwordAndHelmetAndArmor", new Tile(31, 0));
+//        tileMap.put("playerWithSwordAndArmor", new Tile(28, 0));
+//        tileMap.put("playerWithSwordAndHelmet", new Tile(28, 0));
+//        tileMap.put("playerWithSwordAndHelmetAndArmor", new Tile(28, 0));
         tileMap.put("skeleton", new Tile(29, 6));
         tileMap.put("sword", new Tile(1, 31));
+        tileMap.put("spear", new Tile(4, 25));
         tileMap.put("armor", new Tile(3, 23));
+        tileMap.put("helmet", new Tile(4, 22));
         tileMap.put("healingPotion", new Tile(23, 22));
         tileMap.put("key", new Tile(16, 23));
     }
