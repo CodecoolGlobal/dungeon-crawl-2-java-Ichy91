@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.Key;
 import com.codecool.dungeoncrawl.logic.items.Keys.BlueKey;
 import com.codecool.dungeoncrawl.logic.items.Keys.GreenKey;
 import com.codecool.dungeoncrawl.logic.items.Keys.RedKey;
@@ -28,6 +29,23 @@ public class Player extends Actor {
 
     public ArrayList<Item> getInventory() {
         return inventory;
+    }
+
+    public String getKeys() {
+        String s = "";
+        for (Item item: this.inventory){
+            if (item instanceof RedKey){
+                String redkey = "[RED]";
+                s = s.concat(redkey);
+            }            if (item instanceof BlueKey){
+                String redkey = "[BLUE]";
+                s = s.concat(redkey);
+            }            if (item instanceof GreenKey){
+                String redkey = "[GREEN]";
+                s = s.concat(redkey);
+            }
+        }
+        return s;
     }
 
     @Override
