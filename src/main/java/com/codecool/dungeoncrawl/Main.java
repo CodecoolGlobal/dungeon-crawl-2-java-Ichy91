@@ -8,6 +8,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -22,6 +23,7 @@ public class Main extends Application {
             map.getHeight() * Tiles.TILE_WIDTH);
     private GraphicsContext context = canvas.getGraphicsContext2D();
     private Label healthLabel = new Label();
+    private Button pickUpButton = new Button();
 
     public static void main(String[] args) {
         launch(args);
@@ -35,6 +37,10 @@ public class Main extends Application {
 
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
+        pickUpButton.setText("pick up");
+        ui.add(pickUpButton, 0, 2);
+        pickUpButton.setDisable(true);
+        pickUpButton.setFocusTraversable(false);
 
         BorderPane borderPane = new BorderPane();
 
@@ -48,10 +54,16 @@ public class Main extends Application {
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
+
+        pickUpButton.setOnAction(event -> {
+            map.getPlayer().getCell().getItem().addToInventory();
+        });
     }
+
 
     private void onKeyPressed(KeyEvent keyEvent) {
         Cell playerCell = map.getPlayer().getCell();
+        pickUpButton.setDisable(true);
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().move(0, -1);
@@ -77,7 +89,16 @@ public class Main extends Application {
                 map.getPlayer().move(0, 0);
                 refresh();
                 break;
+            case SPACE:
+                if (map.getPlayer().isStandingOnItem()){
+                    map.getPlayer().getCell().getItem().addToInventory();
+                }
+                break;
         }
+        if (map.getPlayer().isStandingOnItem()){
+            pickUpButton.setDisable(false);
+        }
+
     }
 
     private void refresh() {

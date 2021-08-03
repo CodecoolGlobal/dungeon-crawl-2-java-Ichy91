@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Companion;
 import com.codecool.dungeoncrawl.logic.actors.Player;
+
 import com.codecool.dungeoncrawl.logic.items.Armor;
 import com.codecool.dungeoncrawl.logic.items.HealingPotion;
 import com.codecool.dungeoncrawl.logic.items.Key;
@@ -15,6 +16,8 @@ public class GameMap {
     private Player player;
     private Companion companion;
     private Sword sword;
+//    private Armor armor;
+//    private Key key;
     private Armor armor;
     private Key key;
     private HealingPotion healingPotion;
@@ -58,6 +61,7 @@ public class GameMap {
         this.healingPotion = healingPotion;
     }
 
+  
     public Player getPlayer() {
         return player;
     }

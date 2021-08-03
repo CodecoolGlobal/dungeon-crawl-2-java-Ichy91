@@ -53,6 +53,11 @@ public class MapLoader {
                             map.setSword(new Sword(cell));
                             break;
                         case 'A':
+                            break;
+                        case 'H':
+                            cell.setType(CellType.FLOOR);
+                            break;
+                        case 'K':
                             cell.setType(CellType.FLOOR);
                             map.setArmor(new Armor(cell));
                             break;
