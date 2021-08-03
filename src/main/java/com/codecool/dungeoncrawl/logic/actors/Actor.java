@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 
 public abstract class Actor implements Drawable {
@@ -13,10 +14,16 @@ public abstract class Actor implements Drawable {
     }
 
     public void move(int dx, int dy) {
-        Cell nextCell = cell.getNeighbor(dx, dy);
-        cell.setActor(null);
-        nextCell.setActor(this);
-        cell = nextCell;
+        // TODO --> extend the if statement with && operators if there are other Objects on the map which the
+        //  player shouldn't get through
+        if (cell.getNeighbor(dx, dy).getType() != CellType.WALL) {
+            Cell nextCell = cell.getNeighbor(dx, dy);
+            cell.setActor(null);
+            nextCell.setActor(this);
+            cell = nextCell;
+        } else {
+            System.out.println("Cannot move into the wall!!!");
+        }
     }
 
     public int getHealth() {
