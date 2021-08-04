@@ -4,7 +4,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
-import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -30,7 +30,7 @@ public class Main extends Application {
     private GraphicsContext context = canvas.getGraphicsContext2D();
     private Label healthLabel = new Label();
     private Label attackLabel = new Label();
-    private Label defenseLable = new Label();
+    private Label defenseLabel = new Label();
     private final SplitMenuButton splitMenuButtonWeapon = new SplitMenuButton();
     private final SplitMenuButton splitMenuButtonDefense = new SplitMenuButton();
     private Button pickUpButton = new Button();
@@ -67,7 +67,7 @@ public class Main extends Application {
         ui.add(new Label("Defense: "), 0, 2);
         ui.add(healthLabel, 1, 0);
         ui.add(attackLabel, 1, 1);
-        ui.add(defenseLable, 1, 2);
+        ui.add(defenseLabel, 1, 2);
         ui.add(splitMenuButtonWeapon, 0, 6);
         ui.add(splitMenuButtonDefense, 0, 8);
         pickUpButton.setText("pick up");
@@ -137,6 +137,44 @@ public class Main extends Application {
                 map = MapLoader.loadMap("/map3.txt");
                 refresh();
                 } //TODO dynamic map change
+            case W:
+                for (Item item : map.getPlayer().getInventory()){
+                    if (item instanceof Sword) {
+                        map.getPlayer().equipItem(item);
+                        refresh();
+                        break;
+                    }
+                }
+                break;
+            case E:
+                for (Item item : map.getPlayer().getInventory()){
+                    if (item instanceof Spear) {
+                        map.getPlayer().equipItem(item);
+                        refresh();
+                        break;
+                    }
+                }
+                break;
+            case R:
+                for (Item item : map.getPlayer().getInventory()){
+                    if (item instanceof Armor) {
+                        map.getPlayer().equipItem(item);
+                        refresh();
+                        break;
+                    }
+                }
+                break;
+
+            case T:
+                for (Item item : map.getPlayer().getInventory()){
+                    if (item instanceof Helmet) {
+                        map.getPlayer().equipItem(item);
+                        refresh();
+                        break;
+                    }
+                }
+                break;
+
         }
         if (map.getPlayer().isStandingOnItem()){
             pickUpButton.setDisable(false);
@@ -165,7 +203,7 @@ public class Main extends Application {
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
         attackLabel.setText("" + map.getPlayer().getAttack());
-        defenseLable.setText("" + map.getPlayer().getDefense());
+        defenseLabel.setText("" + map.getPlayer().getDefense());
         addItemsIntoInventoryList();
         inventoryLabel.setText(map.getPlayer().getKeys());
     }
@@ -192,9 +230,6 @@ public class Main extends Application {
         }
     }
 
-    /*public static void setMap(GameMap newMap) {
-        this.map = newMap;
-    }*/
 
     private void addDefenseItems(ArrayList<Item> inventory) {
         splitMenuButtonDefense.getItems().clear();
