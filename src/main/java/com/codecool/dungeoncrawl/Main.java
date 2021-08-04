@@ -41,6 +41,8 @@ public class Main extends Application {
     private Button pickUpButton = new Button();
     private Label inventoryLabel = new Label();
     private String name = "";
+    private ArrayList<String> developersName = new ArrayList<>(Arrays.asList("isti", "saz", "mate", "martin"));
+
 
     public static void main(String[] args) {
         launch(args);
@@ -145,8 +147,8 @@ public class Main extends Application {
             case X:
                 if(map.getPlayer().getCell().getType()== CellType.STAIRUP){
                 map = MapLoader.loadMap("/map3.txt");
+                if (developersName.contains(name)) map.getPlayer().setHealth(99);
                 map.getPlayer().setPlayerName(name);
-                map.getPlayer().setHealth(99);
                 refresh();
                 } //TODO dynamic map change
             case W:
