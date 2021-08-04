@@ -48,6 +48,58 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        SimpleAudioPlayer.playMusic();
+        splitMenuButtonWeapon.setText("Weapons");
+        splitMenuButtonDefense.setText("Defense");
+        splitMenuButtonWeapon.setOnAction((e) -> {
+            System.out.println("SplitMenuButtonAttack clicked!");
+        });
+        splitMenuButtonDefense.setOnAction((e) -> {
+            System.out.println("SplitMenuButtonDefense clicked!");
+        });
+        splitMenuButtonWeapon.setFocusTraversable(false);
+        splitMenuButtonDefense.setFocusTraversable(false);
+        splitMenuButtonDefense.setStyle("-fx-font-size: 15px; -fx-background-color: #0000ff; -fx-min-width: 140");
+        splitMenuButtonWeapon.setStyle("-fx-font-size: 15px; -fx-background-color: #0000ff; -fx-min-width: 140");
+
+
+        GridPane ui = new GridPane();
+        ui.setPrefWidth(200);
+        ui.setPadding(new Insets(10));
+
+        ui.add(new Label("Health: "), 0, 0);
+        ui.add(new Label("Attack: "), 0, 1);
+        ui.add(new Label("Defense: "), 0, 2);
+        ui.add(healthLabel, 1, 0);
+        ui.add(attackLabel, 1, 1);
+        ui.add(defenseLabel, 1, 2);
+        ui.add(splitMenuButtonWeapon, 0, 6);
+        ui.add(splitMenuButtonDefense, 0, 8);
+        pickUpButton.setText("pick up");
+        ui.add(pickUpButton, 0, 4);
+        ui.add(inventoryLabel, 0, 9);
+        pickUpButton.setDisable(true);
+        pickUpButton.setFocusTraversable(false);
+        pickUpButton.setStyle("-fx-font-size: 15px; -fx-background-color: #d9d9d9; -fx-border-width: 1px; -fx-border-color: #0000ff; -fx-min-width: 140");
+
+        BorderPane borderPane = new BorderPane();
+
+        borderPane.setCenter(canvas);
+        borderPane.setRight(ui);
+
+        Scene scene = new Scene(borderPane);
+        primaryStage.setScene(scene);
+        refresh();
+        scene.setOnKeyPressed(this::onKeyPressed);
+
+        primaryStage.setTitle("Dungeon Crawl");
+        primaryStage.show();
+
+        pickUpButton.setOnAction(event -> {
+            map.getPlayer().getCell().getItem().addToInventory();
+            pickUpButton.setDisable(true);
+            refresh();
+        });
         getNameFromUserWithWelcomeScene(primaryStage);
     }
 
