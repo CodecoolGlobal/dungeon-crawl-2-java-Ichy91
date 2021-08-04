@@ -158,7 +158,7 @@ public class MapLoader {
                         case 'G':
                             cell.setType(CellType.GREEN_CLOSED_DOOR);
                             break;
-                        case '9':
+                        case 'Z':
                             cell.setType(CellType.BLUE_CLOSED_DOOR);
                             break;
                         case 'R':
