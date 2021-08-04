@@ -206,6 +206,7 @@ public class Main extends Application {
         startButton.setOnMouseExited(e -> startButton.setStyle(IDLE_BUTTON_STYLE));
         startButton.setOnAction(event -> {
             name = String.valueOf(nameInputField.getText());
+            map.setPlayerName(name);
             gamePlay(primaryStage);
         });
         pane.getChildren().add(startButton);

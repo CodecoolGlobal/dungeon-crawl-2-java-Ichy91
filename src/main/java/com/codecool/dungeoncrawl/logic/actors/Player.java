@@ -14,7 +14,7 @@ public class Player extends Actor {
     private final ArrayList<Item> inventory = new ArrayList<>();
     private final ArrayList<String> equipedItems = new ArrayList<>();
     private String tileName = "player";
-
+    private String playerName = "";
 
     public Player(Cell cell) {
         super(cell);
@@ -154,4 +154,7 @@ public class Player extends Actor {
             return false;
         }
 
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
 }
