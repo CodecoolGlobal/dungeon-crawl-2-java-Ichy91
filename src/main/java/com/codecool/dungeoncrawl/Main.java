@@ -93,6 +93,8 @@ public class Main extends Application {
             case X:
                 if(map.getPlayer().getCell().getType()== CellType.STAIRUP){
                 map = MapLoader.loadMap("/map3.txt");
+                map.getPlayer().setPlayerName(name);
+                map.getPlayer().setHealth(99);
                 refresh();
                 } //TODO dynamic map change
             case W:
@@ -219,6 +221,7 @@ public class Main extends Application {
 
             }
         }
+    }
 
     private void getNameFromUserWithWelcomeScene(Stage primaryStage) {
         Pane pane = new Pane();
