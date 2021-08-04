@@ -73,6 +73,11 @@ public class Tiles {
         tileMap.put("red_closed_door", new Tile(29, 25));
         tileMap.put("green_closed_door", new Tile(30, 25));
         tileMap.put("opened_door", new Tile(27, 25));
+        tileMap.put("roofRight", new Tile(7, 12));
+        tileMap.put("roofLeft", new Tile(5, 12));
+        tileMap.put("roofTop", new Tile(6, 12));
+        tileMap.put("roof", new Tile(6, 13));
+
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {

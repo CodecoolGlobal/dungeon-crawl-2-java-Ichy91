@@ -26,7 +26,11 @@ public enum CellType {
     GREEN_CLOSED_DOOR("green_closed_door"),
     BLUE_CLOSED_DOOR("blue_closed_door"),
     RED_CLOSED_DOOR("red_closed_door"),
-    OPENED_DOOR("opened_door");
+    OPENED_DOOR("opened_door"),
+    ROOFRIGHT("roofRight"),
+    ROOFLEFT("roofLeft"),
+    ROOF("roof"),
+    ROOFTOP("roofTop");
 
     private final String tileName;
 
