@@ -3,6 +3,8 @@ package com.codecool.dungeoncrawl.logic;
 import com.codecool.dungeoncrawl.logic.actors.Companion;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 
+import com.codecool.dungeoncrawl.logic.items.*;
+
 public class GameMap {
     private int width;
     private int height;
@@ -10,6 +12,14 @@ public class GameMap {
 
     private Player player;
     private Companion companion;
+    private Sword sword;
+    private Spear spear;
+//    private Armor armor;
+//    private Key key;
+    private Armor armor;
+    private Helmet helmet;
+    private Key key;
+    private HealingPotion healingPotion;
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;
@@ -34,6 +44,31 @@ public class GameMap {
         this.companion = companion;
     }
 
+    public void setSword(Sword sword) {
+        this.sword = sword;
+    }
+
+    public void setSpear(Spear spear) {
+        this.spear = spear;
+    }
+
+    public void setArmor(Armor armor) {
+        this.armor = armor;
+    }
+
+    public void setHelmet(Helmet helmet) {
+        this.helmet = helmet;
+    }
+
+    public void setKey(Key key) {
+        this.key = key;
+    }
+
+    public void setHealingPotion(HealingPotion healingPotion) {
+        this.healingPotion = healingPotion;
+    }
+
+  
     public Player getPlayer() {
         return player;
     }

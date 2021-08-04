@@ -2,7 +2,15 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Companion;
 import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.logic.actors.Skeleton;
+import com.codecool.dungeoncrawl.logic.items.*;
+import com.codecool.dungeoncrawl.logic.actors.monsters.Skeleton;
+import com.codecool.dungeoncrawl.logic.items.Armor;
+import com.codecool.dungeoncrawl.logic.items.HealingPotion;
+import com.codecool.dungeoncrawl.logic.items.Key;
+import com.codecool.dungeoncrawl.logic.items.Keys.BlueKey;
+import com.codecool.dungeoncrawl.logic.items.Keys.GreenKey;
+import com.codecool.dungeoncrawl.logic.items.Keys.RedKey;
+import com.codecool.dungeoncrawl.logic.items.Sword;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -97,6 +105,53 @@ public class MapLoader {
                             break;
                         case 'Ő':
                             cell.setType(CellType.STAIRUP);
+                        case 'S':
+                            cell.setType(CellType.FLOOR);
+                            map.setSword(new Sword(cell));
+                            break;
+                        case 'P':
+                            cell.setType(CellType.FLOOR);
+                            map.setSpear(new Spear(cell));
+                            break;
+                        case 'A':
+                            cell.setType(CellType.FLOOR);
+                            map.setArmor(new Armor(cell));
+                            break;
+                        case 'E':
+                            cell.setType(CellType.FLOOR);
+                            map.setHelmet(new Helmet(cell));
+                            break;
+                        case 'H':
+                            cell.setType(CellType.FLOOR);
+                            map.setHealingPotion(new HealingPotion(cell));
+                            break;
+                        case 'K':
+                            cell.setType(CellType.FLOOR);
+                            map.setKey(new Key(cell));
+                            break;
+                        case 'b':
+                             cell.setType(CellType.FLOOR);
+                             map.setKey(new BlueKey(cell));
+                             break;
+                        case 'r':
+                            cell.setType(CellType.FLOOR);
+                            map.setKey(new RedKey(cell));
+                            break;
+                        case 'g':
+                            cell.setType(CellType.FLOOR);
+                            map.setKey(new GreenKey(cell));
+                            break;
+                        case 'G':
+                            cell.setType(CellType.GREEN_CLOSED_DOOR);
+                            break;
+                        case 'B':
+                            cell.setType(CellType.BLUE_CLOSED_DOOR);
+                            break;
+                        case 'R':
+                            cell.setType(CellType.RED_CLOSED_DOOR);
+                            break;
+                        case 'O':
+                            cell.setType(CellType.OPENED_DOOR);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
