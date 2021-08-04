@@ -17,7 +17,7 @@ import java.util.Scanner;
 
 public class MapLoader {
     public static GameMap loadMap() {
-        InputStream is = MapLoader.class.getResourceAsStream("/map.txt");
+        InputStream is = MapLoader.class.getResourceAsStream("/map2.txt");
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
@@ -52,6 +52,59 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             map.setCompanion(new Companion(cell));
                             break;
+                        case 'L':
+                            cell.setType(CellType.CHAINH);
+                            break;
+                        case 'l':
+                            cell.setType(CellType.CHAINV);
+                            break;
+                        case 'y':
+                            cell.setType(CellType.CARH1);
+                            break;
+                        case 'Y':
+                            cell.setType(CellType.CARH2);
+                            break;
+                        case 'x':
+                            cell.setType(CellType.CARV1);
+                            break;
+                        case 'X':
+                            cell.setType(CellType.CARV2);
+                            break;
+                        case 'C':
+                            cell.setType(CellType.TABLETOP);
+                            break;
+                        case 'V':
+                            cell.setType(CellType.TABLEMIDDLE);
+                            break;
+                        case 'B':
+                            cell.setType(CellType.TABLEBOTTOM);
+                            break;
+                        case 'N':
+                            cell.setType(CellType.SINGLETABLE);
+                            break;
+                        case 'M':
+                            cell.setType(CellType.CHAIR);
+                            break;
+                        case 'Á':
+                            cell.setType(CellType.PLANT);
+                            break;
+                        case 'J':
+                            cell.setType(CellType.COLUMNTOP);
+                            break;
+                        case 'K':
+                            cell.setType(CellType.COLUMNMIDDLE);
+                            break;
+                        case 'H':
+                            cell.setType(CellType.COLUMNBOTTOM);
+                            break;
+                        case 'É':
+                            cell.setType(CellType.WINDOW);
+                            break;
+                        case 'Ű':
+                            cell.setType(CellType.TOILET);
+                            break;
+                        case 'Ő':
+                            cell.setType(CellType.STAIRUP);
                         case 'S':
                             cell.setType(CellType.FLOOR);
                             map.setSword(new Sword(cell));
