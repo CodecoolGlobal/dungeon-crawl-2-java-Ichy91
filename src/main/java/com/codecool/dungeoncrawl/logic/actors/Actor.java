@@ -6,10 +6,15 @@ import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.actors.monsters.Monster;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Locale;
+
 public abstract class Actor implements Drawable {
     protected boolean isAlive = true;
     protected Cell cell;
     protected int health, defense, attack;
+    protected ArrayList<String> developersName = new ArrayList<>(Arrays.asList("isti", "saz", "mate", "martin"));
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -48,8 +53,10 @@ public abstract class Actor implements Drawable {
 
             else acceptMove(dx, dy);
         }
-
-        else System.out.println("Cannot move into the wall!!!");
+        else if (cell.getActor() instanceof Player) {
+            String playerName = ((Player) cell.getActor()).getPlayerName();
+            if (developersName.contains(playerName.toLowerCase(Locale.ROOT))) acceptMove(dx, dy);
+        }
     }
 
     public void setHealth(int health) {

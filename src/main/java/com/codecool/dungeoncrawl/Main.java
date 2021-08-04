@@ -20,6 +20,8 @@ import javafx.stage.Stage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Locale;
 
 public class Main extends Application {
     private GameMap map = MapLoader.loadMap();
@@ -207,6 +209,8 @@ public class Main extends Application {
         startButton.setOnAction(event -> {
             name = String.valueOf(nameInputField.getText());
             map.setPlayerName(name);
+            ArrayList<String> developersName = new ArrayList<>(Arrays.asList("isti", "saz", "mate", "martin"));
+            if (developersName.contains(name.toLowerCase(Locale.ROOT))) map.getPlayer().setHealth(99);
             gamePlay(primaryStage);
         });
         pane.getChildren().add(startButton);
