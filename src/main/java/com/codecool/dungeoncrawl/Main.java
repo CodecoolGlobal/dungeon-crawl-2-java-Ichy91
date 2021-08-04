@@ -25,8 +25,8 @@ import java.util.ArrayList;
 public class Main extends Application {
     private GameMap map = MapLoader.loadMap("/map2.txt");
     private Canvas canvas = new Canvas(
-            map.getWidth() * Tiles.TILE_WIDTH,
-            map.getHeight() * Tiles.TILE_WIDTH);
+            25 * Tiles.TILE_WIDTH,
+            25 * Tiles.TILE_WIDTH);
     private GraphicsContext context = canvas.getGraphicsContext2D();
     private Label healthLabel = new Label();
     private Label attackLabel = new Label();
@@ -185,9 +185,9 @@ public class Main extends Application {
     private void refresh() {
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        for (int x = 0; x < 10; x++) {
-            for (int y = 0; y < 10; y++) {
-                Cell cell = map.getCell(map.getPlayer().getX()-5 + x, map.getPlayer().getY()-5 +y);
+        for (int x = 0; x < 25; x++) {
+            for (int y = 0; y < 25; y++) {
+                Cell cell = map.getCell(map.getPlayer().getX()-13 + x, map.getPlayer().getY()-13 +y);
                 if (cell.getActor() != null) {
                     Tiles.drawTile(context, cell.getActor(), x, y);
                 }
