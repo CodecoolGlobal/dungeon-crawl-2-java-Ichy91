@@ -105,6 +105,7 @@ public class MapLoader {
                             break;
                         case 'Ő':
                             cell.setType(CellType.STAIRUP);
+                            break;
                         case 'S':
                             cell.setType(CellType.FLOOR);
                             map.setSword(new Sword(cell));
@@ -121,11 +122,11 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             map.setHelmet(new Helmet(cell));
                             break;
-                        case 'H':
+                        case 'h':
                             cell.setType(CellType.FLOOR);
                             map.setHealingPotion(new HealingPotion(cell));
                             break;
-                        case 'K':
+                        case 'k':
                             cell.setType(CellType.FLOOR);
                             map.setKey(new Key(cell));
                             break;
@@ -144,7 +145,7 @@ public class MapLoader {
                         case 'G':
                             cell.setType(CellType.GREEN_CLOSED_DOOR);
                             break;
-                        case 'B':
+                        case 'Z':
                             cell.setType(CellType.BLUE_CLOSED_DOOR);
                             break;
                         case 'R':

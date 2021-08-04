@@ -37,7 +37,14 @@ public abstract class Actor implements Drawable {
         if (cell.getNeighbor(dx, dy).getType() != CellType.WALL
                 && cell.getNeighbor(dx, dy).getType() != CellType.RED_CLOSED_DOOR
                 && cell.getNeighbor(dx, dy).getType() != CellType.GREEN_CLOSED_DOOR
-                && cell.getNeighbor(dx, dy).getType() != CellType.BLUE_CLOSED_DOOR) {
+                && cell.getNeighbor(dx, dy).getType() != CellType.BLUE_CLOSED_DOOR
+                && cell.getNeighbor(dx, dy).getType() != CellType.PLANT
+                && cell.getNeighbor(dx, dy).getType() != CellType.CHAINH
+                && cell.getNeighbor(dx, dy).getType() != CellType.CHAINV
+                && cell.getNeighbor(dx, dy).getType() != CellType.TABLEBOTTOM
+                && cell.getNeighbor(dx, dy).getType() != CellType.TABLEMIDDLE
+                && cell.getNeighbor(dx, dy).getType() != CellType.TABLETOP
+                && cell.getNeighbor(dx, dy).getType() != CellType.SINGLETABLE) {
 
             if (cell.getNeighbor(dx, dy).getActor() instanceof Monster) {
                 attackToMonster((Monster) cell.getNeighbor(dx, dy).getActor(), dx, dy);
