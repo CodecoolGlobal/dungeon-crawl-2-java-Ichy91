@@ -30,7 +30,7 @@ public class Main extends Application {
     private GraphicsContext context = canvas.getGraphicsContext2D();
     private Label healthLabel = new Label();
     private Label attackLabel = new Label();
-    private Label defenseLable = new Label();
+    private Label defenseLabel = new Label();
     private final SplitMenuButton splitMenuButtonWeapon = new SplitMenuButton();
     private final SplitMenuButton splitMenuButtonDefense = new SplitMenuButton();
     private Button pickUpButton = new Button();
@@ -67,7 +67,7 @@ public class Main extends Application {
         ui.add(new Label("Defense: "), 0, 2);
         ui.add(healthLabel, 1, 0);
         ui.add(attackLabel, 1, 1);
-        ui.add(defenseLable, 1, 2);
+        ui.add(defenseLabel, 1, 2);
         ui.add(splitMenuButtonWeapon, 0, 6);
         ui.add(splitMenuButtonDefense, 0, 8);
         pickUpButton.setText("pick up");
@@ -168,7 +168,7 @@ public class Main extends Application {
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
         attackLabel.setText("" + map.getPlayer().getAttack());
-        defenseLable.setText("" + map.getPlayer().getDefense());
+        defenseLabel.setText("" + map.getPlayer().getDefense());
         addItemsIntoInventoryList();
         inventoryLabel.setText(map.getPlayer().getKeys());
     }
