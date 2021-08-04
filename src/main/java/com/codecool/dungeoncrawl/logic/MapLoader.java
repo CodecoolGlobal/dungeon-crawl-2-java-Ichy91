@@ -2,6 +2,8 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Companion;
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.actors.monsters.GreenFox;
+import com.codecool.dungeoncrawl.logic.actors.monsters.Guard;
 import com.codecool.dungeoncrawl.logic.items.*;
 import com.codecool.dungeoncrawl.logic.actors.monsters.Skeleton;
 import com.codecool.dungeoncrawl.logic.items.Armor;
@@ -16,12 +18,14 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
+
     public static GameMap loadMap(String level) {
         InputStream is = MapLoader.class.getResourceAsStream(level);
 
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
+        int actualIndexOfMonster = 0;
 
         scanner.nextLine(); // empty line
 
@@ -43,7 +47,15 @@ public class MapLoader {
                             break;
                         case 's':
                             cell.setType(CellType.FLOOR);
-                            new Skeleton(cell);
+                            map.getMonsters().add(new Skeleton(cell));
+                            break;
+                        case 'f':
+                            cell.setType(CellType.FLOOR);
+                            map.getMonsters().add(new GreenFox(cell));
+                            break;
+                        case 'ö':
+                            cell.setType(CellType.FLOOR);
+                            map.getMonsters().add(new Guard(cell));
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);
@@ -132,9 +144,9 @@ public class MapLoader {
                             map.setKey(new Key(cell));
                             break;*/
                         case 'b':
-                             cell.setType(CellType.FLOOR);
-                             map.setKey(new BlueKey(cell));
-                             break;
+                            cell.setType(CellType.FLOOR);
+                            map.setKey(new BlueKey(cell));
+                            break;
                         case 'r':
                             cell.setType(CellType.FLOOR);
                             map.setKey(new RedKey(cell));
