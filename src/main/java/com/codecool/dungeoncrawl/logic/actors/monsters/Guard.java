@@ -7,7 +7,7 @@ public class Guard extends Monster{
     public Guard(Cell cell) {
         super(cell);
         this.health = 40;
-        this.defense = 15;
+        this.defense = 8;
         this.attack = 20;
     }
 

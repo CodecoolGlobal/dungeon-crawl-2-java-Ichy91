@@ -135,14 +135,10 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             map.setHelmet(new Helmet(cell));
                             break;
-                        /*case 'H':
+                        case 'h':
                             cell.setType(CellType.FLOOR);
                             map.setHealingPotion(new HealingPotion(cell));
                             break;
-                        case 'k':
-                            cell.setType(CellType.FLOOR);
-                            map.setKey(new Key(cell));
-                            break;*/
                         case 'b':
                             cell.setType(CellType.FLOOR);
                             map.setKey(new BlueKey(cell));
@@ -166,6 +162,18 @@ public class MapLoader {
                             break;
                         case 'O':
                             cell.setType(CellType.OPENED_DOOR);
+                            break;
+                        case '7':
+                            cell.setType(CellType.ROOFLEFT);
+                            break;
+                        case '8':
+                            cell.setType(CellType.ROOFTOP);
+                            break;
+                        case '9':
+                            cell.setType(CellType.ROOFRIGHT);
+                            break;
+                        case '6':
+                            cell.setType(CellType.ROOF);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
