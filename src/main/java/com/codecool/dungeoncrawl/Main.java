@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.Sword;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -131,6 +132,14 @@ public class Main extends Application {
                     refresh();
                 }
                 break;
+            case W:
+                for (Item item : map.getPlayer().getInventory()){
+                    if (item instanceof Sword) {
+                        map.getPlayer().equipItem(item);
+                        refresh();
+                        break;
+                    }
+                }
         }
         if (map.getPlayer().isStandingOnItem()){
             pickUpButton.setDisable(false);

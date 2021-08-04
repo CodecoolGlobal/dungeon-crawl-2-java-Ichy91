@@ -121,14 +121,14 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             map.setHelmet(new Helmet(cell));
                             break;
-                        case 'H':
+                        /*case 'H':
                             cell.setType(CellType.FLOOR);
                             map.setHealingPotion(new HealingPotion(cell));
                             break;
                         case 'K':
                             cell.setType(CellType.FLOOR);
                             map.setKey(new Key(cell));
-                            break;
+                            break;*/
                         case 'b':
                              cell.setType(CellType.FLOOR);
                              map.setKey(new BlueKey(cell));
@@ -144,7 +144,7 @@ public class MapLoader {
                         case 'G':
                             cell.setType(CellType.GREEN_CLOSED_DOOR);
                             break;
-                        case 'B':
+                        case '9':
                             cell.setType(CellType.BLUE_CLOSED_DOOR);
                             break;
                         case 'R':

@@ -22,7 +22,7 @@ public enum CellType {
     COLUMNMIDDLE("colMid"),
     COLUMNBOTTOM("colBot"),
     WINDOW("window"),
-    STAIRUP("stairUp");
+    STAIRUP("stairUp"),
     GREEN_CLOSED_DOOR("green_closed_door"),
     BLUE_CLOSED_DOOR("blue_closed_door"),
     RED_CLOSED_DOOR("red_closed_door"),
