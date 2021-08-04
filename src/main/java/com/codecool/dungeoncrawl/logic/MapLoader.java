@@ -2,6 +2,8 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Companion;
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.actors.monsters.GreenFox;
+import com.codecool.dungeoncrawl.logic.actors.monsters.Guard;
 import com.codecool.dungeoncrawl.logic.items.*;
 import com.codecool.dungeoncrawl.logic.actors.monsters.Skeleton;
 import com.codecool.dungeoncrawl.logic.items.Armor;
@@ -43,6 +45,14 @@ public class MapLoader {
                         case 's':
                             cell.setType(CellType.FLOOR);
                             new Skeleton(cell);
+                            break;
+                        case 'f':
+                            cell.setType(CellType.FLOOR);
+                            new GreenFox(cell);
+                            break;
+                        case 'ö':
+                            cell.setType(CellType.FLOOR);
+                            new Guard(cell);
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);

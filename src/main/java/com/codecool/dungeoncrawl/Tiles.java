@@ -40,6 +40,8 @@ public class Tiles {
         tileMap.put("playerWithSwordAndHelmetAndArmor", new Tile(31, 0));
         tileMap.put("playerWithSpearAndHelmetAndArmor", new Tile(27, 2));
         tileMap.put("skeleton", new Tile(29, 6));
+        tileMap.put("guard", new Tile(30, 9));
+        tileMap.put("greenFox", new Tile(18, 9));
         tileMap.put("chainH", new Tile(12, 12));
         tileMap.put("chainV", new Tile(0, 4));
         tileMap.put("carH1", new Tile(11, 22));
@@ -71,8 +73,6 @@ public class Tiles {
         tileMap.put("red_closed_door", new Tile(29, 25));
         tileMap.put("green_closed_door", new Tile(30, 25));
         tileMap.put("opened_door", new Tile(27, 25));
-
-
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
