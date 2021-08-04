@@ -29,13 +29,12 @@ public class Main extends Application {
     private GraphicsContext context = canvas.getGraphicsContext2D();
     private Label healthLabel = new Label();
     private Label attackLabel = new Label();
-    private Label nameLabel = new Label();
     private Label defenseLabel = new Label();
     private final SplitMenuButton splitMenuButtonWeapon = new SplitMenuButton();
     private final SplitMenuButton splitMenuButtonDefense = new SplitMenuButton();
     private Button pickUpButton = new Button();
-
     private Label inventoryLabel = new Label();
+    private String name = "";
 
     public static void main(String[] args) {
         launch(args);
@@ -206,14 +205,11 @@ public class Main extends Application {
         startButton.setOnMouseEntered(e -> startButton.setStyle(HOVERED_BUTTON_STYLE));
         startButton.setOnMouseExited(e -> startButton.setStyle(IDLE_BUTTON_STYLE));
         startButton.setOnAction(event -> {
-            nameLabel.setText(String.valueOf(nameInputField));
+            name = String.valueOf(nameInputField.getText());
             gamePlay(primaryStage);
         });
         pane.getChildren().add(startButton);
 
-//        welcomeText.relocate(660, 100);
-//        welcomeText.setText("Meet your end!" );
-//        pane.getChildren().add(welcomeText);
 
         Scene scene = new Scene(pane);
         primaryStage.setWidth(1500);
@@ -224,6 +220,7 @@ public class Main extends Application {
     }
 
     private void gamePlay(Stage primaryStage) {
+
         SimpleAudioPlayer.playMusic();
         splitMenuButtonWeapon.setText("Weapons");
         splitMenuButtonDefense.setText("Defense");
@@ -243,11 +240,10 @@ public class Main extends Application {
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
 
-        ui.add(new Label("HeroName: "), 0, 0);
+        ui.add(new Label(name), 0, 0);
         ui.add(new Label("Health: "), 0, 1);
         ui.add(new Label("Attack: "), 0, 2);
         ui.add(new Label("Defense: "), 0, 3);
-        ui.add(nameLabel, 1, 0);
         ui.add(healthLabel, 1, 1);
         ui.add(attackLabel, 1, 2);
         ui.add(defenseLabel, 1, 3);
