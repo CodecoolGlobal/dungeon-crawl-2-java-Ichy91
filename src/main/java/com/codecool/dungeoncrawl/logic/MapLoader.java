@@ -23,6 +23,7 @@ public class MapLoader {
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
+        int actualIndexOfMonster = 0;
 
         scanner.nextLine(); // empty line
 
@@ -44,15 +45,15 @@ public class MapLoader {
                             break;
                         case 's':
                             cell.setType(CellType.FLOOR);
-                            new Skeleton(cell);
+                            map.getMonsters().add(new Skeleton(cell));
                             break;
                         case 'f':
                             cell.setType(CellType.FLOOR);
-                            new GreenFox(cell);
+                            map.getMonsters().add(new GreenFox(cell));
                             break;
                         case 'ö':
                             cell.setType(CellType.FLOOR);
-                            new Guard(cell);
+                            map.getMonsters().add(new Guard(cell));
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);

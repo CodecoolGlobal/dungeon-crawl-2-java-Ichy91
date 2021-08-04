@@ -3,12 +3,16 @@ package com.codecool.dungeoncrawl.logic;
 import com.codecool.dungeoncrawl.logic.actors.Companion;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 
+import com.codecool.dungeoncrawl.logic.actors.monsters.Monster;
 import com.codecool.dungeoncrawl.logic.items.*;
+
+import java.util.ArrayList;
 
 public class GameMap {
     private int width;
     private int height;
     private Cell[][] cells;
+    private ArrayList<Monster> monsters = new ArrayList<>();
 
     private Player player;
     private Companion companion;
@@ -30,10 +34,6 @@ public class GameMap {
                 cells[x][y] = new Cell(this, x, y, defaultCellType);
             }
         }
-    }
-
-    public Cell getCell(int x, int y) {
-        return cells[x][y];
     }
 
     public void setPlayer(Player player) {
@@ -68,13 +68,20 @@ public class GameMap {
         this.healingPotion = healingPotion;
     }
 
-  
     public Player getPlayer() {
         return player;
     }
 
     public Companion getCompanion() {
         return companion;
+    }
+
+    public ArrayList<Monster> getMonsters() {
+        return monsters;
+    }
+
+    public Cell getCell(int x, int y) {
+        return cells[x][y];
     }
 
     public int getWidth() {

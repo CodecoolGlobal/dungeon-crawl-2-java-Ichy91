@@ -12,6 +12,11 @@ public class Guard extends Monster{
     }
 
     @Override
+    public void monsterMove(Monster monster) {
+        monster.acceptMove(0, 0);
+    }
+
+    @Override
     public String getTileName() {
         return "guard";
     }

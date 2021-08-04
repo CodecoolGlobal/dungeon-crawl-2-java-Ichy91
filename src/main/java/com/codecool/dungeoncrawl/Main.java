@@ -3,6 +3,8 @@ package com.codecool.dungeoncrawl;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.actors.monsters.GreenFox;
+import com.codecool.dungeoncrawl.logic.actors.monsters.Monster;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.Sword;
 import javafx.application.Application;
@@ -106,24 +108,28 @@ public class Main extends Application {
                 map.getPlayer().move(0, -1);
                 map.getCompanion().followPlayer(playerCell);
                 map.getPlayer().move(0, 0);
+                monsterMover();
                 refresh();
                 break;
             case DOWN:
                 map.getPlayer().move(0, 1);
                 map.getCompanion().followPlayer(playerCell);
                 map.getPlayer().move(0, 0);
+                monsterMover();
                 refresh();
                 break;
             case LEFT:
                 map.getPlayer().move(-1, 0);
                 map.getCompanion().followPlayer(playerCell);
                 map.getPlayer().move(0, 0);
+                monsterMover();
                 refresh();
                 break;
             case RIGHT:
                 map.getPlayer().move(1,0);
                 map.getCompanion().followPlayer(playerCell);
                 map.getPlayer().move(0, 0);
+                monsterMover();
                 refresh();
                 break;
             case SPACE:
@@ -207,6 +213,21 @@ public class Main extends Application {
                     System.out.println(item.getTileName() + " selected");
                 });
                 splitMenuButtonDefense.getItems().addAll(menuItem);
+            }
+        }
+    }
+
+    private void monsterMover() {
+        for (Monster monster: map.getMonsters()) {
+            if (monster.getHealth() <= 0){
+                map.getMonsters().remove(monster);
+                break;
+            }
+
+            else {
+                monster.monsterMove(monster);
+                if (monster instanceof GreenFox) monster.monsterMove(monster);
+
             }
         }
     }

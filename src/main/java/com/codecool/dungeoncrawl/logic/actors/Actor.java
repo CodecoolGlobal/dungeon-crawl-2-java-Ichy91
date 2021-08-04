@@ -63,6 +63,7 @@ public abstract class Actor implements Drawable {
     public int getHealth() {
         return health;
     }
+
     public int getAttack() { return attack;}
 
     public int getDefense() {
@@ -87,7 +88,7 @@ public abstract class Actor implements Drawable {
 
     public abstract void handlePickedUpItem(Item item);
 
-    private void acceptMove(int dx, int dy) {
+    public void acceptMove(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
         cell.setActor(null);
         nextCell.setActor(this);
