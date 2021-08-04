@@ -4,6 +4,10 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.actors.monsters.GreenFox;
+import com.codecool.dungeoncrawl.logic.actors.monsters.Monster;
+import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.Sword;
 import com.codecool.dungeoncrawl.logic.items.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -56,24 +60,28 @@ public class Main extends Application {
                 map.getPlayer().move(0, -1);
                 map.getCompanion().followPlayer(playerCell);
                 map.getPlayer().move(0, 0);
+                monsterMover();
                 refresh();
                 break;
             case DOWN:
                 map.getPlayer().move(0, 1);
                 map.getCompanion().followPlayer(playerCell);
                 map.getPlayer().move(0, 0);
+                monsterMover();
                 refresh();
                 break;
             case LEFT:
                 map.getPlayer().move(-1, 0);
                 map.getCompanion().followPlayer(playerCell);
                 map.getPlayer().move(0, 0);
+                monsterMover();
                 refresh();
                 break;
             case RIGHT:
                 map.getPlayer().move(1,0);
                 map.getCompanion().followPlayer(playerCell);
                 map.getPlayer().move(0, 0);
+                monsterMover();
                 refresh();
                 break;
             case SPACE:
@@ -196,6 +204,21 @@ public class Main extends Application {
             }
         }
     }
+
+
+    private void monsterMover() {
+        for (Monster monster: map.getMonsters()) {
+            if (monster.getHealth() <= 0){
+                map.getMonsters().remove(monster);
+                break;
+            }
+
+            else {
+                monster.monsterMove(monster);
+                if (monster instanceof GreenFox) monster.monsterMove(monster);
+
+            }
+        }
 
     private void getNameFromUserWithWelcomeScene(Stage primaryStage) {
         Pane pane = new Pane();

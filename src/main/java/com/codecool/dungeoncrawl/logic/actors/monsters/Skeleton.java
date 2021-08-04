@@ -6,15 +6,13 @@ import com.codecool.dungeoncrawl.logic.items.Item;
 public class Skeleton extends Monster {
     public Skeleton(Cell cell) {
         super(cell);
-        this.health = 15;
+        this.health = 10;
         this.defense = 0;
-        this.attack = 2;
+        this.attack = 5;
     }
 
     @Override
-    public void handlePickedUpItem(Item item) {
-
-    }
+    public void handlePickedUpItem(Item item) {}
 
     @Override
     public String getTileName() {
