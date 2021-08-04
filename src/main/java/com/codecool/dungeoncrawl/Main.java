@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.items.*;
@@ -22,7 +23,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class Main extends Application {
-    private GameMap map = MapLoader.loadMap();
+    private GameMap map = MapLoader.loadMap("/map2.txt");
     private Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
@@ -131,6 +132,11 @@ public class Main extends Application {
                     refresh();
                 }
                 break;
+            case X:
+                if(map.getPlayer().getCell().getType()== CellType.STAIRUP){
+                map = MapLoader.loadMap("/map3.txt");
+                refresh();
+                } //TODO dynamic map change
             case W:
                 for (Item item : map.getPlayer().getInventory()){
                     if (item instanceof Sword) {
@@ -223,6 +229,7 @@ public class Main extends Application {
             }
         }
     }
+
 
     private void addDefenseItems(ArrayList<Item> inventory) {
         splitMenuButtonDefense.getItems().clear();

@@ -16,8 +16,9 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
-    public static GameMap loadMap() {
-        InputStream is = MapLoader.class.getResourceAsStream("/map.txt");
+    public static GameMap loadMap(String level) {
+        InputStream is = MapLoader.class.getResourceAsStream(level);
+
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
@@ -105,6 +106,7 @@ public class MapLoader {
                             break;
                         case 'Ő':
                             cell.setType(CellType.STAIRUP);
+                            break;
                         case 'S':
                             cell.setType(CellType.FLOOR);
                             map.setSword(new Sword(cell));
@@ -125,7 +127,7 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             map.setHealingPotion(new HealingPotion(cell));
                             break;
-                        case 'K':
+                        case 'k':
                             cell.setType(CellType.FLOOR);
                             map.setKey(new Key(cell));
                             break;*/
