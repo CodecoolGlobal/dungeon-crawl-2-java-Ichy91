@@ -40,6 +40,10 @@ public class GameMap {
         this.player = player;
     }
 
+    public void setPlayerName(String playerName) {
+       player.setPlayerName(playerName);
+    }
+
     public void setCompanion(Companion companion) {
         this.companion = companion;
     }
