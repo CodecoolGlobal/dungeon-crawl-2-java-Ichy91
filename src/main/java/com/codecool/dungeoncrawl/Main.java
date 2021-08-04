@@ -42,6 +42,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        SimpleAudioPlayer.playMusic();
         splitMenuButtonWeapon.setText("Weapons");
         splitMenuButtonDefense.setText("Defense");
         splitMenuButtonWeapon.setOnAction((e) -> {
