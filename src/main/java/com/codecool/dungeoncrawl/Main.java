@@ -3,8 +3,7 @@ package com.codecool.dungeoncrawl;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
-import com.codecool.dungeoncrawl.logic.items.Item;
-import com.codecool.dungeoncrawl.logic.items.Sword;
+import com.codecool.dungeoncrawl.logic.items.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -140,6 +139,36 @@ public class Main extends Application {
                         break;
                     }
                 }
+                break;
+            case E:
+                for (Item item : map.getPlayer().getInventory()){
+                    if (item instanceof Spear) {
+                        map.getPlayer().equipItem(item);
+                        refresh();
+                        break;
+                    }
+                }
+                break;
+            case R:
+                for (Item item : map.getPlayer().getInventory()){
+                    if (item instanceof Armor) {
+                        map.getPlayer().equipItem(item);
+                        refresh();
+                        break;
+                    }
+                }
+                break;
+
+            case T:
+                for (Item item : map.getPlayer().getInventory()){
+                    if (item instanceof Helmet) {
+                        map.getPlayer().equipItem(item);
+                        refresh();
+                        break;
+                    }
+                }
+                break;
+
         }
         if (map.getPlayer().isStandingOnItem()){
             pickUpButton.setDisable(false);
