@@ -185,9 +185,9 @@ public class Main extends Application {
     private void refresh() {
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        for (int x = 0; x < map.getWidth(); x++) {
-            for (int y = 0; y < map.getHeight(); y++) {
-                Cell cell = map.getCell(x, y);
+        for (int x = 0; x < 10; x++) {
+            for (int y = 0; y < 10; y++) {
+                Cell cell = map.getCell(map.getPlayer().getX()-5 + x, map.getPlayer().getY()-5 +y);
                 if (cell.getActor() != null) {
                     Tiles.drawTile(context, cell.getActor(), x, y);
                 }
