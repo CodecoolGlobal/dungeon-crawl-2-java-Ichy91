@@ -9,6 +9,7 @@ import com.codecool.dungeoncrawl.logic.actors.monsters.Monster;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.Sword;
 import com.codecool.dungeoncrawl.logic.items.*;
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -29,6 +30,7 @@ import java.util.Locale;
 
 public class Main extends Application {
     private GameMap map = MapLoader.loadMap("/map2.txt");
+    private Player player = map.getPlayer();
     private Canvas canvas = new Canvas(
             25 * Tiles.TILE_WIDTH,
             25 * Tiles.TILE_WIDTH);
@@ -42,6 +44,8 @@ public class Main extends Application {
     private Label inventoryLabel = new Label();
     private String name = "";
     private ArrayList<String> developersName = new ArrayList<>(Arrays.asList("isti", "saz", "mate", "martin"));
+    private ArrayList<Item> inventory = new ArrayList<>();
+
 
 
     public static void main(String[] args) {
@@ -145,12 +149,16 @@ public class Main extends Application {
                 }
                 break;
             case X:
-                if(map.getPlayer().getCell().getType()== CellType.STAIRUP){
+                int health = player.getHealth();
+                inventory = player.getInventory();
                 map = MapLoader.loadMap("/map3.txt");
                 if (developersName.contains(name)) map.getPlayer().setHealth(99);
-                map.getPlayer().setPlayerName(name);
+                player = map.getPlayer();
+                player.setPlayerName(name);
+                player.setHealth(health);
+                player.setInventory(inventory);
+                player.fillUpEquipedItems();
                 refresh();
-                } //TODO dynamic map change
             case W:
                 for (Item item : map.getPlayer().getInventory()){
                     if (item instanceof Sword) {
