@@ -11,7 +11,7 @@ import com.codecool.dungeoncrawl.logic.items.Keys.RedKey;
 import java.util.ArrayList;
 
 public class Player extends Actor {
-    private final ArrayList<Item> inventory = new ArrayList<>();
+    private ArrayList<Item> inventory = new ArrayList<>();
     private final ArrayList<String> equipedItems = new ArrayList<>();
     private String tileName = "player";
 
@@ -162,5 +162,17 @@ public class Player extends Actor {
     public String getPlayerName() {
         return playerName;
     }
+
+    public void setInventory(ArrayList<Item> inventory) {
+        this.inventory = inventory;
+    }
+
+    public void fillUpEquipedItems() {
+        for (Item item : inventory) {
+            if (item.isEquiped()) equipedItems.add(item.getTileName());
+        }
+        visualAppearanceOfPlayer();
+    }
+
 
 }

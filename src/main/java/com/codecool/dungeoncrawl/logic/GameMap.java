@@ -95,4 +95,9 @@ public class GameMap {
     public int getHeight() {
         return height;
     }
+
+    public void setInventory(ArrayList<Item> inventory) {
+        player.setInventory(inventory);
+    }
+
 }
