@@ -12,4 +12,7 @@ public class RedKey extends Key {
     public String getTileName() {
         return "red-key";
     }
+
+    public char getChar() {return 'r';}
+
 }

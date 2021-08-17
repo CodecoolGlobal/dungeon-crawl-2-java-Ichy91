@@ -16,4 +16,6 @@ public class Key extends Item{
 
         return "key";
     }
+    public char getChar() {return ' ';}
+
 }

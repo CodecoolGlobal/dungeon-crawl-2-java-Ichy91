@@ -26,4 +26,7 @@ public class Companion extends Actor{
         cell = playerCell;
     }
 
+    public char getChar() {return 'c';}
+
+
 }

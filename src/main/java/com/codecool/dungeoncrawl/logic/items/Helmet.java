@@ -15,4 +15,6 @@ public class Helmet extends Item {
     public String getTileName() {
         return "helmet";
     }
+    public char getChar() {return 'E';}
+
 }

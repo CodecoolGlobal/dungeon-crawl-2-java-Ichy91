@@ -36,4 +36,6 @@ public abstract class Monster extends Actor {
                 && cell.getNeighbor(x, y).getActor() == null)
             monster.acceptMove(x, y);
     }
+    public char getChar() {return 'f';}
+
 }

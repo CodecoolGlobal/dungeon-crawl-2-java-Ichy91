@@ -13,6 +13,9 @@ public class Skeleton extends Actor {
 
     }
 
+    public char getChar() {return 's';}
+
+
     @Override
     public String getTileName() {
         return "skeleton";

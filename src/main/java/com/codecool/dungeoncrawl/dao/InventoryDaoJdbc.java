@@ -1,46 +1,47 @@
 package com.codecool.dungeoncrawl.dao;
 
-import com.codecool.dungeoncrawl.model.PlayerModel;
+import com.codecool.dungeoncrawl.model.InventoryModel;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
 
-public class PlayerDaoJdbc implements PlayerDao {
+public class InventoryDaoJdbc implements InventoryDao {
     private final DataSource dataSource;
 
-    public PlayerDaoJdbc(DataSource dataSource) {
+    public InventoryDaoJdbc(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
     @Override
-    public void add(PlayerModel player) {
+    public void add(InventoryModel inventory) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "INSERT INTO player (player_name, hp) VALUES (?, ?)";
+            String sql = "INSERT INTO inventory (player_id, type, equipped) VALUES (?, ?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, player.getPlayerName());
-            statement.setInt(2, player.getHp());
+            statement.setInt(1, inventory.getPlayer().getId());
+            statement.setString(2, inventory.getType());
+            statement.setBoolean(3, inventory.isEquipped());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();
-            player.setId(resultSet.getInt(1));
+            inventory.setId(resultSet.getInt(1));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void update(PlayerModel player) {
+    public void update(InventoryModel inventory) {
 
     }
 
     @Override
-    public PlayerModel get(int id) {
+    public InventoryModel get(int id) {
         return null;
     }
 
     @Override
-    public List<PlayerModel> getAll() {
+    public List<InventoryModel> getAll() {
         return null;
     }
 }
