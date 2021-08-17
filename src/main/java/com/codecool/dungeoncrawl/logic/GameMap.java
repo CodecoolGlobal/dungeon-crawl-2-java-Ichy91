@@ -40,7 +40,10 @@ public class GameMap {
         this.player = player;
     }
 
-    public void setPlayerName(String playerName) {
+    public void setPlayerName(String playerName) throws IllegalArgumentException {
+        if (playerName == "") {
+            throw new IllegalArgumentException("Invalid Player name!");
+        }
        player.setPlayerName(playerName);
     }
 
