@@ -18,7 +18,7 @@ public class GameMap {
     private Companion companion;
     private Sword sword;
     private Spear spear;
-//    private Armor armor;
+    //    private Armor armor;
 //    private Key key;
     private Armor armor;
     private Helmet helmet;
@@ -41,7 +41,7 @@ public class GameMap {
     }
 
     public void setPlayerName(String playerName) {
-       player.setPlayerName(playerName);
+        player.setPlayerName(playerName);
     }
 
     public void setCompanion(Companion companion) {
@@ -100,23 +100,29 @@ public class GameMap {
         player.setInventory(inventory);
     }
 
-    public String generateFuckingTextFromTheMapState (){
+    public String generateFuckingTextFromTheMapState() {
         StringBuilder sb = new StringBuilder(9999999);
+        int rows = cells.length;
+        int cols = cells[0].length;
 
-        for (Cell[] row : cells){
-            for (Cell cell : row){
-                if (cell.getItem()!= null && cell.getActor()!=null) {
-                sb.append(cell.getItem().getChar());
+        sb.append(rows + " " + cols + "\n");
+
+
+        for  (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++){
+                Cell cell = cells[x][y];
+                if (cell.getItem() != null || cell.getActor() != null) {
+                    if (cell.getItem() != null) {
+                        sb.append(cell.getItem().getChar());
+                    } else {
+                        sb.append(cell.getActor().getChar());
+                    }
                 } else {
-
+                    sb.append(cell.getType().getChar());
                 }
             }
             sb.append("\n");
-
-
         }
-
-
         return sb.toString();
     }
 
