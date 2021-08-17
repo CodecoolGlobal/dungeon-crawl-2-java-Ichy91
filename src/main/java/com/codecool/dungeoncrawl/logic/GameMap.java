@@ -100,4 +100,24 @@ public class GameMap {
         player.setInventory(inventory);
     }
 
+    public String generateFuckingTextFromTheMapState (){
+        StringBuilder sb = new StringBuilder(9999999);
+
+        for (Cell[] row : cells){
+            for (Cell cell : row){
+                if (cell.getItem()!= null && cell.getActor()!=null) {
+                sb.append(cell.getItem().getChar());
+                } else {
+
+                }
+            }
+            sb.append("\n");
+
+
+        }
+
+
+        return sb.toString();
+    }
+
 }
