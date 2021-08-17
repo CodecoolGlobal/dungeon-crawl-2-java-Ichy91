@@ -64,18 +64,15 @@ public class Main extends Application {
     }
 
 
-
     private void onKeyReleased(KeyEvent keyEvent) {
         KeyCombination exitCombinationMac = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
         KeyCombination exitCombinationWin = new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN);
         if (exitCombinationMac.match(keyEvent) ||
-        exitCombinationWin.match(keyEvent) ||
-        keyEvent.getCode() == KeyCode.ESCAPE) {
+                exitCombinationWin.match(keyEvent) ||
+                keyEvent.getCode() == KeyCode.ESCAPE) {
             exit();
         }
     }
-
-
 
 
     private void onKeyPressed(KeyEvent keyEvent) {
@@ -104,31 +101,35 @@ public class Main extends Application {
                 refresh();
                 break;
             case RIGHT:
-                map.getPlayer().move(1,0);
+                map.getPlayer().move(1, 0);
                 map.getCompanion().followPlayer(playerCell);
                 map.getPlayer().move(0, 0);
                 monsterMover();
                 refresh();
                 break;
             case SPACE:
-                if (map.getPlayer().isStandingOnItem()){
+                if (map.getPlayer().isStandingOnItem()) {
                     map.getPlayer().getCell().getItem().addToInventory();
+                    addItemsIntoInventoryList();
                     refresh();
                 }
                 break;
             case X:
-                int health = player.getHealth();
-                inventory = player.getInventory();
-                map = MapLoader.loadMap("/map3.txt");
-                if (developersName.contains(name)) map.getPlayer().setHealth(99);
-                player = map.getPlayer();
-                player.setPlayerName(name);
-                player.setHealth(health);
-                player.setInventory(inventory);
-                player.fillUpEquipedItems();
+                if (map.getPlayer().getCell().getType() == CellType.STAIRUP) {
+                    int health = player.getHealth();
+                    inventory = player.getInventory();
+                    map = MapLoader.loadMap("/map3.txt");
+                    if (developersName.contains(name)) map.getPlayer().setHealth(99);
+                    player = map.getPlayer();
+                    player.setPlayerName(name);
+                    player.setHealth(health);
+                    player.setInventory(inventory);
+                    player.fillUpEquipedItems();
+                }
                 refresh();
+                break;
             case W:
-                for (Item item : map.getPlayer().getInventory()){
+                for (Item item : map.getPlayer().getInventory()) {
                     if (item instanceof Sword) {
                         map.getPlayer().equipItem(item);
                         refresh();
@@ -137,7 +138,7 @@ public class Main extends Application {
                 }
                 break;
             case E:
-                for (Item item : map.getPlayer().getInventory()){
+                for (Item item : map.getPlayer().getInventory()) {
                     if (item instanceof Spear) {
                         map.getPlayer().equipItem(item);
                         refresh();
@@ -146,7 +147,7 @@ public class Main extends Application {
                 }
                 break;
             case R:
-                for (Item item : map.getPlayer().getInventory()){
+                for (Item item : map.getPlayer().getInventory()) {
                     if (item instanceof Armor) {
                         map.getPlayer().equipItem(item);
                         refresh();
@@ -156,7 +157,7 @@ public class Main extends Application {
                 break;
 
             case T:
-                for (Item item : map.getPlayer().getInventory()){
+                for (Item item : map.getPlayer().getInventory()) {
                     if (item instanceof Helmet) {
                         map.getPlayer().equipItem(item);
                         refresh();
@@ -170,7 +171,7 @@ public class Main extends Application {
                 break;
 
         }
-        if (map.getPlayer().isStandingOnItem()){
+        if (map.getPlayer().isStandingOnItem()) {
             pickUpButton.setDisable(false);
         }
 
@@ -181,16 +182,12 @@ public class Main extends Application {
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (int x = 0; x < 25; x++) {
             for (int y = 0; y < 25; y++) {
-                Cell cell = map.getCell(map.getPlayer().getX()-13 + x, map.getPlayer().getY()-13 +y);
+                Cell cell = map.getCell(map.getPlayer().getX() - 13 + x, map.getPlayer().getY() - 13 + y);
                 if (cell.getActor() != null) {
                     Tiles.drawTile(context, cell.getActor(), x, y);
-                }
-
-                else if (cell.getItem() != null) {
+                } else if (cell.getItem() != null) {
                     Tiles.drawTile(context, cell.getItem(), x, y);
-                }
-
-                else {
+                } else {
                     Tiles.drawTile(context, cell, x, y);
                 }
             }
@@ -198,7 +195,6 @@ public class Main extends Application {
         healthLabel.setText("" + map.getPlayer().getHealth());
         attackLabel.setText("" + map.getPlayer().getAttack());
         defenseLabel.setText("" + map.getPlayer().getDefense());
-        addItemsIntoInventoryList();
         inventoryLabel.setText(map.getPlayer().getKeys());
     }
 
@@ -214,7 +210,7 @@ public class Main extends Application {
         for (Item item : inventory) {
             if (item.getAttack() > 0) {
                 menuItem = new MenuItem(item.getTileName());
-                menuItem.setOnAction((e)-> {
+                menuItem.setOnAction((e) -> {
                     map.getPlayer().equipItem(item);
                     refresh();
                     System.out.println(item.getTileName() + " selected");
@@ -231,7 +227,7 @@ public class Main extends Application {
         for (Item item : inventory) {
             if (item.getDefense() > 0) {
                 menuItem = new MenuItem(item.getTileName());
-                menuItem.setOnAction((e)-> {
+                menuItem.setOnAction((e) -> {
                     map.getPlayer().equipItem(item);
                     refresh();
                     System.out.println(item.getTileName() + " selected");
@@ -243,13 +239,11 @@ public class Main extends Application {
 
 
     private void monsterMover() {
-        for (Monster monster: map.getMonsters()) {
-            if (monster.getHealth() <= 0){
+        for (Monster monster : map.getMonsters()) {
+            if (monster.getHealth() <= 0) {
                 map.getMonsters().remove(monster);
                 break;
-            }
-
-            else {
+            } else {
                 monster.monsterMove(monster);
                 if (monster instanceof GreenFox) monster.monsterMove(monster);
 
@@ -290,7 +284,7 @@ public class Main extends Application {
 
         TextField nameInputField = new TextField();
         nameInputField.relocate(660, 100);
-        nameInputField.setText("Default Fellow Codecooler" );
+        nameInputField.setText("Default Fellow Codecooler");
         nameInputField.setStyle("-fx-min-width: 100;\n" +
                 "-fx-background-color:#B53737 -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;");
         pane.getChildren().add(nameInputField);
@@ -376,6 +370,7 @@ public class Main extends Application {
             refresh();
         });
     }
+
     private void setupDbManager() {
         dbManager = new GameDatabaseManager();
         try {
