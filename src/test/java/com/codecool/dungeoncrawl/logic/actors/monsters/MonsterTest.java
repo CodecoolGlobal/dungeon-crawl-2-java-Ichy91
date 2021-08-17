@@ -30,7 +30,16 @@ class MonsterTest {
             assertTrue(7 != greenFox.getY());
         else
             assertTrue(7 != greenFox.getX());
+    }
 
+    @Test
+    void checkMonsterTileName() {
+        Skeleton skeleton = new Skeleton(gameMap.getCell(5, 5));
+        GreenFox greenFox = new GreenFox(gameMap.getCell(7, 7));
+        Guard guard = new Guard(gameMap.getCell(3, 3));
 
+        assertEquals("skeleton", skeleton.getTileName());
+        assertEquals("greenFox", greenFox.getTileName());
+        assertEquals("guard", guard.getTileName());
     }
 }

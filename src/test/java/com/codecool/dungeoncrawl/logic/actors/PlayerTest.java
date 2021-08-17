@@ -22,8 +22,14 @@ class PlayerTest {
 
     @Test
     void pickupItem () {
-        Armor armor = new Armor(gameMap.getCell(6, 6));
-        player.handlePickedUpItem(armor);
+        Armor armor = new Armor(gameMap.getCell(6, 5));
+        player.move(1, 0);
+
+        assertTrue(player.isStandingOnItem());
+        assertEquals(6, armor.getCell().getX());
+        assertEquals(5, armor.getCell().getY());
+
+        armor.addToInventory();
 
         assertEquals("armor", player.getInventory().get(0).getTileName());
     }
