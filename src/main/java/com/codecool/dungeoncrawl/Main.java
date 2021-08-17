@@ -81,6 +81,7 @@ public class Main extends Application {
             if (nameOfSave != null) {
                 PlayerModel playerModel = dbManager.savePlayer(player);
                 dbManager.saveGame(nameOfSave, map.generateFuckingTextFromTheMapState(), playerModel);
+                dbManager.saveInventory(playerModel, player.getInventory(), player.getEquippedItems());
             }
 
         }

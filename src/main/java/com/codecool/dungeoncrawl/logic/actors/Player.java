@@ -3,7 +3,6 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.items.HealingPotion;
 import com.codecool.dungeoncrawl.logic.items.Item;
-import com.codecool.dungeoncrawl.logic.items.Key;
 import com.codecool.dungeoncrawl.logic.items.Keys.BlueKey;
 import com.codecool.dungeoncrawl.logic.items.Keys.GreenKey;
 import com.codecool.dungeoncrawl.logic.items.Keys.RedKey;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 
 public class Player extends Actor {
     private ArrayList<Item> inventory = new ArrayList<>();
-    private final ArrayList<String> equipedItems = new ArrayList<>();
+    private final ArrayList<String> equippedItems = new ArrayList<>();
     private String tileName = "player";
 
     private String playerName = "";
@@ -62,14 +61,14 @@ public class Player extends Actor {
                 removeAllWeaponsFromEquippedElements();
             }
 
-            equipedItems.add(pickedUpItem.getTileName());
+            equippedItems.add(pickedUpItem.getTileName());
             visualAppearanceOfPlayer();
             increaseAttack(pickedUpItem);
             increaseDefense(pickedUpItem);
             pickedUpItem.setEquiped(true);
 
         } else {
-            equipedItems.remove(pickedUpItem.getTileName());
+            equippedItems.remove(pickedUpItem.getTileName());
             visualAppearanceOfPlayer();
             decreaseAttack(pickedUpItem);
             decreaseDefense(pickedUpItem);
@@ -87,24 +86,24 @@ public class Player extends Actor {
     }
 
     private void visualAppearanceOfPlayer() {
-        if (equipedItems.contains("sword")) tileName = "playerWithSword";
-        if (equipedItems.contains("spear")) tileName = "playerWithSpear";
-        if (equipedItems.contains("armor")) tileName = "playerWithArmor";
-        if (equipedItems.contains("helmet")) tileName = "playerWithHelmet";
-        if (equipedItems.contains("helmet") && equipedItems.contains("armor")) tileName = "playerWithHelmetAndArmor";
-        if (equipedItems.contains("sword") && equipedItems.contains("armor")) tileName = "playerWithSwordAndArmor";
-        if (equipedItems.contains("sword") && equipedItems.contains("helmet")) tileName = "playerWithSwordAndHelmet";
-        if (equipedItems.contains("spear") && equipedItems.contains("armor")) tileName = "playerWithSpearAndArmor";
-        if (equipedItems.contains("spear") && equipedItems.contains("helmet")) tileName = "playerWithSpearAndHelmet";
-        if (equipedItems.contains("sword") && equipedItems.contains("helmet") && equipedItems.contains("armor"))
+        if (equippedItems.contains("sword")) tileName = "playerWithSword";
+        if (equippedItems.contains("spear")) tileName = "playerWithSpear";
+        if (equippedItems.contains("armor")) tileName = "playerWithArmor";
+        if (equippedItems.contains("helmet")) tileName = "playerWithHelmet";
+        if (equippedItems.contains("helmet") && equippedItems.contains("armor")) tileName = "playerWithHelmetAndArmor";
+        if (equippedItems.contains("sword") && equippedItems.contains("armor")) tileName = "playerWithSwordAndArmor";
+        if (equippedItems.contains("sword") && equippedItems.contains("helmet")) tileName = "playerWithSwordAndHelmet";
+        if (equippedItems.contains("spear") && equippedItems.contains("armor")) tileName = "playerWithSpearAndArmor";
+        if (equippedItems.contains("spear") && equippedItems.contains("helmet")) tileName = "playerWithSpearAndHelmet";
+        if (equippedItems.contains("sword") && equippedItems.contains("helmet") && equippedItems.contains("armor"))
             tileName = "playerWithSwordAndHelmetAndArmor";
-        if (equipedItems.contains("spear") && equipedItems.contains("helmet") && equipedItems.contains("armor"))
+        if (equippedItems.contains("spear") && equippedItems.contains("helmet") && equippedItems.contains("armor"))
             tileName = "playerWithSpearAndHelmetAndArmor";
-        else if (equipedItems.isEmpty()) tileName = "player";
+        else if (equippedItems.isEmpty()) tileName = "player";
     }
 
     private void removeAllWeaponsFromEquippedElements() {
-        equipedItems.removeIf(item -> item.equals("sword") || item.equals("spear"));
+        equippedItems.removeIf(item -> item.equals("sword") || item.equals("spear"));
         for (Item item : inventory) {
             if (item.getTileName().equals("sword") || item.getTileName().equals("spear")) item.setEquiped(false);
         }
@@ -169,13 +168,14 @@ public class Player extends Actor {
 
     public void fillUpEquipedItems() {
         for (Item item : inventory) {
-            if (item.isEquiped()) equipedItems.add(item.getTileName());
+            if (item.isEquiped()) equippedItems.add(item.getTileName());
         }
         visualAppearanceOfPlayer();
     }
 
     public char getChar() {return '@';}
 
-
-
+    public ArrayList<String> getEquippedItems() {
+        return equippedItems;
+    }
 }
