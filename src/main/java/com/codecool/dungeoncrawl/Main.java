@@ -11,6 +11,8 @@ import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.Sword;
 import com.codecool.dungeoncrawl.logic.items.*;
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.model.GameState;
+import com.codecool.dungeoncrawl.model.PlayerModel;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -75,7 +77,12 @@ public class Main extends Application {
             exit();
         } else if (saveCombinationMac.match(keyEvent) ||
                 saveCombinationWin.match(keyEvent)) {
-            createPopUpWindow();
+            String nameOfSave = createPopUpWindow();
+            if (nameOfSave != null) {
+                PlayerModel playerModel = dbManager.savePlayer(player);
+                dbManager.saveGame(nameOfSave, map.generateFuckingTextFromTheMapState(), playerModel);
+            }
+
         }
     }
 
@@ -169,10 +176,6 @@ public class Main extends Application {
                         break;
                     }
                 }
-                break;
-            case S:
-                Player player = map.getPlayer();
-                dbManager.savePlayer(player);
                 break;
         }
         if (map.getPlayer().isStandingOnItem()) {
@@ -303,6 +306,7 @@ public class Main extends Application {
         startButton.setOnAction(event -> {
             name = String.valueOf(nameInputField.getText());
             map.setPlayerName(name);
+            player.setPlayerName(name);
             ArrayList<String> developersName = new ArrayList<>(Arrays.asList("isti", "saz", "mate", "martin"));
             if (developersName.contains(name.toLowerCase(Locale.ROOT))) map.getPlayer().setHealth(99);
             gamePlay(primaryStage);
