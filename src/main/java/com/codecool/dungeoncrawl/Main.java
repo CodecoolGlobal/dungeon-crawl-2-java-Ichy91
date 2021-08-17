@@ -34,7 +34,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 public class Main extends Application {
-    private GameMap map = MapLoader.loadMap("/map2.txt");
+    private GameMap map = MapLoader.loadMap("/mapTEST.txt");
     private Player player = map.getPlayer();
     private Canvas canvas = new Canvas(
             25 * Tiles.TILE_WIDTH,
@@ -166,8 +166,10 @@ public class Main extends Application {
                 }
                 break;
             case S:
-                Player player = map.getPlayer();
-                dbManager.savePlayer(player);
+                /*Player player = map.getPlayer();
+                dbManager.savePlayer(player);*/
+
+                System.out.println(map.generateFuckingTextFromTheMapState());
                 break;
 
         }
