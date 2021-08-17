@@ -49,4 +49,12 @@ public class GameState extends BaseModel {
     public void setPlayer(PlayerModel player) {
         this.player = player;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

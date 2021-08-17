@@ -15,6 +15,11 @@ public class GameDatabaseManager {
         playerDao = new PlayerDaoJdbc(dataSource);
     }
 
+    public void saveGame(Player player) {
+        PlayerModel model = new PlayerModel(player);
+        playerDao.add(model);
+    }
+
     public void savePlayer(Player player) {
         PlayerModel model = new PlayerModel(player);
         playerDao.add(model);
