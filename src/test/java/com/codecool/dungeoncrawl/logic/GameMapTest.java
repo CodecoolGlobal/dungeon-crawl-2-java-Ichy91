@@ -46,4 +46,10 @@ class GameMapTest {
         assertEquals("CodeCool", gameMap.getPlayer().getPlayerName());
     }
 
+    @Test
+    void setPlayerNameToEmptyStringThrowsException() {
+        GameMap gameMap = new GameMap(1, 1, CellType.EMPTY);
+        assertThrows(IllegalArgumentException.class, () ->  gameMap.setPlayerName(""));
+    }
+
 }

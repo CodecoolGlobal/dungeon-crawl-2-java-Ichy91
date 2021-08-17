@@ -11,4 +11,9 @@ class MapLoaderTest {
         assertEquals("floor", MapLoader.loadMap("/test.txt").getCell(3, 3).getTileName());
     }
 
+    @Test
+    void loadMapWithoutMapFileThrowsException() {
+        assertThrows(IllegalArgumentException.class, () -> MapLoader.loadMap(""));
+    }
+
 }
