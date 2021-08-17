@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl;
 
+import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
@@ -17,6 +18,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -24,6 +28,7 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
@@ -45,7 +50,7 @@ public class Main extends Application {
     private String name = "";
     private ArrayList<String> developersName = new ArrayList<>(Arrays.asList("isti", "saz", "mate", "martin"));
     private ArrayList<Item> inventory = new ArrayList<>();
-
+    private GameDatabaseManager dbManager;
 
 
     public static void main(String[] args) {
@@ -54,60 +59,23 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        SimpleAudioPlayer.playMusic();
-        splitMenuButtonWeapon.setText("Weapons");
-        splitMenuButtonDefense.setText("Defense");
-        splitMenuButtonWeapon.setOnAction((e) -> {
-            System.out.println("SplitMenuButtonAttack clicked!");
-        });
-        splitMenuButtonDefense.setOnAction((e) -> {
-            System.out.println("SplitMenuButtonDefense clicked!");
-        });
-        splitMenuButtonWeapon.setFocusTraversable(false);
-        splitMenuButtonDefense.setFocusTraversable(false);
-        splitMenuButtonDefense.setStyle("-fx-font-size: 15px; -fx-background-color: #0000ff; -fx-min-width: 140");
-        splitMenuButtonWeapon.setStyle("-fx-font-size: 15px; -fx-background-color: #0000ff; -fx-min-width: 140");
-
-
-        GridPane ui = new GridPane();
-        ui.setPrefWidth(200);
-        ui.setPadding(new Insets(10));
-
-        ui.add(new Label("Health: "), 0, 0);
-        ui.add(new Label("Attack: "), 0, 1);
-        ui.add(new Label("Defense: "), 0, 2);
-        ui.add(healthLabel, 1, 0);
-        ui.add(attackLabel, 1, 1);
-        ui.add(defenseLabel, 1, 2);
-        ui.add(splitMenuButtonWeapon, 0, 6);
-        ui.add(splitMenuButtonDefense, 0, 8);
-        pickUpButton.setText("pick up");
-        ui.add(pickUpButton, 0, 4);
-        ui.add(inventoryLabel, 0, 9);
-        pickUpButton.setDisable(true);
-        pickUpButton.setFocusTraversable(false);
-        pickUpButton.setStyle("-fx-font-size: 15px; -fx-background-color: #d9d9d9; -fx-border-width: 1px; -fx-border-color: #0000ff; -fx-min-width: 140");
-
-        BorderPane borderPane = new BorderPane();
-
-        borderPane.setCenter(canvas);
-        borderPane.setRight(ui);
-
-        Scene scene = new Scene(borderPane);
-        primaryStage.setScene(scene);
-        refresh();
-        scene.setOnKeyPressed(this::onKeyPressed);
-
-        primaryStage.setTitle("Dungeon Crawl");
-        primaryStage.show();
-
-        pickUpButton.setOnAction(event -> {
-            map.getPlayer().getCell().getItem().addToInventory();
-            pickUpButton.setDisable(true);
-            refresh();
-        });
+        setupDbManager();
         getNameFromUserWithWelcomeScene(primaryStage);
     }
+
+
+
+    private void onKeyReleased(KeyEvent keyEvent) {
+        KeyCombination exitCombinationMac = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
+        KeyCombination exitCombinationWin = new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN);
+        if (exitCombinationMac.match(keyEvent) ||
+        exitCombinationWin.match(keyEvent) ||
+        keyEvent.getCode() == KeyCode.ESCAPE) {
+            exit();
+        }
+    }
+
+
 
 
     private void onKeyPressed(KeyEvent keyEvent) {
@@ -195,6 +163,10 @@ public class Main extends Application {
                         break;
                     }
                 }
+                break;
+            case S:
+                Player player = map.getPlayer();
+                dbManager.savePlayer(player);
                 break;
 
         }
@@ -403,5 +375,22 @@ public class Main extends Application {
             pickUpButton.setDisable(true);
             refresh();
         });
+    }
+    private void setupDbManager() {
+        dbManager = new GameDatabaseManager();
+        try {
+            dbManager.setup();
+        } catch (SQLException ex) {
+            System.out.println("Cannot connect to database.");
+        }
+    }
+
+    private void exit() {
+        try {
+            stop();
+        } catch (Exception e) {
+            System.exit(1);
+        }
+        System.exit(0);
     }
 }
