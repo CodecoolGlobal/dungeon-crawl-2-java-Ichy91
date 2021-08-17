@@ -378,15 +378,21 @@ public class Main extends Application {
     }
 
     private void createPopUpWindow() {
+        Label nameLabel = new Label();
+        TextField nameInputField = new TextField();
+        nameInputField.setStyle("-fx-min-width: 100;\n" +
+                "-fx-background-color:#B53737 -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;");
         //Creating a dialog
-        Dialog<String> dialog = new Dialog<String>();
+        Dialog<String> dialog = new Dialog<>();
         //Setting the title
-        dialog.setTitle("Dialog");
-        ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+        dialog.setTitle("Save");
+        ButtonType saveButton = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
+        ButtonType closeButton = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
         //Setting the content of the dialog
         dialog.setContentText("This is a sample dialog");
         //Adding buttons to the dialog pane
-        dialog.getDialogPane().getButtonTypes().add(type);
+        dialog.getDialogPane().getButtonTypes().add(saveButton);
+        dialog.getDialogPane().getButtonTypes().add(closeButton);
         dialog.showAndWait();
     }
 
