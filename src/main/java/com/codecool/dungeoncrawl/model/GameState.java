@@ -11,8 +11,7 @@ public class GameState extends BaseModel {
     private List<String> discoveredMaps = new ArrayList<>();
     private PlayerModel player;
 
-    public GameState(Date savedAt, String name, String currentMap, PlayerModel player) {
-        this.savedAt = savedAt;
+    public GameState(String name, String currentMap, PlayerModel player) {
         this.name = name;
         this.currentMap = currentMap;
         this.player = player;
