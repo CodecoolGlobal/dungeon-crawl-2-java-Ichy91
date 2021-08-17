@@ -67,10 +67,15 @@ public class Main extends Application {
     private void onKeyReleased(KeyEvent keyEvent) {
         KeyCombination exitCombinationMac = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
         KeyCombination exitCombinationWin = new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN);
+        KeyCombination saveCombinationMac = new KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN);
+        KeyCombination saveCombinationWin = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
         if (exitCombinationMac.match(keyEvent) ||
                 exitCombinationWin.match(keyEvent) ||
                 keyEvent.getCode() == KeyCode.ESCAPE) {
             exit();
+        } else if (saveCombinationMac.match(keyEvent) ||
+                saveCombinationWin.match(keyEvent)) {
+            createPopUpWindow();
         }
     }
 
@@ -171,7 +176,6 @@ public class Main extends Application {
 
                 System.out.println(map.generateFuckingTextFromTheMapState());
                 break;
-
         }
         if (map.getPlayer().isStandingOnItem()) {
             pickUpButton.setDisable(false);
@@ -362,6 +366,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
+        scene.setOnKeyReleased(this::onKeyReleased);
 
         primaryStage.setTitle("THE CODECOOL JOURNEY");
         primaryStage.show();
@@ -371,6 +376,21 @@ public class Main extends Application {
             pickUpButton.setDisable(true);
             refresh();
         });
+    }
+
+    private String createPopUpWindow() {
+        //Creating a dialog
+        TextInputDialog dialog = new TextInputDialog();
+        //Setting buttons
+        ((Button) dialog.getDialogPane().lookupButton(ButtonType.OK)).setText("Save");
+        //Setting the title
+        dialog.setTitle("Save menu");
+        dialog.setHeaderText("Save your game!");
+        //Setting the content of the dialog
+        dialog.setContentText("Name");
+        //Adding buttons to the dialog pane
+        dialog.showAndWait();
+        return dialog.getResult();
     }
 
     private void setupDbManager() {
