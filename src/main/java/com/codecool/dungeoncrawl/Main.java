@@ -125,7 +125,7 @@ public class Main extends Application {
                 player.setPlayerName(name);
                 player.setHealth(health);
                 player.setInventory(inventory);
-                player.fillUpEquipedItems();
+                player.fillUpEquippedItems();
                 refresh();
             case W:
                 for (Item item : map.getPlayer().getInventory()){
