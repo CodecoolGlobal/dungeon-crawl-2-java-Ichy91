@@ -67,10 +67,15 @@ public class Main extends Application {
     private void onKeyReleased(KeyEvent keyEvent) {
         KeyCombination exitCombinationMac = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
         KeyCombination exitCombinationWin = new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN);
+        KeyCombination saveCombinationMac = new KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN);
+        KeyCombination saveCombinationWin = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
         if (exitCombinationMac.match(keyEvent) ||
                 exitCombinationWin.match(keyEvent) ||
                 keyEvent.getCode() == KeyCode.ESCAPE) {
             exit();
+        } else if (saveCombinationMac.match(keyEvent) ||
+                saveCombinationWin.match(keyEvent)) {
+            createPopUpWindow();
         }
     }
 
@@ -169,7 +174,6 @@ public class Main extends Application {
                 Player player = map.getPlayer();
                 dbManager.savePlayer(player);
                 break;
-
         }
         if (map.getPlayer().isStandingOnItem()) {
             pickUpButton.setDisable(false);
@@ -360,6 +364,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
+        scene.setOnKeyReleased(this::onKeyReleased);
 
         primaryStage.setTitle("THE CODECOOL JOURNEY");
         primaryStage.show();
