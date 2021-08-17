@@ -142,4 +142,7 @@ public abstract class Actor implements Drawable {
     public boolean hasKey(String color){
         return false;
     }
+
+    public char getChar() {return ' ';}
+
 }

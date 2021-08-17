@@ -174,5 +174,8 @@ public class Player extends Actor {
         visualAppearanceOfPlayer();
     }
 
+    public char getChar() {return '@';}
+
+
 
 }

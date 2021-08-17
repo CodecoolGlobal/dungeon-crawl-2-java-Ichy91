@@ -18,4 +18,7 @@ public class GreenFox extends Monster{
 
     @Override
     public void handlePickedUpItem(Item item) {}
+
+    public char getChar() {return 'f';}
+
 }

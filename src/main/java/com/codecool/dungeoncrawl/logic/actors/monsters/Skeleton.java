@@ -18,4 +18,7 @@ public class Skeleton extends Monster {
     public String getTileName() {
         return "skeleton";
     }
+
+    public char getChar() {return 's';}
+
 }

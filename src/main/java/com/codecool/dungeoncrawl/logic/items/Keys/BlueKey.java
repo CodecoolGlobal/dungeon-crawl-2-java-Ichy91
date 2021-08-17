@@ -13,4 +13,7 @@ public class BlueKey extends Key {
     public String getTileName() {
         return "blue-key";
     }
+
+    public char getChar() {return 'b';}
+
 }

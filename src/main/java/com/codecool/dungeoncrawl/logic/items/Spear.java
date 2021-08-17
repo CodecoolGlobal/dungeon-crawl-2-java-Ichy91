@@ -15,4 +15,7 @@ public class Spear extends Item {
     public String getTileName() {
         return "spear";
     }
+
+    public char getChar() {return 'P';}
+
 }

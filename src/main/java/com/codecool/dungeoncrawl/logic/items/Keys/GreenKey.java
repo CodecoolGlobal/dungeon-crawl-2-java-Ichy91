@@ -13,4 +13,7 @@ public class GreenKey extends Key {
     public String getTileName() {
         return "green-key";
     }
+
+    public char getChar() {return 'g';}
+
 }

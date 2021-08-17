@@ -16,4 +16,7 @@ public class HealingPotion extends Item{
     public String getTileName() {
         return "healingPotion";
     }
+
+    public char getChar() {return 'h';}
+
 }

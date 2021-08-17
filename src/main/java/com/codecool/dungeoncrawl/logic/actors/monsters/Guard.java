@@ -23,4 +23,7 @@ public class Guard extends Monster{
 
     @Override
     public void handlePickedUpItem(Item item) {}
+
+    public char getChar() {return 'ö';}
+
 }

@@ -15,4 +15,7 @@ public class Armor extends Item{
     public String getTileName() {
         return "armor";
     }
+
+    public char getChar() {return 'A';}
+
 }
