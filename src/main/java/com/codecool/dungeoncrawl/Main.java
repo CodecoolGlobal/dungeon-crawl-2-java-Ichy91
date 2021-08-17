@@ -13,6 +13,7 @@ import com.codecool.dungeoncrawl.logic.items.*;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -24,6 +25,10 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.FileInputStream;
@@ -297,11 +302,12 @@ public class Main extends Application {
         startButton.setOnMouseEntered(e -> startButton.setStyle(HOVERED_BUTTON_STYLE));
         startButton.setOnMouseExited(e -> startButton.setStyle(IDLE_BUTTON_STYLE));
         startButton.setOnAction(event -> {
-            name = String.valueOf(nameInputField.getText());
-            map.setPlayerName(name);
-            ArrayList<String> developersName = new ArrayList<>(Arrays.asList("isti", "saz", "mate", "martin"));
-            if (developersName.contains(name.toLowerCase(Locale.ROOT))) map.getPlayer().setHealth(99);
-            gamePlay(primaryStage);
+            createPopUpWindow();
+//            name = String.valueOf(nameInputField.getText());
+//            map.setPlayerName(name);
+//            ArrayList<String> developersName = new ArrayList<>(Arrays.asList("isti", "saz", "mate", "martin"));
+//            if (developersName.contains(name.toLowerCase(Locale.ROOT))) map.getPlayer().setHealth(99);
+//            gamePlay(primaryStage);
         });
         pane.getChildren().add(startButton);
 
@@ -369,6 +375,19 @@ public class Main extends Application {
             pickUpButton.setDisable(true);
             refresh();
         });
+    }
+
+    private void createPopUpWindow() {
+        //Creating a dialog
+        Dialog<String> dialog = new Dialog<String>();
+        //Setting the title
+        dialog.setTitle("Dialog");
+        ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+        //Setting the content of the dialog
+        dialog.setContentText("This is a sample dialog");
+        //Adding buttons to the dialog pane
+        dialog.getDialogPane().getButtonTypes().add(type);
+        dialog.showAndWait();
     }
 
     private void setupDbManager() {
