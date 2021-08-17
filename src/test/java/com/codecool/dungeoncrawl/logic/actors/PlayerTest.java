@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
+import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.items.*;
@@ -88,10 +89,12 @@ class PlayerTest {
         player.equipItem(helmet);
 
         assertEquals("playerWithSwordAndHelmetAndArmor", player.getTileName());
+        assertEquals(15, player.getAttack());
 
         player.equipItem(spear);
 
         assertEquals("playerWithSpearAndHelmetAndArmor", player.getTileName());
+        assertEquals(15, player.getDefense());
     }
 
     @Test
@@ -127,5 +130,29 @@ class PlayerTest {
         assertTrue(player.hasKey("Blue"));
         assertTrue(player.hasKey("Green"));
         assertTrue(player.hasKey("Red"));
+    }
+
+    @Test
+    void playerOpenDoors() {
+        gameMap.getCell(6, 5).setType(CellType.BLUE_CLOSED_DOOR);
+        gameMap.getCell(7, 5).setType(CellType.GREEN_CLOSED_DOOR);
+        gameMap.getCell(8, 5).setType(CellType.RED_CLOSED_DOOR);
+
+        BlueKey blueKey = new BlueKey(gameMap.getCell(2, 2));
+        GreenKey greenKey = new GreenKey(gameMap.getCell(3, 3));
+        RedKey redKey = new RedKey(gameMap.getCell(4, 4));
+
+        player.handlePickedUpItem(blueKey);
+        player.handlePickedUpItem(greenKey);
+        player.handlePickedUpItem(redKey);
+
+        player.move(1,0);
+        assertEquals("OPENED_DOOR", player.getCell().getType().toString());
+
+        player.move(1,0);
+        assertEquals("OPENED_DOOR", player.getCell().getType().toString());
+
+        player.move(1,0);
+        assertEquals("OPENED_DOOR", player.getCell().getType().toString());
     }
 }
