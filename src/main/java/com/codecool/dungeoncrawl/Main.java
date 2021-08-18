@@ -80,7 +80,7 @@ public class Main extends Application {
             String nameOfSave = createPopUpWindow();
             if (nameOfSave != null) {
                 if (dbManager.isNameAlreadyInDB(nameOfSave)) {
-                    System.out.println("Here");
+                    createOverwriteWindow();
                 } else {
                     PlayerModel playerModel = dbManager.savePlayer(player);
                     dbManager.saveGame(nameOfSave, map.generateFuckingTextFromTheMapState(), playerModel);
@@ -398,6 +398,17 @@ public class Main extends Application {
         //Adding buttons to the dialog pane
         dialog.showAndWait();
         return dialog.getResult();
+    }
+    private void createOverwriteWindow() {
+        //Creating a dialog
+        ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle("Confirmation Tab");
+        dialog.setContentText("Would you like to overwrite the already existing state?");
+        dialog.getDialogPane().getButtonTypes().add(noButton);
+        dialog.getDialogPane().getButtonTypes().add(yesButton);
+        dialog.showAndWait();
     }
 
     private void setupDbManager() {
