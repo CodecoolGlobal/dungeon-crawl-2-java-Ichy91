@@ -99,8 +99,4 @@ public class GameMap {
         return height;
     }
 
-    public void setInventory(ArrayList<Item> inventory) {
-        player.setInventory(inventory);
-    }
-
 }

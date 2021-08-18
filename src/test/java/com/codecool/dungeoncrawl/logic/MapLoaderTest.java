@@ -8,12 +8,17 @@ class MapLoaderTest {
 
     @Test
     void loadMapTest() {
-        assertEquals("floor", MapLoader.loadMap("/test.txt").getCell(3, 3).getTileName());
+        assertEquals("roofRight", MapLoader.loadMap("/test2.txt").getCell(3, 3).getTileName());
     }
 
     @Test
     void loadMapWithoutMapFileThrowsException() {
         assertThrows(IllegalArgumentException.class, () -> MapLoader.loadMap(""));
+    }
+
+    @Test
+    void loadMapWithWrongCharacterInTxtFileTest() {
+        assertThrows(RuntimeException.class, () -> MapLoader.loadMap("/test.txt"));
     }
 
 }

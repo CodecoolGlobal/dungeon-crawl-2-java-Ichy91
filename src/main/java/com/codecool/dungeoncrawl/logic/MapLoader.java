@@ -19,7 +19,7 @@ import java.util.Scanner;
 
 public class MapLoader {
 
-    public static GameMap loadMap(String level) throws IllegalArgumentException {
+    public static GameMap loadMap(String level) throws IllegalArgumentException, RuntimeException {
 
         if (level == "") {
             throw new IllegalArgumentException("No map found!");

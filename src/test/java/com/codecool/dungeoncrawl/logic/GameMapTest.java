@@ -14,8 +14,8 @@ class GameMapTest {
     @Test
     void gameMapGettersTest() {
         GameMap gameMap = new GameMap(50, 50, CellType.FLOOR);
-        assertEquals(null, gameMap.getPlayer());
-        assertEquals(null, gameMap.getCompanion());
+        assertNull(gameMap.getPlayer());
+        assertNull(gameMap.getCompanion());
         assertEquals(50, gameMap.getWidth());
         assertEquals(50, gameMap.getHeight());
         assertEquals(new ArrayList<>(), gameMap.getMonsters());
