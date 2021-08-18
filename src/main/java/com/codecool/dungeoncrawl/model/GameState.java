@@ -2,14 +2,14 @@ package com.codecool.dungeoncrawl.model;
 
 import java.util.ArrayList;
 import java.sql.Date;
-import java.util.List;
 
 public class GameState extends BaseModel {
     private Date savedAt;
-    private String name;
-    private String currentMap;
-    private List<String> discoveredMaps = new ArrayList<>();
     private PlayerModel player;
+    private ArrayList<InventoryModel> inventory = new ArrayList<>();
+    private String currentMap;
+    private String name;
+//    private List<String> discoveredMaps = new ArrayList<>();
     private Integer playerId;
 
     public GameState(String name, String currentMap, PlayerModel player) {
@@ -23,6 +23,14 @@ public class GameState extends BaseModel {
         this.currentMap = currentMap;
         this.playerId = playerId;
     }
+
+    public GameState(PlayerModel player, ArrayList<InventoryModel> inventory, String map) {
+        this.savedAt = new Date(System.currentTimeMillis());
+        this.player = player;
+        this.inventory = inventory;
+        this.currentMap = map;
+    }
+
 
     public Date getSavedAt() {
         return savedAt;
@@ -40,13 +48,13 @@ public class GameState extends BaseModel {
         this.currentMap = currentMap;
     }
 
-    public List<String> getDiscoveredMaps() {
-        return discoveredMaps;
-    }
-
-    public void addDiscoveredMap(String map) {
-        this.discoveredMaps.add(map);
-    }
+//    public List<String> getDiscoveredMaps() {
+//        return discoveredMaps;
+//    }
+//
+//    public void addDiscoveredMap(String map) {
+//        this.discoveredMaps.add(map);
+//    }
 
     public PlayerModel getPlayer() {
         return player;

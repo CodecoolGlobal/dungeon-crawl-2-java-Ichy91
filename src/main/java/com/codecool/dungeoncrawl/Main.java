@@ -11,7 +11,10 @@ import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.Sword;
 import com.codecool.dungeoncrawl.logic.items.*;
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.model.GameState;
+import com.codecool.dungeoncrawl.model.InventoryModel;
 import com.codecool.dungeoncrawl.model.PlayerModel;
+import com.google.gson.Gson;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -27,13 +30,9 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
 
 public class Main extends Application {
     private GameMap map = MapLoader.loadMap("/map2.txt");
@@ -323,6 +322,7 @@ public class Main extends Application {
 
         exportGameButton.setOnAction((e) -> {
             System.out.println("ExportGameButton clicked!");
+            exportGame();
         });
 
         splitMenuButtonWeapon.setOnAction((e) -> {
@@ -432,6 +432,34 @@ public class Main extends Application {
                 dbManager.saveInventory(playerModel, player.getInventory(), player.getEquippedItems());
             }
         }
+    }
+
+    private void exportGame() {
+        ArrayList<InventoryModel> inventoryModelList = createInventoryModelList();
+        GameState gameState = new GameState(new PlayerModel(player), inventoryModelList, map.generateFuckingTextFromTheMapState());
+
+        String json = new Gson().toJson(gameState);
+
+        try {
+            FileOutputStream fileInputStream = new FileOutputStream("gameState.json");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileInputStream);
+            objectOutputStream.writeObject(json);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private ArrayList<InventoryModel> createInventoryModelList() {
+        ArrayList<InventoryModel> inventoryModelList = new ArrayList<>();
+
+        for (Item item: player.getInventory()) {
+            inventoryModelList.add(new InventoryModel(item.getTileName(), item.isEquiped()));
+        }
+
+        return inventoryModelList;
     }
 
     private void setupDbManager() {
