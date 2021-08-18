@@ -412,7 +412,7 @@ public class Main extends Application {
     private void updateAction(String nameOfSave) {
         PlayerModel playerModel = dbManager.updatePlayer(player, nameOfSave);
         dbManager.updateGame(nameOfSave, map.generateFuckingTextFromTheMapState(), playerModel);
-        dbManager.updateInventory(playerModel, player.getInventory(), player.getEquippedItems());
+        dbManager.updateInventory(nameOfSave, playerModel, player.getInventory(), player.getEquippedItems());
     }
 
     private void saveAction() {

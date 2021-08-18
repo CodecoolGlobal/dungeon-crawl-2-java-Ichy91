@@ -51,16 +51,15 @@ public class GameDatabaseManager {
         Integer playerId = gameStateDao.get(nameOfSaving).getPlayerId();
         PlayerModel model = new PlayerModel(player);
         model.setId(playerId);
-
         playerDao.update(model);
         return model;
     }
 
-    public void updateInventory(PlayerModel player, ArrayList<Item> inventory, ArrayList<String> equippedItems) {
+    public void updateInventory(String nameOfSaving, PlayerModel player, ArrayList<Item> inventory, ArrayList<String> equippedItems) {
+        Integer playerId = gameStateDao.get(nameOfSaving).getPlayerId();
+        inventoryDao.removeItemsWithGivenPlayerId(playerId);
         for (Item item : inventory) {
-            String itemName = item.getTileName();
-            InventoryModel model = new InventoryModel(player, itemName, equippedItems.contains(itemName));
-            inventoryDao.update(model);
+
         }
     }
 

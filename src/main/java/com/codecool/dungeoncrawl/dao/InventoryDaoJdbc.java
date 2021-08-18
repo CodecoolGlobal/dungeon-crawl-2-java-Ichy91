@@ -34,18 +34,17 @@ public class InventoryDaoJdbc implements InventoryDao {
     }
 
     @Override
-    public void update(InventoryModel inventory) {
-        try (Connection conn = dataSource.getConnection()){
-            String sql = "UPDATE inventory SET type = ?, equipped = ? WHERE id = ?";
+    public void removeItemsWithGivenPlayerId(Integer playerId) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "DELETE FROM inventory WHERE player_id = ?;";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, inventory.getType());
-            statement.setBoolean(2, inventory.isEquipped());
-            statement.setInt(3, inventory.getId());
+            statement.setInt(1, playerId);
             statement.executeUpdate();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
 
     @Override
     public InventoryModel get(int playerId) {
