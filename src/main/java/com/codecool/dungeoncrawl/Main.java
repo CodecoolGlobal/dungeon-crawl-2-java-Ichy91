@@ -312,7 +312,7 @@ public class Main extends Application {
 
 
         Button loadButton = new Button();
-        loadButton.setText("LOAD A FUCKING PRESAVED GAMESZKÓ");
+        loadButton.setText("LOAD");
         pane.getChildren().add(loadButton);
         loadButton.setOnAction(event -> {
             createLoadPopUp(primaryStage);
