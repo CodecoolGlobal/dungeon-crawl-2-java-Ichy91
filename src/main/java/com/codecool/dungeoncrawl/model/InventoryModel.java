@@ -14,9 +14,9 @@ public class InventoryModel extends BaseModel{
 
     public InventoryModel(String type, boolean equipped) {
         this.type = type;
-        this.equipped = equipped; 
+        this.equipped = equipped;
     }
-  
+
     public InventoryModel(Integer playerId) {
         this.playerId = playerId;
     }

@@ -47,6 +47,7 @@ public class InventoryDaoJdbc implements InventoryDao {
 
 
     @Override
+
     public List<InventoryModel> get(int id) {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "SELECT type, equipped FROM inventory WHERE player_id = ?";

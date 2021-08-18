@@ -15,6 +15,11 @@ import com.codecool.dungeoncrawl.logic.items.Keys.GreenKey;
 import com.codecool.dungeoncrawl.logic.items.Keys.RedKey;
 import com.codecool.dungeoncrawl.logic.items.Sword;
 import com.codecool.dungeoncrawl.logic.items.*;
+import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.model.GameState;
+import com.codecool.dungeoncrawl.model.InventoryModel;
+import com.codecool.dungeoncrawl.model.PlayerModel;
+import com.google.gson.Gson;
 import com.codecool.dungeoncrawl.logic.actors.Player;import com.codecool.dungeoncrawl.model.GameState;
 import com.codecool.dungeoncrawl.model.InventoryModel;
 import com.codecool.dungeoncrawl.model.PlayerModel;
@@ -32,12 +37,13 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.sql.SQLException;
 import java.util.*;
+
 import java.util.stream.Collectors;
 
 public class Main extends Application {
@@ -53,6 +59,7 @@ public class Main extends Application {
     private final SplitMenuButton splitMenuButtonWeapon = new SplitMenuButton();
     private final SplitMenuButton splitMenuButtonDefense = new SplitMenuButton();
     private Button pickUpButton = new Button();
+    private Button exportGameButton = new Button();
     private Label inventoryLabel = new Label();
     private String name = "";
     private ArrayList<String> developersName = new ArrayList<>(Arrays.asList("isti", "saz", "mate", "martin"));
@@ -81,7 +88,8 @@ public class Main extends Application {
             exit();
         } else if (saveCombinationMac.match(keyEvent) ||
                 saveCombinationWin.match(keyEvent)) {
-            saveAction();
+                saveAction();
+
         }
     }
 
@@ -333,14 +341,28 @@ public class Main extends Application {
         SimpleAudioPlayer.playMusic();
         splitMenuButtonWeapon.setText("Weapons");
         splitMenuButtonDefense.setText("Defense");
+        exportGameButton.setText("Export Game");
+
+        exportGameButton.setOnAction((e) -> {
+            System.out.println("ExportGameButton clicked!");
+
+            String directory = selectDirectory(primaryStage);
+            String filename = null;
+            if (directory != null) filename = addFileName();
+            if (directory != null && filename != null) exportGame(directory, filename);
+        });
+
         splitMenuButtonWeapon.setOnAction((e) -> {
             System.out.println("SplitMenuButtonAttack clicked!");
         });
         splitMenuButtonDefense.setOnAction((e) -> {
             System.out.println("SplitMenuButtonDefense clicked!");
         });
+
+        exportGameButton.setFocusTraversable(false);
         splitMenuButtonWeapon.setFocusTraversable(false);
         splitMenuButtonDefense.setFocusTraversable(false);
+        exportGameButton.setStyle("-fx-font-size: 15px; -fx-min-width: 140");
         splitMenuButtonDefense.setStyle("-fx-font-size: 15px; -fx-background-color: #0000ff; -fx-min-width: 140");
         splitMenuButtonWeapon.setStyle("-fx-font-size: 15px; -fx-background-color: #0000ff; -fx-min-width: 140");
 
@@ -361,6 +383,7 @@ public class Main extends Application {
         pickUpButton.setText("pick up");
         ui.add(pickUpButton, 0, 5);
         ui.add(inventoryLabel, 0, 10);
+        ui.add(exportGameButton, 0, 40);
         pickUpButton.setDisable(true);
         pickUpButton.setFocusTraversable(false);
         pickUpButton.setStyle("-fx-font-size: 15px; -fx-background-color: #d9d9d9; -fx-border-width: 1px; -fx-border-color: #0000ff; -fx-min-width: 140");
@@ -437,6 +460,60 @@ public class Main extends Application {
                 dbManager.saveInventory(playerModel, player.getInventory(), player.getEquippedItems());
             }
         }
+    }
+
+
+    private String selectDirectory(Stage primaryStage) {
+        try {
+            DirectoryChooser chooser = new DirectoryChooser();
+            chooser.setTitle("JavaFX Projects");
+            File selectedDirectory = chooser.showDialog(primaryStage);
+            chooser.setInitialDirectory(selectedDirectory);
+
+            return chooser.getInitialDirectory().toString();
+        }
+        catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    private String addFileName() {
+        TextInputDialog filename = new TextInputDialog();
+        ((Button) filename.getDialogPane().lookupButton(ButtonType.OK)).setText("Save");
+        filename.setTitle("Save Game State");
+        filename.setHeaderText("Save your Game State");
+        filename.setContentText("File name");
+        filename.showAndWait();
+
+        return filename.getResult();
+    }
+
+    private void exportGame(String directory, String filename) {
+        ArrayList<InventoryModel> inventoryModelList = createInventoryModelList();
+        GameState gameState = new GameState(new PlayerModel(player), inventoryModelList, map.generateFuckingTextFromTheMapState());
+
+        String json = new Gson().toJson(gameState);
+
+        try {
+            FileOutputStream fileInputStream = new FileOutputStream(directory + "/" + filename +".json");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileInputStream);
+            objectOutputStream.writeObject(json);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private ArrayList<InventoryModel> createInventoryModelList() {
+        ArrayList<InventoryModel> inventoryModelList = new ArrayList<>();
+
+        for (Item item: player.getInventory()) {
+            inventoryModelList.add(new InventoryModel(item.getTileName(), item.isEquiped()));
+        }
+
+        return inventoryModelList;
     }
 
     private void setupDbManager() {
