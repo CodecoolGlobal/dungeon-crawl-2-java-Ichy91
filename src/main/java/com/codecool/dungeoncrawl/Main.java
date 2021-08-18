@@ -84,7 +84,6 @@ public class Main extends Application {
                 dbManager.saveGame(nameOfSave, map.generateFuckingTextFromTheMapState(), playerModel);
                 dbManager.saveInventory(playerModel, player.getInventory(), player.getEquippedItems());
             }
-
         }
     }
 
