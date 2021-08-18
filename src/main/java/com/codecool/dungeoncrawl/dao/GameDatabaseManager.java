@@ -10,6 +10,7 @@ import org.postgresql.ds.PGSimpleDataSource;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GameDatabaseManager {
     private PlayerDao playerDao;
@@ -61,5 +62,13 @@ public class GameDatabaseManager {
         System.out.println("Connection ok.");
 
         return dataSource;
+    }
+
+    public List<GameState> getAllSavedGameStates(){
+        return gameStateDao.getAll();
+    }
+
+    public PlayerModel getPlayerById(int id){
+        return playerDao.get(id);
     }
 }

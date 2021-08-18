@@ -22,6 +22,7 @@ import java.util.Scanner;
 public class MapLoader {
 
     public static GameMap loadMap(String level) {
+        System.out.println(level);
         InputStream is;
         if (level.length()<20) {
             is = MapLoader.class.getResourceAsStream(level);}

@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.model;
 
+import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 
 public class PlayerModel extends BaseModel {
@@ -13,6 +14,12 @@ public class PlayerModel extends BaseModel {
     public PlayerModel(Player player) {
         this.playerName = player.getPlayerName();
         this.hp = player.getHealth();
+
+    }
+
+    public PlayerModel(String playerName, int hp) {
+        this.playerName = playerName;
+        this.hp = hp;
 
     }
 
@@ -32,4 +39,7 @@ public class PlayerModel extends BaseModel {
         this.hp = hp;
     }
 
+    public Player getAFuckingPlayer(Cell cell) {
+        return new Player(cell, this.hp);
+    }
 }

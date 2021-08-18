@@ -23,6 +23,13 @@ public class Player extends Actor {
         this.attack = 5;
     }
 
+    public Player(Cell cell, int health){
+        super(cell);
+        this.health = health;
+        this.defense = 0;
+        this.attack = 5;
+    }
+
     @Override
     public String getTileName() {
         return tileName;

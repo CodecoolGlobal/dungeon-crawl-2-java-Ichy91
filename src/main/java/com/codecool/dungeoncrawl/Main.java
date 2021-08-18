@@ -1,6 +1,8 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
+import com.codecool.dungeoncrawl.dao.GameStateDao;
+import com.codecool.dungeoncrawl.dao.GameStateDaoJdbc;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
@@ -31,11 +33,8 @@ import javafx.stage.Stage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main extends Application {
     private GameMap map = MapLoader.loadMap("/map2.txt");
@@ -79,7 +78,7 @@ public class Main extends Application {
             exit();
         } else if (saveCombinationMac.match(keyEvent) ||
                 saveCombinationWin.match(keyEvent)) {
-                saveAction();
+            saveAction();
         }
     }
 
@@ -196,6 +195,7 @@ public class Main extends Application {
                 }
             }
         }
+
         healthLabel.setText("" + map.getPlayer().getHealth());
         attackLabel.setText("" + map.getPlayer().getAttack());
         defenseLabel.setText("" + map.getPlayer().getDefense());
@@ -314,10 +314,10 @@ public class Main extends Application {
         Button loadButton = new Button();
         loadButton.setText("LOAD A FUCKING PRESAVED GAMESZKÓ");
         pane.getChildren().add(loadButton);
-        loadButton.setOnAction(event -> {createLoadPopUp();
+        loadButton.setOnAction(event -> {
+            createLoadPopUp(primaryStage);
 
         });
-
 
 
         Scene scene = new Scene(pane);
@@ -400,6 +400,7 @@ public class Main extends Application {
         dialog.showAndWait();
         return dialog.getResult();
     }
+
     private void createOverwriteWindow() {
         //Creating a dialog
         ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
@@ -413,7 +414,7 @@ public class Main extends Application {
         Optional<ButtonType> result = dialog.showAndWait();
         if (result.isPresent() && result.get() == yesButton) {
             System.out.println("wow");
-        } else if(result.isPresent() && result.get() == noButton) {
+        } else if (result.isPresent() && result.get() == noButton) {
             saveAction();
         }
     }
@@ -449,18 +450,35 @@ public class Main extends Application {
         System.exit(0);
     }
 
-    private void createLoadPopUp() {
-        List<String> choices = new ArrayList<>();
-        choices.add("FULL");
-        choices.add("A");
-        choices.add("BULL");
-
+    private void createLoadPopUp(Stage primaryStage) {
+        List<GameState> states = dbManager.getAllSavedGameStates();
+        List<String> choices = states.stream().map(GameState::getName).collect(Collectors.toList());
         ChoiceDialog<String> dialog = new ChoiceDialog<>("choose...", choices);
         dialog.setTitle("Load Saved Game");
         dialog.setHeaderText("full-e a bull?");
         dialog.setContentText("choose:");
 
-        dialog.showAndWait();
+        String result = dialog.showAndWait().orElse("tefasz");
+
+        if (result != "tefasz") {
+
+
+            map = MapLoader.loadMap(states
+                    .stream()
+                    .filter(t -> t.getName().equals(result))
+                    .map(GameState::getCurrentMap)
+                    .findFirst().orElse(""));
+            int HP = dbManager.getPlayerById(states.stream().filter(t -> t.getName().equals(result)).map(GameState::getPlayerId).findFirst().orElse(222)).getHp();
+            String newName = dbManager.getPlayerById(states.stream().filter(t -> t.getName().equals(result)).map(GameState::getPlayerId).findFirst().orElse(20)).getPlayerName();
+            System.out.println(newName);
+            System.out.println(HP);
+            this.player = map.getPlayer();
+            player.setHealth(HP);
+            player.setPlayerName(newName);
+            name = newName;
+            gamePlay(primaryStage);
+
+        }
 
     }
 }
