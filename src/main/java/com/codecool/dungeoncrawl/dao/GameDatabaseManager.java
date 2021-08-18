@@ -42,6 +42,26 @@ public class GameDatabaseManager {
         }
     }
 
+    public void updateGame(String nameOfSave, String map, PlayerModel player) {
+        GameState model = new GameState(nameOfSave, map, player);
+        gameStateDao.update(model);
+    }
+
+    public PlayerModel updatePlayer(Player player, String nameOfSaving) {
+        Integer playerId = gameStateDao.get(nameOfSaving).getPlayerId();
+        PlayerModel model = new PlayerModel(player);
+        model.setId(playerId);
+        playerDao.update(model);
+        return model;
+    }
+
+    public void updateInventory(Player player, String nameOfSaving) {
+        Integer playerId = gameStateDao.get(nameOfSaving).getPlayerId();
+//        InventoryModel model = new InventoryModel(new PlayerModel(player), );
+//        model.setId(playerId);
+//        inventoryDao.update(model);
+    }
+
     public boolean isNameAlreadyInDB(String nameOfSaving) {
         return gameStateDao.get(nameOfSaving) != null;
     }

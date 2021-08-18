@@ -390,7 +390,7 @@ public class Main extends Application {
         dialog.showAndWait();
         return dialog.getResult();
     }
-    private void createOverwriteWindow() {
+    private void createOverwriteWindow(String nameOfSave) {
         //Creating a dialog
         ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
         ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -402,7 +402,8 @@ public class Main extends Application {
 
         Optional<ButtonType> result = dialog.showAndWait();
         if (result.isPresent() && result.get() == yesButton) {
-            System.out.println("wow");
+            PlayerModel playerModel = dbManager.updatePlayer(player, nameOfSave);
+            dbManager.updateGame(nameOfSave, map.generateFuckingTextFromTheMapState(), playerModel);
         } else if(result.isPresent() && result.get() == noButton) {
             saveAction();
         }
@@ -410,15 +411,15 @@ public class Main extends Application {
 
     private void saveAction() {
         String nameOfSave = createPopUpWindow();
-        if (nameOfSave != null) {
+        if (nameOfSave != null && !nameOfSave.equals("")) {
             if (dbManager.isNameAlreadyInDB(nameOfSave)) {
-                createOverwriteWindow();
+                createOverwriteWindow(nameOfSave);
             } else {
                 PlayerModel playerModel = dbManager.savePlayer(player);
                 dbManager.saveGame(nameOfSave, map.generateFuckingTextFromTheMapState(), playerModel);
                 dbManager.saveInventory(playerModel, player.getInventory(), player.getEquippedItems());
             }
-        }
+        } else saveAction();
     }
 
     private void setupDbManager() {
