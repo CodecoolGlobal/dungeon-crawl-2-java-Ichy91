@@ -8,23 +8,26 @@ import com.codecool.dungeoncrawl.logic.items.*;
 import com.codecool.dungeoncrawl.logic.actors.monsters.Skeleton;
 import com.codecool.dungeoncrawl.logic.items.Armor;
 import com.codecool.dungeoncrawl.logic.items.HealingPotion;
+import com.codecool.dungeoncrawl.logic.items.Key;
 import com.codecool.dungeoncrawl.logic.items.Keys.BlueKey;
 import com.codecool.dungeoncrawl.logic.items.Keys.GreenKey;
 import com.codecool.dungeoncrawl.logic.items.Keys.RedKey;
 import com.codecool.dungeoncrawl.logic.items.Sword;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class MapLoader {
 
-    public static GameMap loadMap(String level) throws IllegalArgumentException, RuntimeException {
-
-        if (level == "") {
-            throw new IllegalArgumentException("No map found!");
+    public static GameMap loadMap(String level) {
+        System.out.println(level);
+        InputStream is;
+        if (level.length()<20) {
+            is = MapLoader.class.getResourceAsStream(level);}
+        else {is = new ByteArrayInputStream(level.getBytes(StandardCharsets.UTF_8));
         }
-
-        InputStream is = MapLoader.class.getResourceAsStream(level);
 
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
