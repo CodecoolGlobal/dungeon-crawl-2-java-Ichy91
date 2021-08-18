@@ -11,7 +11,6 @@ import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.Sword;
 import com.codecool.dungeoncrawl.logic.items.*;
 import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.model.GameState;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -65,7 +64,6 @@ public class Main extends Application {
         getNameFromUserWithWelcomeScene(primaryStage);
     }
 
-
     private void onKeyReleased(KeyEvent keyEvent) {
         KeyCombination exitCombinationMac = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
         KeyCombination exitCombinationWin = new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN);
@@ -86,7 +84,6 @@ public class Main extends Application {
 
         }
     }
-
 
     private void onKeyPressed(KeyEvent keyEvent) {
         Cell playerCell = map.getPlayer().getCell();
@@ -137,7 +134,7 @@ public class Main extends Application {
                     player.setPlayerName(name);
                     player.setHealth(health);
                     player.setInventory(inventory);
-                    player.fillUpEquipedItems();
+                    player.fillUpEquippedItems();
                 }
                 refresh();
                 break;
@@ -228,7 +225,6 @@ public class Main extends Application {
         }
     }
 
-
     private void addDefenseItems(ArrayList<Item> inventory) {
         splitMenuButtonDefense.getItems().clear();
         MenuItem menuItem;
@@ -244,7 +240,6 @@ public class Main extends Application {
             }
         }
     }
-
 
     private void monsterMover() {
         for (Monster monster : map.getMonsters()) {

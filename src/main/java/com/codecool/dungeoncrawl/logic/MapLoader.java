@@ -8,7 +8,6 @@ import com.codecool.dungeoncrawl.logic.items.*;
 import com.codecool.dungeoncrawl.logic.actors.monsters.Skeleton;
 import com.codecool.dungeoncrawl.logic.items.Armor;
 import com.codecool.dungeoncrawl.logic.items.HealingPotion;
-import com.codecool.dungeoncrawl.logic.items.Key;
 import com.codecool.dungeoncrawl.logic.items.Keys.BlueKey;
 import com.codecool.dungeoncrawl.logic.items.Keys.GreenKey;
 import com.codecool.dungeoncrawl.logic.items.Keys.RedKey;
