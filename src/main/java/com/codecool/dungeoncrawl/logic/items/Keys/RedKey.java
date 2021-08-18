@@ -8,6 +8,9 @@ public class RedKey extends Key {
         super(cell);
     }
 
+    public RedKey() {}
+
+
     @Override
     public String getTileName() {
         return "red-key";

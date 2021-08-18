@@ -16,6 +16,12 @@ public class PlayerModel extends BaseModel {
 
     }
 
+    public PlayerModel(String playerName, int hp) {
+        this.playerName = playerName;
+        this.hp = hp;
+
+    }
+
     public String getPlayerName() {
         return playerName;
     }
@@ -31,5 +37,4 @@ public class PlayerModel extends BaseModel {
     public void setHp(int hp) {
         this.hp = hp;
     }
-
 }
