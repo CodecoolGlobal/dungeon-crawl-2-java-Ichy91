@@ -64,6 +64,7 @@ public class InventoryDaoJdbc implements InventoryDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
 
     @Override
     public List<InventoryModel> getAll() {
