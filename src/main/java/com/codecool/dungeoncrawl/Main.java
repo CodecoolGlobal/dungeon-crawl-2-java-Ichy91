@@ -15,8 +15,7 @@ import com.codecool.dungeoncrawl.logic.items.Keys.GreenKey;
 import com.codecool.dungeoncrawl.logic.items.Keys.RedKey;
 import com.codecool.dungeoncrawl.logic.items.Sword;
 import com.codecool.dungeoncrawl.logic.items.*;
-import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.model.GameState;
+import com.codecool.dungeoncrawl.logic.actors.Player;import com.codecool.dungeoncrawl.model.GameState;
 import com.codecool.dungeoncrawl.model.InventoryModel;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 import com.sun.jdi.connect.spi.Connection;
@@ -71,7 +70,6 @@ public class Main extends Application {
         getNameFromUserWithWelcomeScene(primaryStage);
     }
 
-
     private void onKeyReleased(KeyEvent keyEvent) {
         KeyCombination exitCombinationMac = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
         KeyCombination exitCombinationWin = new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN);
@@ -86,7 +84,6 @@ public class Main extends Application {
             saveAction();
         }
     }
-
 
     private void onKeyPressed(KeyEvent keyEvent) {
         Cell playerCell = map.getPlayer().getCell();
@@ -137,7 +134,7 @@ public class Main extends Application {
                     player.setPlayerName(name);
                     player.setHealth(health);
                     player.setInventory(inventory);
-                    player.fillUpEquipedItems();
+                    player.fillUpEquippedItems();
                 }
                 refresh();
                 break;
@@ -229,7 +226,6 @@ public class Main extends Application {
         }
     }
 
-
     private void addDefenseItems(ArrayList<Item> inventory) {
         splitMenuButtonDefense.getItems().clear();
         MenuItem menuItem;
@@ -245,7 +241,6 @@ public class Main extends Application {
             }
         }
     }
-
 
     private void monsterMover() {
         for (Monster monster : map.getMonsters()) {
@@ -406,7 +401,8 @@ public class Main extends Application {
         return dialog.getResult();
     }
 
-    private void createOverwriteWindow() {
+
+    private void createOverwriteWindow(String nameOfSave) {
         //Creating a dialog
         ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
         ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -418,17 +414,23 @@ public class Main extends Application {
 
         Optional<ButtonType> result = dialog.showAndWait();
         if (result.isPresent() && result.get() == yesButton) {
-            System.out.println("wow");
-        } else if (result.isPresent() && result.get() == noButton) {
+            updateAction(nameOfSave);
+        } else if(result.isPresent() && result.get() == noButton) {
             saveAction();
         }
     }
 
+    private void updateAction(String nameOfSave) {
+        PlayerModel playerModel = dbManager.updatePlayer(player, nameOfSave);
+        dbManager.updateGame(nameOfSave, map.generateFuckingTextFromTheMapState(), playerModel);
+        dbManager.updateInventory(nameOfSave, playerModel, player.getInventory(), player.getEquippedItems());
+    }
+
     private void saveAction() {
         String nameOfSave = createPopUpWindow();
-        if (nameOfSave != null) {
+        if (nameOfSave != null && !nameOfSave.equals("")) {
             if (dbManager.isNameAlreadyInDB(nameOfSave)) {
-                createOverwriteWindow();
+                createOverwriteWindow(nameOfSave);
             } else {
                 PlayerModel playerModel = dbManager.savePlayer(player);
                 dbManager.saveGame(nameOfSave, map.generateFuckingTextFromTheMapState(), playerModel);

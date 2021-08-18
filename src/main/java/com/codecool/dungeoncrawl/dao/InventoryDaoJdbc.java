@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.dao;
 
+import com.codecool.dungeoncrawl.model.GameState;
 import com.codecool.dungeoncrawl.model.InventoryModel;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 
@@ -33,18 +34,17 @@ public class InventoryDaoJdbc implements InventoryDao {
     }
 
     @Override
-    public void update(InventoryModel inventory) {
+    public void removeItemsWithGivenPlayerId(Integer playerId) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "UPDATE inventory SET type = ?, equipped = ? WHERE player_id = ?";
+            String sql = "DELETE FROM inventory WHERE player_id = ?;";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, inventory.getType());
-            statement.setBoolean(2, inventory.isEquipped());
-            statement.setInt(3, inventory.getPlayer().getId());
+            statement.setInt(1, playerId);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
 
     @Override
     public List<InventoryModel> get(int id) {
@@ -64,7 +64,6 @@ public class InventoryDaoJdbc implements InventoryDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
 
     @Override
     public List<InventoryModel> getAll() {

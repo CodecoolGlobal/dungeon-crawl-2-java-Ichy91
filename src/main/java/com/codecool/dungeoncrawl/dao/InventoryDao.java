@@ -8,5 +8,6 @@ public interface InventoryDao {
     void add(InventoryModel inventory);
     void update(InventoryModel inventory);
     List<InventoryModel> get(int id);
+    void removeItemsWithGivenPlayerId(Integer playerId);
     List<InventoryModel> getAll();
 }

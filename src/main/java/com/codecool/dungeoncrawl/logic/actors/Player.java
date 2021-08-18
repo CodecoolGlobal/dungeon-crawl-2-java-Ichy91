@@ -119,16 +119,16 @@ public class Player extends Actor {
         String s = "";
         for (Item item : this.inventory) {
             if (item instanceof RedKey) {
-                String redkey = "[RED]";
-                s = s.concat(redkey);
+                String key = "[RED]";
+                s = s.concat(key);
             }
             if (item instanceof BlueKey) {
-                String redkey = "[BLUE]";
-                s = s.concat(redkey);
+                String key = "[BLUE]";
+                s = s.concat(key);
             }
             if (item instanceof GreenKey) {
-                String redkey = "[GREEN]";
-                s = s.concat(redkey);
+                String key = "[GREEN]";
+                s = s.concat(key);
             }
         }
         return s;
@@ -173,7 +173,7 @@ public class Player extends Actor {
         this.inventory = inventory;
     }
 
-    public void fillUpEquipedItems() {
+    public void fillUpEquippedItems() {
         for (Item item : inventory) {
             if (item.isEquiped()) equippedItems.add(item.getTileName());
         }
