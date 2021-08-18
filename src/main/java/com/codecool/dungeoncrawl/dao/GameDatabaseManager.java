@@ -51,15 +51,17 @@ public class GameDatabaseManager {
         Integer playerId = gameStateDao.get(nameOfSaving).getPlayerId();
         PlayerModel model = new PlayerModel(player);
         model.setId(playerId);
+
         playerDao.update(model);
         return model;
     }
 
-    public void updateInventory(Player player, String nameOfSaving) {
-        Integer playerId = gameStateDao.get(nameOfSaving).getPlayerId();
-//        InventoryModel model = new InventoryModel(new PlayerModel(player), );
-//        model.setId(playerId);
-//        inventoryDao.update(model);
+    public void updateInventory(PlayerModel player, ArrayList<Item> inventory, ArrayList<String> equippedItems) {
+        for (Item item : inventory) {
+            String itemName = item.getTileName();
+            InventoryModel model = new InventoryModel(player, itemName, equippedItems.contains(itemName));
+            inventoryDao.update(model);
+        }
     }
 
     public boolean isNameAlreadyInDB(String nameOfSaving) {
