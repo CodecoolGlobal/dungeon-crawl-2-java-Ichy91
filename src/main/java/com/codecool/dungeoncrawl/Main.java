@@ -79,9 +79,14 @@ public class Main extends Application {
                 saveCombinationWin.match(keyEvent)) {
             String nameOfSave = createPopUpWindow();
             if (nameOfSave != null) {
-                PlayerModel playerModel = dbManager.savePlayer(player);
-                dbManager.saveGame(nameOfSave, map.generateFuckingTextFromTheMapState(), playerModel);
-                dbManager.saveInventory(playerModel, player.getInventory(), player.getEquippedItems());
+                if (dbManager.isNameAlreadyInDB(nameOfSave)) {
+                    System.out.println("Here");
+                } else {
+                    PlayerModel playerModel = dbManager.savePlayer(player);
+                    dbManager.saveGame(nameOfSave, map.generateFuckingTextFromTheMapState(), playerModel);
+                    dbManager.saveInventory(playerModel, player.getInventory(), player.getEquippedItems());
+                }
+
             }
         }
     }

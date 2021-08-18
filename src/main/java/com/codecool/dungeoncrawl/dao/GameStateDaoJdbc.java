@@ -54,8 +54,7 @@ public class GameStateDaoJdbc implements GameStateDao {
             ResultSet rs = statement.executeQuery();
             if (!rs.next()) return null; // first row was not found == no data was returned by the query
 
-            GameState gameState = new GameState(rs.getString(2), rs.getString(3), rs.getInt(4));
-            return gameState;
+            return new GameState(rs.getString(2), rs.getString(3), rs.getInt(5));
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

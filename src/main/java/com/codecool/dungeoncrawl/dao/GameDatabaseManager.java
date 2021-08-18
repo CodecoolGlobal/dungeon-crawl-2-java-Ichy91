@@ -42,6 +42,10 @@ public class GameDatabaseManager {
         }
     }
 
+    public boolean isNameAlreadyInDB(String nameOfSaving) {
+        return gameStateDao.get(nameOfSaving) != null;
+    }
+
     private DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
         String user = System.getenv("PSQL_USER_NAME");
