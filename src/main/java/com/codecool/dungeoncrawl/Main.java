@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 public class Main extends Application {
     private GameMap map = MapLoader.loadMap("/map2.txt");
@@ -78,12 +79,7 @@ public class Main extends Application {
             exit();
         } else if (saveCombinationMac.match(keyEvent) ||
                 saveCombinationWin.match(keyEvent)) {
-            String nameOfSave = createPopUpWindow();
-            if (nameOfSave != null) {
-                PlayerModel playerModel = dbManager.savePlayer(player);
-                dbManager.saveGame(nameOfSave, map.generateFuckingTextFromTheMapState(), playerModel);
-                dbManager.saveInventory(playerModel, player.getInventory(), player.getEquippedItems());
-            }
+                saveAction();
         }
     }
 
@@ -403,6 +399,36 @@ public class Main extends Application {
         //Adding buttons to the dialog pane
         dialog.showAndWait();
         return dialog.getResult();
+    }
+    private void createOverwriteWindow() {
+        //Creating a dialog
+        ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Confirmation Tab");
+        dialog.setContentText("Would you like to overwrite the already existing state?");
+        dialog.getDialogPane().getButtonTypes().add(noButton);
+        dialog.getDialogPane().getButtonTypes().add(yesButton);
+
+        Optional<ButtonType> result = dialog.showAndWait();
+        if (result.isPresent() && result.get() == yesButton) {
+            System.out.println("wow");
+        } else if(result.isPresent() && result.get() == noButton) {
+            saveAction();
+        }
+    }
+
+    private void saveAction() {
+        String nameOfSave = createPopUpWindow();
+        if (nameOfSave != null) {
+            if (dbManager.isNameAlreadyInDB(nameOfSave)) {
+                createOverwriteWindow();
+            } else {
+                PlayerModel playerModel = dbManager.savePlayer(player);
+                dbManager.saveGame(nameOfSave, map.generateFuckingTextFromTheMapState(), playerModel);
+                dbManager.saveInventory(playerModel, player.getInventory(), player.getEquippedItems());
+            }
+        }
     }
 
     private void setupDbManager() {

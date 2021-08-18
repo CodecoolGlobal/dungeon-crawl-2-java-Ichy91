@@ -10,11 +10,18 @@ public class GameState extends BaseModel {
     private String currentMap;
     private List<String> discoveredMaps = new ArrayList<>();
     private PlayerModel player;
+    private Integer playerId;
 
     public GameState(String name, String currentMap, PlayerModel player) {
         this.name = name;
         this.currentMap = currentMap;
         this.player = player;
+    }
+
+    public GameState(String name, String currentMap, Integer playerId) {
+        this.name = name;
+        this.currentMap = currentMap;
+        this.playerId = playerId;
     }
 
     public Date getSavedAt() {
@@ -55,5 +62,13 @@ public class GameState extends BaseModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(Integer playerId) {
+        this.playerId = playerId;
     }
 }

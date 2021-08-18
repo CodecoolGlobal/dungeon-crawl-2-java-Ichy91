@@ -35,11 +35,10 @@ public class GameStateDaoJdbc implements GameStateDao {
     @Override
     public void update(GameState state) {
         try (Connection conn = dataSource.getConnection()){
-            String sql = "UPDATE game_state SET current_map = ?, saved_at = ?  WHERE player_id = ?";
+            String sql = "UPDATE game_state SET current_map = ?, saved_at = CURRENT_TIMESTAMP  WHERE player_id = ?";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, state.getCurrentMap());
-            statement.setDate(2, state.getSavedAt());
-            statement.setInt(3, state.getPlayer().getId());
+            statement.setInt(2, state.getPlayer().getId());
             statement.executeUpdate();
         }catch (SQLException e){
             throw new RuntimeException(e);
@@ -55,13 +54,11 @@ public class GameStateDaoJdbc implements GameStateDao {
             ResultSet rs = statement.executeQuery();
             if (!rs.next()) return null; // first row was not found == no data was returned by the query
 
-            GameState gameState = new GameState(rs.getString(2), rs.getString(3), rs.)
-//            Author author = new Author(rs.getString(1), rs.getString(2), rs.getDate(3));
-//            author.setId(id); // we already knew author id, so we do not read it from database.
-            return gameState;
+            return new GameState(rs.getString(2), rs.getString(3), rs.getInt(5));
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
     }
 
     @Override
