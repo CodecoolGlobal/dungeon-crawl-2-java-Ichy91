@@ -1,6 +1,5 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
-import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.items.*;
@@ -25,14 +24,19 @@ class PlayerTest {
     void pickupItem () {
         Armor armor = new Armor(gameMap.getCell(6, 5));
         player.move(1, 0);
-
-        assertTrue(player.isStandingOnItem());
-        assertEquals(6, armor.getCell().getX());
-        assertEquals(5, armor.getCell().getY());
-
         armor.addToInventory();
 
         assertEquals("armor", player.getInventory().get(0).getTileName());
+    }
+
+    @Test
+    void playerStandingOnItem() {
+        HealingPotion healingPotion = new HealingPotion(gameMap.getCell(6, 5));
+        player.move(1, 0);
+
+        assertEquals(6, healingPotion.getCell().getX());
+        assertEquals(5, healingPotion.getCell().getY());
+        assertTrue(player.isStandingOnItem());
     }
 
     @Test
