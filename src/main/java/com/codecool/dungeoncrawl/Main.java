@@ -475,8 +475,8 @@ public class Main extends Application {
                     .findFirst().orElse(""));
             int HP = dbManager.getPlayerById(states.stream().filter(t -> t.getName().equals(result)).map(GameState::getPlayerId).findFirst().orElse(222)).getHp();
             String newName = dbManager.getPlayerById(states.stream().filter(t -> t.getName().equals(result)).map(GameState::getPlayerId).findFirst().orElse(20)).getPlayerName();
-            System.out.println(newName);
-            System.out.println(HP);
+
+
             this.player = map.getPlayer();
             player.setHealth(HP);
             player.setPlayerName(newName);

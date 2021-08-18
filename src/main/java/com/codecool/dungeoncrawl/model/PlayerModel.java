@@ -1,6 +1,5 @@
 package com.codecool.dungeoncrawl.model;
 
-import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 
 public class PlayerModel extends BaseModel {
@@ -37,9 +36,5 @@ public class PlayerModel extends BaseModel {
 
     public void setHp(int hp) {
         this.hp = hp;
-    }
-
-    public Player getAFuckingPlayer(Cell cell) {
-        return new Player(cell, this.hp);
     }
 }
