@@ -47,6 +47,7 @@ public class Main extends Application {
     private final SplitMenuButton splitMenuButtonWeapon = new SplitMenuButton();
     private final SplitMenuButton splitMenuButtonDefense = new SplitMenuButton();
     private Button pickUpButton = new Button();
+    private Button exportGameButton = new Button();
     private Label inventoryLabel = new Label();
     private String name = "";
     private ArrayList<String> developersName = new ArrayList<>(Arrays.asList("isti", "saz", "mate", "martin"));
@@ -323,14 +324,23 @@ public class Main extends Application {
         SimpleAudioPlayer.playMusic();
         splitMenuButtonWeapon.setText("Weapons");
         splitMenuButtonDefense.setText("Defense");
+        exportGameButton.setText("Export Game");
+
+        exportGameButton.setOnAction((e) -> {
+            System.out.println("ExportGameButton clicked!");
+        });
+
         splitMenuButtonWeapon.setOnAction((e) -> {
             System.out.println("SplitMenuButtonAttack clicked!");
         });
         splitMenuButtonDefense.setOnAction((e) -> {
             System.out.println("SplitMenuButtonDefense clicked!");
         });
+
+        exportGameButton.setFocusTraversable(false);
         splitMenuButtonWeapon.setFocusTraversable(false);
         splitMenuButtonDefense.setFocusTraversable(false);
+        exportGameButton.setStyle("-fx-font-size: 15px; -fx-min-width: 140");
         splitMenuButtonDefense.setStyle("-fx-font-size: 15px; -fx-background-color: #0000ff; -fx-min-width: 140");
         splitMenuButtonWeapon.setStyle("-fx-font-size: 15px; -fx-background-color: #0000ff; -fx-min-width: 140");
 
@@ -351,6 +361,7 @@ public class Main extends Application {
         pickUpButton.setText("pick up");
         ui.add(pickUpButton, 0, 5);
         ui.add(inventoryLabel, 0, 10);
+        ui.add(exportGameButton, 0, 40);
         pickUpButton.setDisable(true);
         pickUpButton.setFocusTraversable(false);
         pickUpButton.setStyle("-fx-font-size: 15px; -fx-background-color: #d9d9d9; -fx-border-width: 1px; -fx-border-color: #0000ff; -fx-min-width: 140");
