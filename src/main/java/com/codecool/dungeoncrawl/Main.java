@@ -10,11 +10,16 @@ import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.monsters.GreenFox;
 import com.codecool.dungeoncrawl.logic.actors.monsters.Monster;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.Keys.BlueKey;
+import com.codecool.dungeoncrawl.logic.items.Keys.GreenKey;
+import com.codecool.dungeoncrawl.logic.items.Keys.RedKey;
 import com.codecool.dungeoncrawl.logic.items.Sword;
 import com.codecool.dungeoncrawl.logic.items.*;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.model.GameState;
+import com.codecool.dungeoncrawl.model.InventoryModel;
 import com.codecool.dungeoncrawl.model.PlayerModel;
+import com.sun.jdi.connect.spi.Connection;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -458,9 +463,9 @@ public class Main extends Application {
         dialog.setHeaderText("full-e a bull?");
         dialog.setContentText("choose:");
 
-        String result = dialog.showAndWait().orElse("tefasz");
+        String result = dialog.showAndWait().orElse("");
 
-        if (result != "tefasz") {
+        if (!result.equals("")) {
 
 
             map = MapLoader.loadMap(states
@@ -476,9 +481,42 @@ public class Main extends Application {
             player.setHealth(HP);
             player.setPlayerName(newName);
             name = newName;
+            List<Item> loadInventory = new ArrayList<>();
+            int id = states.stream()
+                    .filter(t -> t.getName().equals(result))
+                    .map(GameState::getPlayerId)
+                    .findFirst().orElse(1);
+            for (InventoryModel model : dbManager.getItemsByPlayerId(id)){
+                loadInventory.add(getItemByModel(model));
+            }
+
+            player.setInventory((ArrayList<Item>) loadInventory);
+
+            this.inventory = (ArrayList<Item>) loadInventory;
+            addItemsIntoInventoryList();
             gamePlay(primaryStage);
+
 
         }
 
     }
+    private Item getItemByModel (InventoryModel item){
+         switch (item.getType()){
+             case "spear":
+                 return new Spear();
+             case "sword":
+                 return new Sword();
+             case "armor":
+                 return new Armor();
+             case "helmet":
+                 return new Helmet();
+             case "green-key":
+                 return new GreenKey();
+             case "blue-key":
+                 return new BlueKey();
+             case "red-key":
+                 return new RedKey();
+         } return null;
+    }
+
 }

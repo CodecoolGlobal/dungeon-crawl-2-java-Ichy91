@@ -11,6 +11,12 @@ public class Key extends Item{
         this.health = 0;
     }
 
+    public Key() {
+        this.attack = 0;
+        this.defense = 0;
+        this.health = 0;
+    }
+
     @Override
     public String getTileName() {
 

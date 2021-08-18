@@ -1,9 +1,11 @@
 package com.codecool.dungeoncrawl.dao;
 
 import com.codecool.dungeoncrawl.model.InventoryModel;
+import com.codecool.dungeoncrawl.model.PlayerModel;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class InventoryDaoJdbc implements InventoryDao {
@@ -32,21 +34,36 @@ public class InventoryDaoJdbc implements InventoryDao {
 
     @Override
     public void update(InventoryModel inventory) {
-        try (Connection conn = dataSource.getConnection()){
+        try (Connection conn = dataSource.getConnection()) {
             String sql = "UPDATE inventory SET type = ?, equipped = ? WHERE player_id = ?";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, inventory.getType());
             statement.setBoolean(2, inventory.isEquipped());
             statement.setInt(3, inventory.getPlayer().getId());
             statement.executeUpdate();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public InventoryModel get(int id) {
-        return null;
+    public List<InventoryModel> get(int id) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT type, equipped FROM inventory WHERE player_id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+            List<InventoryModel> inventory = new ArrayList<>();
+
+            while (rs.next()){
+                inventory.add(new InventoryModel(rs.getString(1), rs.getBoolean(2)));
+            }
+
+            return inventory;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

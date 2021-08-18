@@ -11,6 +11,12 @@ public class Helmet extends Item {
         this.health = 0;
     }
 
+    public Helmet() {
+        this.attack = 0;
+        this.defense = 5;
+        this.health = 0;
+    }
+
     @Override
     public String getTileName() {
         return "helmet";

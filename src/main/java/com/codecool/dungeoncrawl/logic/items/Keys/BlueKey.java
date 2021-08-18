@@ -8,6 +8,7 @@ public class BlueKey extends Key {
     public BlueKey(Cell cell) {
         super(cell);
     }
+    public BlueKey() {}
 
     @Override
     public String getTileName() {

@@ -71,4 +71,8 @@ public class GameDatabaseManager {
     public PlayerModel getPlayerById(int id){
         return playerDao.get(id);
     }
+
+    public List<InventoryModel> getItemsByPlayerId(int id){
+        return inventoryDao.get(id);
+    }
 }
