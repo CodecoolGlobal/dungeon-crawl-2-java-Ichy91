@@ -33,6 +33,7 @@ import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 public class Main extends Application {
@@ -315,6 +316,15 @@ public class Main extends Application {
         pane.getChildren().add(startButton);
 
 
+        Button loadButton = new Button();
+        loadButton.setText("LOAD A FUCKING PRESAVED GAMESZKÓ");
+        pane.getChildren().add(loadButton);
+        loadButton.setOnAction(event -> {createLoadPopUp();
+
+        });
+
+
+
         Scene scene = new Scene(pane);
         primaryStage.setWidth(1500);
         primaryStage.setHeight(1000);
@@ -412,5 +422,20 @@ public class Main extends Application {
             System.exit(1);
         }
         System.exit(0);
+    }
+
+    private void createLoadPopUp() {
+        List<String> choices = new ArrayList<>();
+        choices.add("FULL");
+        choices.add("A");
+        choices.add("BULL");
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("choose...", choices);
+        dialog.setTitle("Load Saved Game");
+        dialog.setHeaderText("full-e a bull?");
+        dialog.setContentText("choose:");
+
+        dialog.showAndWait();
+
     }
 }
