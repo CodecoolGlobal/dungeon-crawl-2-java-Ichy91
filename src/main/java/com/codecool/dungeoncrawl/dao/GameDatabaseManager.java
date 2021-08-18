@@ -59,7 +59,9 @@ public class GameDatabaseManager {
         Integer playerId = gameStateDao.get(nameOfSaving).getPlayerId();
         inventoryDao.removeItemsWithGivenPlayerId(playerId);
         for (Item item : inventory) {
-
+            String itemName = item.getTileName();
+            InventoryModel model = new InventoryModel(player, itemName, equippedItems.contains(itemName));
+            inventoryDao.add(model);
         }
     }
 
