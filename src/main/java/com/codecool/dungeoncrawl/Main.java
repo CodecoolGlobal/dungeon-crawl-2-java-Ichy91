@@ -28,6 +28,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -322,7 +323,11 @@ public class Main extends Application {
 
         exportGameButton.setOnAction((e) -> {
             System.out.println("ExportGameButton clicked!");
-            exportGame();
+
+            String directory = selectDirectory(primaryStage);
+            String filename = null;
+            if (directory != null) filename = addFileName();
+            if (directory != null && filename != null) exportGame(directory, filename);
         });
 
         splitMenuButtonWeapon.setOnAction((e) -> {
@@ -434,14 +439,39 @@ public class Main extends Application {
         }
     }
 
-    private void exportGame() {
+    private String selectDirectory(Stage primaryStage) {
+        try {
+            DirectoryChooser chooser = new DirectoryChooser();
+            chooser.setTitle("JavaFX Projects");
+            File selectedDirectory = chooser.showDialog(primaryStage);
+            chooser.setInitialDirectory(selectedDirectory);
+
+            return chooser.getInitialDirectory().toString();
+        }
+        catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    private String addFileName() {
+        TextInputDialog filename = new TextInputDialog();
+        ((Button) filename.getDialogPane().lookupButton(ButtonType.OK)).setText("Save");
+        filename.setTitle("Save Game State");
+        filename.setHeaderText("Save your Game State");
+        filename.setContentText("File name");
+        filename.showAndWait();
+
+        return filename.getResult();
+    }
+
+    private void exportGame(String directory, String filename) {
         ArrayList<InventoryModel> inventoryModelList = createInventoryModelList();
         GameState gameState = new GameState(new PlayerModel(player), inventoryModelList, map.generateFuckingTextFromTheMapState());
 
         String json = new Gson().toJson(gameState);
 
         try {
-            FileOutputStream fileInputStream = new FileOutputStream("gameState.json");
+            FileOutputStream fileInputStream = new FileOutputStream(directory + "/" + filename +".json");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileInputStream);
             objectOutputStream.writeObject(json);
             objectOutputStream.flush();
