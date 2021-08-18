@@ -487,7 +487,11 @@ public class Main extends Application {
                     .map(GameState::getPlayerId)
                     .findFirst().orElse(1);
             for (InventoryModel model : dbManager.getItemsByPlayerId(id)){
-                loadInventory.add(getItemByModel(model));
+                Item item = getItemByModel(model);
+                loadInventory.add(item);
+                if (model.isEquipped()){
+                    player.equipItem(item);
+                }
             }
 
             player.setInventory((ArrayList<Item>) loadInventory);
