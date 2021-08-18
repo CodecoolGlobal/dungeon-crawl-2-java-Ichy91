@@ -42,33 +42,6 @@ public class GameDatabaseManager {
         }
     }
 
-    public void updateGame(String nameOfSave, String map, PlayerModel player) {
-        GameState model = new GameState(nameOfSave, map, player);
-        gameStateDao.update(model);
-    }
-
-    public PlayerModel updatePlayer(Player player, String nameOfSaving) {
-        Integer playerId = gameStateDao.get(nameOfSaving).getPlayerId();
-        PlayerModel model = new PlayerModel(player);
-        model.setId(playerId);
-        playerDao.update(model);
-        return model;
-    }
-
-    public void updateInventory(String nameOfSaving, PlayerModel player, ArrayList<Item> inventory, ArrayList<String> equippedItems) {
-        Integer playerId = gameStateDao.get(nameOfSaving).getPlayerId();
-        inventoryDao.removeItemsWithGivenPlayerId(playerId);
-        for (Item item : inventory) {
-            String itemName = item.getTileName();
-            InventoryModel model = new InventoryModel(player, itemName, equippedItems.contains(itemName));
-            inventoryDao.add(model);
-        }
-    }
-
-    public boolean isNameAlreadyInDB(String nameOfSaving) {
-        return gameStateDao.get(nameOfSaving) != null;
-    }
-
     private DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
         String user = System.getenv("PSQL_USER_NAME");

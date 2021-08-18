@@ -31,16 +31,7 @@ public class PlayerDaoJdbc implements PlayerDao {
 
     @Override
     public void update(PlayerModel player) {
-        try (Connection conn = dataSource.getConnection()){
-            String sql = "UPDATE player SET player_name = ?, hp = ?  WHERE id = ?";
-            PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, player.getPlayerName());
-            statement.setInt(2, player.getHp());
-            statement.setInt(3, player.getId());
-            statement.executeUpdate();
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
+
     }
 
     @Override

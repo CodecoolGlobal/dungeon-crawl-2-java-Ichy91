@@ -4,16 +4,11 @@ public class InventoryModel extends BaseModel{
     private PlayerModel player;
     private String type;
     private boolean equipped;
-    private Integer playerId;
 
     public InventoryModel(PlayerModel player, String type, boolean equipped) {
         this.player = player;
         this.type = type;
         this.equipped = equipped;
-    }
-
-    public InventoryModel(Integer playerId) {
-        this.playerId = playerId;
     }
 
     public PlayerModel getPlayer() {
@@ -38,13 +33,5 @@ public class InventoryModel extends BaseModel{
 
     public void setEquipped(boolean equipped) {
         this.equipped = equipped;
-    }
-
-    public Integer getPlayerId() {
-        return playerId;
-    }
-
-    public void setPlayerId(Integer playerId) {
-        this.playerId = playerId;
     }
 }
